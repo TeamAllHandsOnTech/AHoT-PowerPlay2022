@@ -40,14 +40,10 @@ public abstract class DriveDirections extends LinearOpMode {
         rightFrontDrive = hardwareMap.get(DcMotor.class, "frontRight");
         rightBackDrive = hardwareMap.get(DcMotor.class, "backRight");
 
-        armMotor = hardwareMap.get(DcMotor.class, "nonExistentArm");
-
         leftFrontDrive.setDirection(DcMotor.Direction.FORWARD);
         leftBackDrive.setDirection(DcMotor.Direction.FORWARD);
         rightFrontDrive.setDirection(DcMotor.Direction.REVERSE);
         rightBackDrive.setDirection(DcMotor.Direction.REVERSE);
-
-        armMotor.setDirection(DcMotor.Direction.FORWARD);
 
         //Calibrate NavX
         navxMicro = hardwareMap.get(NavxMicroNavigationSensor.class, "navx");
@@ -220,6 +216,11 @@ public abstract class DriveDirections extends LinearOpMode {
 
     //Test code for arm
     //Gets height in millimeters
+    public void initArm() {
+        armMotor = hardwareMap.get(DcMotor.class, "nonExistentArm");
+        armMotor.setDirection(DcMotor.Direction.FORWARD);
+    }
+
     public double getArmHeight() {
         return armMotor.getCurrentPosition()/3.433;
     }
