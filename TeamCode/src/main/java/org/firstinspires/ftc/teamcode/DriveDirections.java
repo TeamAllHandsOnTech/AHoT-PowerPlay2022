@@ -21,7 +21,12 @@ public abstract class DriveDirections extends LinearOpMode {
     private DcMotor leftBackDrive = null;
     private double moveSpeed = 0.3;
 
+    private static double ARM_MIN_RANGE = 0.2;
+    private static double ARM_MAX_RANGE = 0.0;
+
     public DcMotor armMotor = null;
+
+    private Servo claw = null;
 
     IntegratingGyroscope gyro;
     NavxMicroNavigationSensor navxMicro;
@@ -34,21 +39,15 @@ public abstract class DriveDirections extends LinearOpMode {
     public void runOpMode() {
         telemetry.addData("Status", "Initialized");
         telemetry.update();
-
-
         leftFrontDrive = hardwareMap.get(DcMotor.class, "frontLeft");
         leftBackDrive = hardwareMap.get(DcMotor.class, "backLeft");
         rightFrontDrive = hardwareMap.get(DcMotor.class, "frontRight");
         rightBackDrive = hardwareMap.get(DcMotor.class, "backRight");
 
-        armMotor = hardwareMap.get(DcMotor.class, "nonExistentArm");
-
         leftFrontDrive.setDirection(DcMotor.Direction.FORWARD);
         leftBackDrive.setDirection(DcMotor.Direction.FORWARD);
         rightFrontDrive.setDirection(DcMotor.Direction.REVERSE);
         rightBackDrive.setDirection(DcMotor.Direction.REVERSE);
-
-        armMotor.setDirection(DcMotor.Direction.FORWARD);
 
         //Calibrate NavX
         navxMicro = hardwareMap.get(NavxMicroNavigationSensor.class, "navx");
@@ -324,6 +323,13 @@ public abstract class DriveDirections extends LinearOpMode {
 
     //Test code for arm
     //Gets height in millimeters
+    public void initArm() {
+        armMotor = hardwareMap.get(DcMotor.class, "nonExistentArm");
+        armMotor.setDirection(DcMotor.Direction.FORWARD);
+        claw = hardwareMap.get(Servo.class, "nonExistentClaw");
+        claw.setPosition(ARM_MIN_RANGE);
+    }
+
     public double getArmHeight() {
         return armMotor.getCurrentPosition()/3.433;
     }
