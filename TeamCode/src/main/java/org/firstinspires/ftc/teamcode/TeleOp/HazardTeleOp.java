@@ -113,21 +113,27 @@ public class HazardTeleOp extends DriveDirections {
                 armPower = 0;
             }
             if (Math.abs(gamepad2.right_stick_y) > 0.1){
-                armPower = gamepad2.right_stick_y*0.2;
+                armPower += gamepad2.right_stick_y*0.2;
             }
             armMotor.setPower(armPower);
 
             //Distances have not been learned yet
+            int addHeightsLater = 1/0;
             if (gamepad2.a) { //Ground Junction
-                armToHeight(0.7, 20);
+                armToHeight(0.7, 5);
             } else if (gamepad2.x) { //Low Junction
                 armToHeight(0.7, 20);
             } else if (gamepad2.b) { //Medium  Junction
-                armToHeight(0.7, 20);
+                armToHeight(0.7, addHeightsLater);
             } else if (gamepad2.y) { //High  Junction
-                armToHeight(0.7, 20);
+                armToHeight(0.7, addHeightsLater);
             }
 
+            if(gamepad2.right_bumper){
+                closeClaw();
+            }else{
+                openClaw();
+            }
         }
     }
 }

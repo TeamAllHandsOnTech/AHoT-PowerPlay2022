@@ -64,10 +64,12 @@ public class MalevolentTraumaTeleOp extends LinearOpMode {
 
         while (opModeIsActive()) {
             //slow down power if bumper is pressed
-            if(gamepad1.left_bumper){
+            if (gamepad1.left_bumper) {
                 powerLevel = 0.3;
+            }else if(gamepad1.right_bumper){
+                powerLevel = 0.75;
             }else{
-                powerLevel = 0.8;
+                powerLevel = 1;
             }
 
             //Checks if the left joystick is moved significantly, otherwise makes sure the motors are stopped

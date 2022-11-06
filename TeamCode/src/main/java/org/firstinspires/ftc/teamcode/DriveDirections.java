@@ -330,6 +330,14 @@ public abstract class DriveDirections extends LinearOpMode {
         claw.setPosition(ARM_MIN_RANGE);
     }
 
+    public void closeClaw(){
+        claw.setPosition(1);
+    }
+
+    public void openClaw(){
+        claw.setPosition(0);
+    }
+
     public double getArmHeight() {
         return armMotor.getCurrentPosition()/3.433;
     }
