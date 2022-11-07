@@ -100,6 +100,11 @@ public class HazardTeleOp extends DriveDirections {
                 armToHeight(0.2, 20);
             }
 
+            if(gamepad2.right_bumper){
+                closeClaw();
+            }else{
+                openClaw();
+            }
         }
     }
 }
