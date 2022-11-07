@@ -174,14 +174,15 @@ public abstract class DriveDirections extends LinearOpMode {
     //WIPPPPPPPP!!!!
     public void rotateToZLoc(double targetAngle, double power){
         double startAngle = getCumulativeZ();
-        double angle = startAngle;
         double localAngle = startAngle;
         while (localAngle < targetAngle) {
             DriveInDirection(power,"ROTATE_RIGHT");
+            localAngle +=startAngle-getCumulativeZ();
         }
 
         while (localAngle > targetAngle) {
             DriveInDirection(power,"ROTATE_LEFT");
+            localAngle +=startAngle-getCumulativeZ();
         }
         DriveInDirection(0,"STOP");
     }
