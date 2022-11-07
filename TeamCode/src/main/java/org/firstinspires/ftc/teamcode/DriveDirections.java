@@ -324,9 +324,9 @@ public abstract class DriveDirections extends LinearOpMode {
     //Test code for arm
     //Gets height in millimeters
     public void initArm() {
-        armMotor = hardwareMap.get(DcMotor.class, "nonExistentArm");
+        armMotor = hardwareMap.get(DcMotor.class, "arm");
         armMotor.setDirection(DcMotor.Direction.FORWARD);
-        claw = hardwareMap.get(Servo.class, "nonExistentClaw");
+        claw = hardwareMap.get(Servo.class, "claw");
         claw.setPosition(ARM_MIN_RANGE);
     }
 

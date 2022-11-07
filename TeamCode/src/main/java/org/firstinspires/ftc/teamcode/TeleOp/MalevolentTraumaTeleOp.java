@@ -45,7 +45,7 @@ public class MalevolentTraumaTeleOp extends LinearOpMode {
     DcMotor frontLeftMotor;
     DcMotor backRightMotor;
     DcMotor backLeftMotor;
-    double powerLevel = 0.8;
+    double powerLevel = 1;
 
     @Override
     public void runOpMode() {
