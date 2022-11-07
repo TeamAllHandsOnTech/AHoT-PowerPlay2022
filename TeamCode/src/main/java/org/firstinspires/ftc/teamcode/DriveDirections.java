@@ -21,7 +21,12 @@ public abstract class DriveDirections extends LinearOpMode {
     private DcMotor leftBackDrive = null;
     private double moveSpeed = 0.3;
 
+    private static double ARM_MIN_RANGE = 0.2;
+    private static double ARM_MAX_RANGE = 0.0;
+
     public DcMotor armMotor = null;
+
+    private Servo claw = null;
 
     IntegratingGyroscope gyro;
     NavxMicroNavigationSensor navxMicro;
