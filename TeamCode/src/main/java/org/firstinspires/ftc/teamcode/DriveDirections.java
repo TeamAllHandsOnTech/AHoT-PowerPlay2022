@@ -226,16 +226,16 @@ public abstract class DriveDirections extends LinearOpMode {
     public void initArm() {
         armMotor = hardwareMap.get(DcMotor.class, "arm");
         armMotor.setDirection(DcMotor.Direction.FORWARD);
-        //claw = hardwareMap.get(Servo.class, "claw");
-        //claw.setPosition(ARM_MIN_RANGE);
+        claw = hardwareMap.get(Servo.class, "claw");
+        claw.setPosition(ARM_MIN_RANGE);
     }
 
     public void closeClaw(){
-        //claw.setPosition(1);
+        claw.setPosition(1);
     }
 
     public void openClaw(){
-        //claw.setPosition(0);
+        claw.setPosition(0);
     }
 
     public double getArmHeight() {
