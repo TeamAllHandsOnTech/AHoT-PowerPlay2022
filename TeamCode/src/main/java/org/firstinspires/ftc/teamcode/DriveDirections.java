@@ -251,8 +251,10 @@ public abstract class DriveDirections extends LinearOpMode {
         double startAngle = getCumulativeZ();
         double angle = startAngle;
         double localAngle = startAngle;
+
         while (localAngle < targetAngle) {
 
+            targetAngle = targetAngle - ((power+3)*(power+3));
 
             //rotate clockwise/right
             rightFrontDrive.setPower(-power);
@@ -260,6 +262,7 @@ public abstract class DriveDirections extends LinearOpMode {
             rightBackDrive.setPower(-power);
             leftBackDrive.setPower(power);
 
+            localAngle = getCumulativeZ();
 
             //telemetry
             telemetry.addLine("currentZ: " + getCurrentZ());
@@ -269,13 +272,18 @@ public abstract class DriveDirections extends LinearOpMode {
             telemetry.update();
         }
 
+        //UNBREAK STUFF LATER DON'T USE THIS RIGHT NOW USE IF STATEMENTS IF STATEMENTS ARE OUR FRIEND
         while (localAngle > targetAngle) {
+
+            targetAngle = targetAngle + ((power+3)*(power+3));
 
             //rotate counter-clock/left
             rightFrontDrive.setPower(power);
             leftFrontDrive.setPower(-power);
             rightBackDrive.setPower(power);
             leftBackDrive.setPower(-power);
+
+            localAngle = getCumulativeZ();
 
             //telemetry
             telemetry.addLine("currentZ" + getCurrentZ());

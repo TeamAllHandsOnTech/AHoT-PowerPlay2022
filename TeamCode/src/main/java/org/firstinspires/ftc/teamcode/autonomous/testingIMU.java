@@ -48,7 +48,7 @@ public class testingIMU extends DriveDirections {
 
         waitForStart();
 
-        rotateToZLoc(90, 0.3);
+        rotateToZLoc(-90, 0.4);
 
 //        while (opModeIsActive()) {
 //
