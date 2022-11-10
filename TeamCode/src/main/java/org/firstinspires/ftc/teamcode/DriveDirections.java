@@ -233,6 +233,20 @@ public abstract class DriveDirections extends LinearOpMode {
 //                break;
 //        }
 //    }
+    public int fakeVision() {
+        int location;
+        location = (int) Math.random() * 3 + 1;
+        if (location==1) {
+            return 1;
+        } else if (location==2) {
+            return 2;
+        } else if (location==3) {
+            return 3;
+        }else{
+            return 0;
+        }
+    }
+
 
     public double getCurrentZ() {
         Orientation angles = gyro.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES);
@@ -274,17 +288,21 @@ public abstract class DriveDirections extends LinearOpMode {
     public double getArmHeight() {
         return armMotor.getCurrentPosition()/3.433;
     }
+
+    public void armStop() {
+        armMotor.setPower(0);
+    }
     //distance is in millimeters
     public void armToHeight (double power, double height){
         double currentHeight = getArmHeight();
 
         if (height>currentHeight) {
-            armMotor.setPower(power);
+            armMotor.setPower(-power);
             while (currentHeight < height) {
                 currentHeight = getArmHeight();
             }
         } else if (height<currentHeight) {
-            armMotor.setPower(-power);
+            armMotor.setPower(power);
             while (currentHeight > height) {
                 currentHeight = getArmHeight();
             }
