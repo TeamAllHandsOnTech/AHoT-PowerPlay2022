@@ -178,19 +178,52 @@ public abstract class DriveDirections extends LinearOpMode {
 
     }
     //WIPPPPPPPP!!!!
-    public void rotateToZLoc(double targetAngle, double power){
+    public void rotateToZLoc(double targetAngle, double multiplier){
         double startAngle = getCumulativeZ();
+        double angle = startAngle;
         double localAngle = startAngle;
-        while (localAngle < targetAngle) {
-            DriveInDirection(power,"ROTATE_RIGHT");
-            localAngle +=startAngle-getCumulativeZ();
+        double error = targetAngle - localAngle;
+
+        while (Math.abs(error) < 5) {
+
+
+            //rotate clockwise/right
+            rightFrontDrive.setPower(-error/multiplier);
+            leftFrontDrive.setPower(error/multiplier);
+            rightBackDrive.setPower(-error/multiplier);
+            leftBackDrive.setPower(error/multiplier);
+
+
+//            //telemetry
+//            telemetry.addLine("currentZ: " + getCurrentZ());
+//            telemetry.addLine("cumulativeZ: " + getCumulativeZ());
+//            telemetry.addLine("targetAngle: " + targetAngle);
+//            telemetry.addLine("rotation: counter clockwise");
+//            telemetry.update();
         }
 
-        while (localAngle > targetAngle) {
-            DriveInDirection(power,"ROTATE_LEFT");
-            localAngle +=startAngle-getCumulativeZ();
+        while (Math.abs(error) < 5) {
+
+            //rotate counter-clock/left
+            rightFrontDrive.setPower(error/multiplier);
+            leftFrontDrive.setPower(-error/multiplier);
+            rightBackDrive.setPower(error/multiplier);
+            leftBackDrive.setPower(-error/multiplier);
+
+            //telemetry
+            telemetry.addLine("currentZ" + getCurrentZ());
+            telemetry.addLine("cumulativeZ" + getCumulativeZ());
+            telemetry.addLine("targetAngle: " + targetAngle);
+            telemetry.addLine("rotation: clockwise");
+            telemetry.update();
         }
-        DriveInDirection(0,"STOP");
+
+
+        rightFrontDrive.setPower(0);
+        leftFrontDrive.setPower(0);
+        rightBackDrive.setPower(0);
+        leftBackDrive.setPower(0);
+
     }
 
 //    public void straightDrive(String direction, double power, double dist, double errorThresh, double powerDifference){
