@@ -293,18 +293,22 @@ public abstract class DriveDirections extends LinearOpMode {
         armMotor.setPower(0);
     }
     //distance is in millimeters
-    public void armToHeight (double power, double height){
+    public void armToHeight (double power, double targetHeight){
         double currentHeight = getArmHeight();
+        double error = targetHeight - currentHeight;
 
-        if (height>currentHeight) {
-            armMotor.setPower(-power);
-            while (currentHeight < height) {
+        if (targetHeight>currentHeight) {
+            while (Math.abs(error) > 50) {
+                armMotor.setPower(-error / 854);
                 currentHeight = getArmHeight();
+                error = targetHeight - currentHeight;
             }
-        } else if (height<currentHeight) {
-            armMotor.setPower(power);
-            while (currentHeight > height) {
+        } else if (targetHeight<currentHeight) {
+
+            while (Math.abs(error) > 50) {
+                armMotor.setPower(error / 854);
                 currentHeight = getArmHeight();
+                error = targetHeight - currentHeight;
             }
         }
         armMotor.setPower(0);
