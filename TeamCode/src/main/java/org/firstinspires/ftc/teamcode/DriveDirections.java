@@ -39,8 +39,6 @@ public abstract class DriveDirections extends LinearOpMode {
     public void runOpMode() {
         telemetry.addData("Status", "Initialized");
         telemetry.update();
-
-
         leftFrontDrive = hardwareMap.get(DcMotor.class, "frontLeft");
         leftBackDrive = hardwareMap.get(DcMotor.class, "backLeft");
         rightFrontDrive = hardwareMap.get(DcMotor.class, "frontRight");
@@ -68,7 +66,7 @@ public abstract class DriveDirections extends LinearOpMode {
 
     }
 
-    public void DriveInDirection(double power, String direction){
+        public void DriveInDirection(double power, String direction){
         switch(direction){
             case "FORWARD":
                 rightFrontDrive.setPower(power);
@@ -97,18 +95,7 @@ public abstract class DriveDirections extends LinearOpMode {
                 rightBackDrive.setPower(power);
                 leftBackDrive.setPower(-power);
                 break;
-            case "ROTATE_RIGHT":
-                rightFrontDrive.setPower(-power);
-                leftFrontDrive.setPower(power);
-                rightBackDrive.setPower(-power);
-                leftBackDrive.setPower(power);
-                break;
-            case "ROTATE_LEFT":
-                rightFrontDrive.setPower(power);
-                leftFrontDrive.setPower(-power);
-                rightBackDrive.setPower(power);
-                leftBackDrive.setPower(-power);
-                break;
+
             case "STOP":
                 rightFrontDrive.setPower(0);
                 leftFrontDrive.setPower(0);
@@ -154,9 +141,68 @@ public abstract class DriveDirections extends LinearOpMode {
 
     public void DriveForTime(String direction, double power, double time){
         time*=1000;
-        DriveInDirection(power, direction);
-        sleep((long)time);
-        DriveInDirection(power, "FORWARD");
+        if(direction.equals("FORWARD")){
+            rightFrontDrive.setPower(power);
+            leftFrontDrive.setPower(power);
+            rightBackDrive.setPower(power);
+            leftBackDrive.setPower(power);
+            sleep((long)time);
+            rightFrontDrive.setPower(0);
+            leftFrontDrive.setPower(0);
+            rightBackDrive.setPower(0);
+            leftBackDrive.setPower(0);
+        }else if(direction.equals("BACKWARD")){
+            rightFrontDrive.setPower(-power);
+            leftFrontDrive.setPower(-power);
+            rightBackDrive.setPower(-power);
+            leftBackDrive.setPower(-power);
+            sleep((long)time);
+            rightFrontDrive.setPower(0);
+            leftFrontDrive.setPower(0);
+            rightBackDrive.setPower(0);
+            leftBackDrive.setPower(0);
+        }else if(direction.equals("LEFT")){
+            rightFrontDrive.setPower(power);
+            leftFrontDrive.setPower(-power);
+            rightBackDrive.setPower(-power);
+            leftBackDrive.setPower(power);
+            sleep((long)time);
+            rightFrontDrive.setPower(0);
+            leftFrontDrive.setPower(0);
+            rightBackDrive.setPower(0);
+            leftBackDrive.setPower(0);
+        }else if(direction.equals("RIGHT")){
+            rightFrontDrive.setPower(-power);
+            leftFrontDrive.setPower(power);
+            rightBackDrive.setPower(power);
+            leftBackDrive.setPower(-power);
+            sleep((long)time);
+            rightFrontDrive.setPower(0);
+            leftFrontDrive.setPower(0);
+            rightBackDrive.setPower(0);
+            leftBackDrive.setPower(0);
+        }else if(direction.equals("ROTATE_RIGHT")){
+            rightFrontDrive.setPower(-power);
+            leftFrontDrive.setPower(power);
+            rightBackDrive.setPower(-power);
+            leftBackDrive.setPower(power);
+            sleep((long)time);
+            rightFrontDrive.setPower(0);
+            leftFrontDrive.setPower(0);
+            rightBackDrive.setPower(0);
+            leftBackDrive.setPower(0);
+        }
+        else if(direction.equals("ROTATE_LEFT")){
+            rightFrontDrive.setPower(power);
+            leftFrontDrive.setPower(-power);
+            rightBackDrive.setPower(power);
+            leftBackDrive.setPower(-power);
+            sleep((long)time);
+            rightFrontDrive.setPower(0);
+            leftFrontDrive.setPower(0);
+            rightBackDrive.setPower(0);
+            leftBackDrive.setPower(0);
+        }
     }
 
     public void rotateToZAbs(double targetAngle, double power){
@@ -165,28 +211,56 @@ public abstract class DriveDirections extends LinearOpMode {
         if(difference > 0){
             while (angle < targetAngle) {
                 angle = getCumulativeZ();
-                DriveInDirection(power,"ROTATE_RIGHT");
-            }
-        } else if(difference < 0){
-            while (angle > targetAngle) {
-                angle = getCumulativeZ();
-                DriveInDirection(power,"ROTATE_LEFT");
+                rightFrontDrive.setPower(-power);
+                leftFrontDrive.setPower(power);
+                rightBackDrive.setPower(-power);
+                leftBackDrive.setPower(power);
+
+                telemetry.addLine("currentZ: " + getCurrentZ());
+                telemetry.addLine("cumulativeZ: " + getCumulativeZ());
+                telemetry.addLine("targetAngle: " + targetAngle);
+                telemetry.addLine("rotation: counter clockwise");
+                telemetry.update();
             }
         }
 
-        DriveInDirection(0,"STOP");
+        else if(difference < 0){
+            while (angle > targetAngle) {
+                angle = getCumulativeZ();
+                rightFrontDrive.setPower(power);
+                leftFrontDrive.setPower(-power);
+                rightBackDrive.setPower(power);
+                leftBackDrive.setPower(-power);
+
+                telemetry.addLine("currentZ" + getCurrentZ());
+                telemetry.addLine("cumulativeZ" + getCumulativeZ());
+                telemetry.addLine("targetAngle: " + targetAngle);
+                telemetry.addLine("rotation: clockwise");
+                telemetry.update();
+            }
+        }
+
+        rightFrontDrive.setPower(0);
+        leftFrontDrive.setPower(0);
+        rightBackDrive.setPower(0);
+        leftBackDrive.setPower(0);
 
     }
     //WIPPPPPPPP!!!!
-    public void rotateToZLoc(double targetAngle, double power){
+    public void rotateToZLoc(double targetAngle, double multiplier){
         double startAngle = getCumulativeZ();
+        double angle = startAngle;
         double localAngle = startAngle;
+<<<<<<< HEAD
 <<<<<<< Updated upstream
         while (localAngle < targetAngle) {
             DriveInDirection(power,"ROTATE_RIGHT");
             localAngle +=startAngle-getCumulativeZ();
 =======
         double error = targetAngle - localAngle;
+=======
+        double error = targetAngle - localAngle
+>>>>>>> parent of cbd06dc (Did All of the Things Again)
 
         while (Math.abs(error) < 5) {
 
@@ -204,14 +278,34 @@ public abstract class DriveDirections extends LinearOpMode {
 //            telemetry.addLine("targetAngle: " + targetAngle);
 //            telemetry.addLine("rotation: counter clockwise");
 //            telemetry.update();
+<<<<<<< HEAD
 >>>>>>> Stashed changes
+=======
+>>>>>>> parent of cbd06dc (Did All of the Things Again)
         }
 
-        while (localAngle > targetAngle) {
-            DriveInDirection(power,"ROTATE_LEFT");
-            localAngle +=startAngle-getCumulativeZ();
+        while (Math.abs(error) < 5) {
+
+            //rotate counter-clock/left
+            rightFrontDrive.setPower(error/multiplier);
+            leftFrontDrive.setPower(-error/multiplier);
+            rightBackDrive.setPower(error/multiplier);
+            leftBackDrive.setPower(-error/multiplier);
+
+            //telemetry
+            telemetry.addLine("currentZ" + getCurrentZ());
+            telemetry.addLine("cumulativeZ" + getCumulativeZ());
+            telemetry.addLine("targetAngle: " + targetAngle);
+            telemetry.addLine("rotation: clockwise");
+            telemetry.update();
         }
-        DriveInDirection(0,"STOP");
+
+
+        rightFrontDrive.setPower(0);
+        leftFrontDrive.setPower(0);
+        rightBackDrive.setPower(0);
+        leftBackDrive.setPower(0);
+
     }
 
 //    public void straightDrive(String direction, double power, double dist, double errorThresh, double powerDifference){
@@ -243,30 +337,42 @@ public abstract class DriveDirections extends LinearOpMode {
         return  intergratedHeading;
     }
 
+<<<<<<< HEAD
 <<<<<<< Updated upstream
     //Test code for arm
 =======
     public int fakeVision() {
         int location;
         location = (int) Math.random() * 3 + 1;
+=======
+    public int fakeVision() {
+>>>>>>> parent of cbd06dc (Did All of the Things Again)
         if (location==1) {
             return 1;
         } else if (location==2) {
             return 2;
+<<<<<<< HEAD
         } else{
+=======
+        } else if (location==3) {
+>>>>>>> parent of cbd06dc (Did All of the Things Again)
             return 3;
         }
     }
 
+<<<<<<< HEAD
 
 
     /**Test code for arm*/
 >>>>>>> Stashed changes
+=======
+    /**Test code for arm*/
+>>>>>>> parent of cbd06dc (Did All of the Things Again)
     //Gets height in millimeters
     public void initArm() {
-        armMotor = hardwareMap.get(DcMotor.class, "arm");
+        armMotor = hardwareMap.get(DcMotor.class, "nonExistentArm");
         armMotor.setDirection(DcMotor.Direction.FORWARD);
-        claw = hardwareMap.get(Servo.class, "claw");
+        claw = hardwareMap.get(Servo.class, "nonExistentClaw");
         claw.setPosition(ARM_MIN_RANGE);
     }
 
@@ -302,3 +408,4 @@ public abstract class DriveDirections extends LinearOpMode {
 
 
 }
+
