@@ -181,9 +181,30 @@ public abstract class DriveDirections extends LinearOpMode {
     public void rotateToZLoc(double targetAngle, double power){
         double startAngle = getCumulativeZ();
         double localAngle = startAngle;
+<<<<<<< Updated upstream
         while (localAngle < targetAngle) {
             DriveInDirection(power,"ROTATE_RIGHT");
             localAngle +=startAngle-getCumulativeZ();
+=======
+        double error = targetAngle - localAngle;
+
+        while (Math.abs(error) < 5) {
+
+
+            //rotate clockwise/right
+            rightFrontDrive.setPower(-error/multiplier);
+            leftFrontDrive.setPower(error/multiplier);
+            rightBackDrive.setPower(-error/multiplier);
+            leftBackDrive.setPower(error/multiplier);
+
+
+//            //telemetry
+//            telemetry.addLine("currentZ: " + getCurrentZ());
+//            telemetry.addLine("cumulativeZ: " + getCumulativeZ());
+//            telemetry.addLine("targetAngle: " + targetAngle);
+//            telemetry.addLine("rotation: counter clockwise");
+//            telemetry.update();
+>>>>>>> Stashed changes
         }
 
         while (localAngle > targetAngle) {
@@ -221,7 +242,25 @@ public abstract class DriveDirections extends LinearOpMode {
         return  intergratedHeading;
     }
 
+<<<<<<< Updated upstream
     //Test code for arm
+=======
+    public int fakeVision() {
+        int location;
+        location = (int) Math.random() * 3 + 1;
+        if (location==1) {
+            return 1;
+        } else if (location==2) {
+            return 2;
+        } else{
+            return 3;
+        }
+    }
+
+
+
+    /**Test code for arm*/
+>>>>>>> Stashed changes
     //Gets height in millimeters
     public void initArm() {
         armMotor = hardwareMap.get(DcMotor.class, "arm");

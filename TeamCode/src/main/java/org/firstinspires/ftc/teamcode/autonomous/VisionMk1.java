@@ -23,7 +23,7 @@ public class VisionMk1 extends DriveDirections {
         runtime.reset();
 
         //Pushes cone onto junction
-        switch 
+
 
         // run until the end of the match (driver presses STOP)
         while (opModeIsActive()) {
