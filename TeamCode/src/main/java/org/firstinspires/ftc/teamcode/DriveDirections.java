@@ -221,7 +221,17 @@ public abstract class DriveDirections extends LinearOpMode {
         return  intergratedHeading;
     }
 
-    //Test code for arm
+    public int fakeVision() {
+        if (location==1) {
+            return 1;
+        } else if (location==2) {
+            return 2;
+        } else if (location==3) {
+            return 3;
+        }
+    }
+
+    /**Test code for arm*/
     //Gets height in millimeters
     public void initArm() {
         armMotor = hardwareMap.get(DcMotor.class, "arm");
