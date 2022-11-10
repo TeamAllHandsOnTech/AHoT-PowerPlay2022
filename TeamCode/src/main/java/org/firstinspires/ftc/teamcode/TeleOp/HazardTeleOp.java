@@ -91,13 +91,13 @@ public class HazardTeleOp extends DriveDirections {
 
             //Distances have not been learned yet
             if (gamepad2.a) { //Ground Junction
-                armToHeight(0.2, 15);
+                armToHeight(0.2, 20);
             } else if (gamepad2.x) { //Low Junction
-                armToHeight(0.2, 346);
+                armToHeight(0.2, 20);
             } else if (gamepad2.b) { //Medium  Junction
-                armToHeight(0.2, 600);
+                armToHeight(0.2, 20);
             } else if (gamepad2.y) { //High  Junction
-                armToHeight(0.2, 854);
+                armToHeight(0.2, 20);
             }
 
             if(gamepad2.right_bumper){
