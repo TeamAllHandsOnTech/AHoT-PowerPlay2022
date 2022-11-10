@@ -44,6 +44,10 @@ public class HazardTeleOp extends DriveDirections {
     @Override
     public void runOpMode() {
         super.runOpMode();
+        leftFrontDrive.setDirection(DcMotor.Direction.REVERSE);
+        leftBackDrive.setDirection(DcMotor.Direction.REVERSE);
+        rightFrontDrive.setDirection(DcMotor.Direction.FORWARD);
+        rightBackDrive.setDirection(DcMotor.Direction.FORWARD);
         initArm();
         waitForStart();
 
@@ -72,7 +76,7 @@ public class HazardTeleOp extends DriveDirections {
                 }
                 //Check if the right joystick is moved significantly, otherwise motors are stopped
             }else if(Math.abs(gamepad1.right_stick_x) > 0.1){
-                DriveInDirection(gamepad1.right_stick_x * powerLevel,"ROTATE_LEFT");
+                DriveInDirection(gamepad1.right_stick_x * powerLevel,"ROTATE_RIGHT");
             } else {
                 DriveInDirection(0,"STOP");
             }

@@ -15,10 +15,10 @@ import org.firstinspires.ftc.robotcore.external.navigation.Orientation;
 public abstract class DriveDirections extends LinearOpMode {
 
     private ElapsedTime runtime = new ElapsedTime();
-    private DcMotor rightFrontDrive = null;
-    private DcMotor leftFrontDrive = null;
-    private DcMotor rightBackDrive = null;
-    private DcMotor leftBackDrive = null;
+    public DcMotor rightFrontDrive = null;
+    public DcMotor leftFrontDrive = null;
+    public DcMotor rightBackDrive = null;
+    public DcMotor leftBackDrive = null;
     private double moveSpeed = 0.3;
 
     private static double ARM_MIN_RANGE = 0.2;
