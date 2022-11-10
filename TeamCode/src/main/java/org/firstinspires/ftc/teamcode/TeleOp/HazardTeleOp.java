@@ -29,7 +29,6 @@
 
 package org.firstinspires.ftc.teamcode.TeleOp;
 
-import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
@@ -40,27 +39,12 @@ import org.firstinspires.ftc.teamcode.DriveDirections;
 
 
 public class HazardTeleOp extends DriveDirections {
-    DcMotor frontRightMotor;
-    DcMotor frontLeftMotor;
-    DcMotor backRightMotor;
-    DcMotor backLeftMotor;
     double powerLevel = 0.8;
-
-
 
     @Override
     public void runOpMode() {
-
-        frontRightMotor = hardwareMap.get(DcMotor.class, "frontRight");
-        frontLeftMotor = hardwareMap.get(DcMotor.class, "frontLeft");
-        backRightMotor = hardwareMap.get(DcMotor.class, "backRight");
-        backLeftMotor = hardwareMap.get(DcMotor.class, "backLeft");
-
-        frontRightMotor.setDirection(DcMotorSimple.Direction.FORWARD);
-        frontLeftMotor.setDirection(DcMotorSimple.Direction.REVERSE);
-        backRightMotor.setDirection(DcMotorSimple.Direction.FORWARD);
-        backLeftMotor.setDirection(DcMotorSimple.Direction.REVERSE);
-
+        super.runOpMode();
+        initArm();
         waitForStart();
 
         while (opModeIsActive()) {
@@ -80,53 +64,40 @@ public class HazardTeleOp extends DriveDirections {
                 //Checks if joystick moved more up than side to side, if so, move forward or backward
                 //"If joystick moved more vertically than horizontally, then move forward/backward"
                 if (Math.abs(gamepad1.left_stick_x) < Math.abs(gamepad1.left_stick_y)) {
-                    frontRightMotor.setPower(-gamepad1.left_stick_y * powerLevel);
-                    frontLeftMotor.setPower(-gamepad1.left_stick_y * powerLevel);
-                    backLeftMotor.setPower(-gamepad1.left_stick_y * powerLevel);
-                    backRightMotor.setPower(-gamepad1.left_stick_y * powerLevel);
+                    DriveInDirection(gamepad1.left_stick_y * powerLevel,"BACKWARD");
                     //Checks if moved more horizontally than up and down, if so, strafes
                     //"If joystick moved more horizontally than vertically, strafe"
                 } else if (Math.abs(gamepad1.left_stick_y) < Math.abs(gamepad1.left_stick_x)) {
-                    frontRightMotor.setPower(-gamepad1.left_stick_x * powerLevel);
-                    frontLeftMotor.setPower(gamepad1.left_stick_x * powerLevel);
-                    backLeftMotor.setPower(-gamepad1.left_stick_x * powerLevel);
-                    backRightMotor.setPower(gamepad1.left_stick_x * powerLevel);
+                    DriveInDirection(gamepad1.left_stick_x * powerLevel,"RIGHT");
                 }
                 //Check if the right joystick is moved significantly, otherwise motors are stopped
             }else if(Math.abs(gamepad1.right_stick_x) > 0.1){
-                frontRightMotor.setPower(-gamepad1.right_stick_x*powerLevel);
-                frontLeftMotor.setPower(gamepad1.right_stick_x*powerLevel);
-                backRightMotor.setPower(-gamepad1.right_stick_x*powerLevel);
-                backLeftMotor.setPower(gamepad1.right_stick_x*powerLevel);
+                DriveInDirection(gamepad1.right_stick_x * powerLevel,"ROTATE_LEFT");
             } else {
-                frontRightMotor.setPower(0);
-                frontLeftMotor.setPower(0);
-                backRightMotor.setPower(0);
-                backLeftMotor.setPower(0);
+                DriveInDirection(0,"STOP");
             }
 
             /**GAMEPAD 2**/
             double armPower = 0;
             if (Math.abs(gamepad2.left_stick_y) > 0.1){
-                armPower = gamepad2.left_stick_y*0.8;
+                armPower = gamepad2.left_stick_y*0.4;
             } else {
                 armPower = 0;
             }
             if (Math.abs(gamepad2.right_stick_y) > 0.1){
-                armPower += gamepad2.right_stick_y*0.2;
+                armPower = gamepad2.right_stick_y*0.1;
             }
             armMotor.setPower(armPower);
 
             //Distances have not been learned yet
-            int addHeightsLater = 1/0;
             if (gamepad2.a) { //Ground Junction
-                armToHeight(0.7, 5);
+                armToHeight(0.2, 20);
             } else if (gamepad2.x) { //Low Junction
-                armToHeight(0.7, 20);
+                armToHeight(0.2, 20);
             } else if (gamepad2.b) { //Medium  Junction
-                armToHeight(0.7, addHeightsLater);
+                armToHeight(0.2, 20);
             } else if (gamepad2.y) { //High  Junction
-                armToHeight(0.7, addHeightsLater);
+                armToHeight(0.2, 20);
             }
 
             if(gamepad2.right_bumper){
