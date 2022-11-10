@@ -247,35 +247,37 @@ public abstract class DriveDirections extends LinearOpMode {
 
     }
     //WIPPPPPPPP!!!!
-    public void rotateToZLoc(double targetAngle, double power){
+    public void rotateToZLoc(double targetAngle, double multiplier){
         double startAngle = getCumulativeZ();
         double angle = startAngle;
         double localAngle = startAngle;
-        while (localAngle < targetAngle) {
+        double error = targetAngle - localAngle
+
+        while (Math.abs(error) < 5) {
 
 
             //rotate clockwise/right
-            rightFrontDrive.setPower(-power);
-            leftFrontDrive.setPower(power);
-            rightBackDrive.setPower(-power);
-            leftBackDrive.setPower(power);
+            rightFrontDrive.setPower(-error/multiplier);
+            leftFrontDrive.setPower(error/multiplier);
+            rightBackDrive.setPower(-error/multiplier);
+            leftBackDrive.setPower(error/multiplier);
 
 
-            //telemetry
-            telemetry.addLine("currentZ: " + getCurrentZ());
-            telemetry.addLine("cumulativeZ: " + getCumulativeZ());
-            telemetry.addLine("targetAngle: " + targetAngle);
-            telemetry.addLine("rotation: counter clockwise");
-            telemetry.update();
+//            //telemetry
+//            telemetry.addLine("currentZ: " + getCurrentZ());
+//            telemetry.addLine("cumulativeZ: " + getCumulativeZ());
+//            telemetry.addLine("targetAngle: " + targetAngle);
+//            telemetry.addLine("rotation: counter clockwise");
+//            telemetry.update();
         }
 
-        while (localAngle > targetAngle) {
+        while (Math.abs(error) < 5) {
 
             //rotate counter-clock/left
-            rightFrontDrive.setPower(power);
-            leftFrontDrive.setPower(-power);
-            rightBackDrive.setPower(power);
-            leftBackDrive.setPower(-power);
+            rightFrontDrive.setPower(error/multiplier);
+            leftFrontDrive.setPower(-error/multiplier);
+            rightBackDrive.setPower(error/multiplier);
+            leftBackDrive.setPower(-error/multiplier);
 
             //telemetry
             telemetry.addLine("currentZ" + getCurrentZ());
