@@ -275,14 +275,18 @@ public abstract class DriveDirections extends LinearOpMode {
         armMotor.setDirection(DcMotor.Direction.FORWARD);
         claw = hardwareMap.get(Servo.class, "claw");
         claw.setPosition(ARM_MIN_RANGE);
+        telemetry.addData("min pos",claw.MIN_POSITION);
+        telemetry.addData("max pos", claw.MAX_POSITION);
+
+        telemetry.addData("current height", getArmHeight());
     }
 
     public void closeClaw(){
-        claw.setPosition(1);
+        claw.setPosition(ARM_MAX_RANGE);
     }
 
     public void openClaw(){
-        claw.setPosition(0);
+        claw.setPosition(ARM_MIN_RANGE);
     }
 
     public double getArmHeight() {
@@ -297,15 +301,16 @@ public abstract class DriveDirections extends LinearOpMode {
         double currentHeight = getArmHeight();
         double error = targetHeight - currentHeight;
 
+
         if (targetHeight>currentHeight) {
-            while (Math.abs(error) > 50) {
+            while (Math.abs(error) > 250) {
                 armMotor.setPower(-error / 854);
                 currentHeight = getArmHeight();
                 error = targetHeight - currentHeight;
             }
         } else if (targetHeight<currentHeight) {
 
-            while (Math.abs(error) > 50) {
+            while (Math.abs(error) > 250) {
                 armMotor.setPower(error / 854);
                 currentHeight = getArmHeight();
                 error = targetHeight - currentHeight;
