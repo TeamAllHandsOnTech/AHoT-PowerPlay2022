@@ -21,8 +21,8 @@ public abstract class DriveDirections extends LinearOpMode {
     public DcMotor leftBackDrive = null;
     private double moveSpeed = 0.3;
 
-    private static double ARM_MIN_RANGE = 0.2;
-    private static double ARM_MAX_RANGE = 0.0;
+    private static double ARM_MIN_RANGE = 1;
+    private static double ARM_MAX_RANGE = 0;
 
     public DcMotor armMotor = null;
 
@@ -279,14 +279,19 @@ public abstract class DriveDirections extends LinearOpMode {
         telemetry.addData("max pos", claw.MAX_POSITION);
 
         telemetry.addData("current height", getArmHeight());
+        telemetry.update();
     }
 
     public void closeClaw(){
-        claw.setPosition(ARM_MAX_RANGE);
+        claw.setPosition(ARM_MIN_RANGE);
+        telemetry.addLine("close");
+        telemetry.update();
     }
 
     public void openClaw(){
-        claw.setPosition(ARM_MIN_RANGE);
+        claw.setPosition(ARM_MAX_RANGE);
+        telemetry.addLine("open");
+        telemetry.update();
     }
 
     public double getArmHeight() {
@@ -299,21 +304,23 @@ public abstract class DriveDirections extends LinearOpMode {
     //distance is in millimeters
     public void armToHeight (double power, double targetHeight){
         double currentHeight = getArmHeight();
-        double error = targetHeight - currentHeight;
-
+        double error = targetHeight + currentHeight;
 
         if (targetHeight>currentHeight) {
-            while (Math.abs(error) > 250) {
+            while (Math.abs(error) > 100) {
+                telemetry.addData("error: ", error);
+                telemetry.addData("Current Height: ", currentHeight);
+                telemetry.update();
                 armMotor.setPower(-error / 854);
                 currentHeight = getArmHeight();
-                error = targetHeight - currentHeight;
+                error = targetHeight + currentHeight;
             }
         } else if (targetHeight<currentHeight) {
 
-            while (Math.abs(error) > 250) {
+            while (Math.abs(error) > 100) {
                 armMotor.setPower(error / 854);
                 currentHeight = getArmHeight();
-                error = targetHeight - currentHeight;
+                error = targetHeight + currentHeight;
             }
         }
         armMotor.setPower(0);
