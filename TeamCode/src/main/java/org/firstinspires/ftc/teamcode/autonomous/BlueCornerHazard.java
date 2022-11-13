@@ -38,12 +38,12 @@ public class BlueCornerHazard extends DriveDirections {
 //        DriveForDistance(moveSpeed, .36, "LEFT");
 //        DriveForDistance(moveSpeed, .75, "FORWARD");
 
-        DriveForDistance(moveSpeed, .52, "LEFT");
-        DriveForDistance(moveSpeed, .08, "FORWARD");
-        DriveForDistance(moveSpeed, .15, "BACKWARD");
+        DriveForDistance(moveSpeed, .50, "LEFT");
+        DriveForDistance(moveSpeed, .04, "FORWARD");
+        DriveForDistance(moveSpeed, .16, "BACKWARD");
         openClaw();
         sleep(3000);
-        DriveForDistance(moveSpeed, .3, "FORWARD");
+        DriveForDistance(moveSpeed, .2, "FORWARD");
         DriveForDistance(moveSpeed, .36, "RIGHT");
         DriveForDistance(moveSpeed, .75, "BACKWARD");
 
