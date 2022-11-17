@@ -94,20 +94,46 @@ public class HazardTeleOp extends DriveDirections {
             armMotor.setPower(armPower);
 
             //Distances have not been learned yet
-//            if (gamepad2.dpad_down) { //Ground Junction
-//                armToHeight(0.2, 1);
-//                //1
-//            } else if (gamepad2.dpad_left) { //Low Junction
-//                armToHeight(0.2, 346);
-//                //346
-//            } else if (gamepad2.dpad_right) { //Medium  Junction
-//                armToHeight(0.3, 600);
-//                //600
-//            } else if (gamepad2.dpad_up) { //High  Junction
-//                armToHeight(0.4, 854);
-//                //854
-//            }
+
+            double targetHeight = 0;
+            boolean setHeight = false;
+            if (gamepad2.dpad_down) { //Ground Junction
+                targetHeight=1;
+                setHeight = true;
+                //1
+            } else if (gamepad2.dpad_left) { //Low Junction
+                targetHeight=346;
+                setHeight = true;
+                //346
+            } else if (gamepad2.dpad_right) { //Medium  Junction
+                targetHeight=600;
+                setHeight = true;
+                //600
+            } else if (gamepad2.dpad_up) { //High  Junction
+                targetHeight=854;
+                setHeight = true;
+                //854
+            }
             //Arm to height code doesn't work currently
+
+            double currentHeight = getArmHeight();
+            double error = targetHeight + currentHeight;
+
+            if (setHeight==true && error > 100) {
+                telemetry.addData("error: ", error);
+                telemetry.addData("Current Height: ", currentHeight);
+                telemetry.update();
+                armMotor.setPower(-error / 10);
+                currentHeight = getArmHeight();
+                error = targetHeight + currentHeight;
+            } else if (setHeight==true && error < -10) {
+                armMotor.setPower(error / 854);
+                currentHeight = getArmHeight();
+                error = targetHeight + currentHeight;
+            } else {
+                armMotor.setPower(0);
+                setHeight = true;
+            }
 
             if(gamepad2.right_bumper){
                 telemetry.addLine("close if");

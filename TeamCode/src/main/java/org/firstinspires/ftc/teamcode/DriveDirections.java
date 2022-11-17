@@ -316,7 +316,7 @@ public abstract class DriveDirections extends LinearOpMode {
         double error = targetHeight + currentHeight;
 
         if (targetHeight>currentHeight) {
-            if (Math.abs(error) > 10) {
+            if (Math.abs(error) > 100) {
                 telemetry.addData("error: ", error);
                 telemetry.addData("Current Height: ", currentHeight);
                 telemetry.update();
@@ -331,8 +331,9 @@ public abstract class DriveDirections extends LinearOpMode {
                 currentHeight = getArmHeight();
                 error = targetHeight + currentHeight;
             }
+        } else {
+            armMotor.setPower(0);
         }
-//        armMotor.setPower(0);
     }
 
 
