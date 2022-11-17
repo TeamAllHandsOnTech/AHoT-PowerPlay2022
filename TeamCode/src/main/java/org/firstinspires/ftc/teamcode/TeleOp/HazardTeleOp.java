@@ -84,12 +84,12 @@ public class HazardTeleOp extends DriveDirections {
             /**GAMEPAD 2**/
             double armPower = 0;
             if (Math.abs(gamepad2.left_stick_y) > 0.1){
-                armPower = gamepad2.left_stick_y*0.4;
+                armPower = gamepad2.left_stick_y*0.75;
             } else {
                 armPower = 0;
             }
             if (Math.abs(gamepad2.right_stick_y) > 0.1){
-                armPower = gamepad2.right_stick_y*0.1;
+                armPower = gamepad2.right_stick_y*0.4;
             }
             armMotor.setPower(armPower);
 

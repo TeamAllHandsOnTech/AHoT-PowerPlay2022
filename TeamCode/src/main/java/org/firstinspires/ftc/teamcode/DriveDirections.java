@@ -21,8 +21,8 @@ public abstract class DriveDirections extends LinearOpMode {
     public DcMotor leftBackDrive = null;
     private double moveSpeed = 0.3;
 
-    private static double ARM_MIN_RANGE = 1;
-    private static double ARM_MAX_RANGE = 0;
+    private static double ARM_MIN_RANGE = 0.5;
+    private static double ARM_MAX_RANGE = 0.25;
 
     public DcMotor armMotor = null;
 
@@ -312,6 +312,27 @@ public abstract class DriveDirections extends LinearOpMode {
     //distance is in millimeters
     public void armToHeight (double power, double targetHeight){
 
+        double currentHeight = getArmHeight();
+        double error = targetHeight + currentHeight;
+
+        if (targetHeight>currentHeight) {
+            if (Math.abs(error) > 10) {
+                telemetry.addData("error: ", error);
+                telemetry.addData("Current Height: ", currentHeight);
+                telemetry.update();
+                armMotor.setPower(-error / 100);
+                currentHeight = getArmHeight();
+                error = targetHeight + currentHeight;
+            }
+        } else if (targetHeight<currentHeight) {
+
+            if (Math.abs(error) > 100) {
+                armMotor.setPower(error / 854);
+                currentHeight = getArmHeight();
+                error = targetHeight + currentHeight;
+            }
+        }
+//        armMotor.setPower(0);
     }
 
 
