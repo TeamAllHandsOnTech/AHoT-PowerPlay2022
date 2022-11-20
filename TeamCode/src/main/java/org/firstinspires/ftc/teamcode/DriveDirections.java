@@ -21,8 +21,8 @@ public abstract class DriveDirections extends LinearOpMode {
     public DcMotor leftBackDrive = null;
     private double moveSpeed = 0.3;
 
-    private static double ARM_MIN_RANGE = 0.5;
-    private static double ARM_MAX_RANGE = 0.25;
+    private static double ARM_MIN_RANGE = 0.275;
+    private static double ARM_MAX_RANGE = 0.175;
 
     public DcMotor armMotor = null;
 
