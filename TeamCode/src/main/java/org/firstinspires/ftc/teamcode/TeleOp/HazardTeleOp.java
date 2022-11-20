@@ -82,16 +82,7 @@ public class HazardTeleOp extends DriveDirections {
             }
 
             /**GAMEPAD 2**/
-            double armPower = 0;
-            if (Math.abs(gamepad2.left_stick_y) > 0.1){
-                armPower = gamepad2.left_stick_y*0.75;
-            } else {
-                armPower = 0;
-            }
-            if (Math.abs(gamepad2.right_stick_y) > 0.1){
-                armPower = gamepad2.right_stick_y*0.4;
-            }
-            armMotor.setPower(armPower);
+
 
             //Distances have not been learned yet
 
@@ -119,20 +110,24 @@ public class HazardTeleOp extends DriveDirections {
             double currentHeight = getArmHeight();
             double error = targetHeight + currentHeight;
 
-            if (setHeight==true && error > 100) {
+            if (setHeight==true && Math.abs(error)>10) {
                 telemetry.addData("error: ", error);
                 telemetry.addData("Current Height: ", currentHeight);
                 telemetry.update();
-                armMotor.setPower(-error / 10);
-                currentHeight = getArmHeight();
-                error = targetHeight + currentHeight;
-            } else if (setHeight==true && error < -10) {
-                armMotor.setPower(error / 854);
-                currentHeight = getArmHeight();
-                error = targetHeight + currentHeight;
+                armMotor.setPower(-error / 100);
             } else {
-                armMotor.setPower(0);
-                setHeight = true;
+                setHeight = false;
+
+                double armPower = 0;
+                if (Math.abs(gamepad2.left_stick_y) > 0.1){
+                    armPower = gamepad2.left_stick_y*0.75;
+                } else {
+                    armPower = 0;
+                }
+                if (Math.abs(gamepad2.right_stick_y) > 0.1){
+                    armPower = gamepad2.right_stick_y*0.4;
+                }
+                armMotor.setPower(armPower);
             }
 
             if(gamepad2.right_bumper){
