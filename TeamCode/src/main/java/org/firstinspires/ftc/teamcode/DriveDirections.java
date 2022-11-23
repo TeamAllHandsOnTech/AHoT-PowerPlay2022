@@ -21,12 +21,12 @@ public abstract class DriveDirections extends LinearOpMode {
     public DcMotor leftBackDrive = null;
     private double moveSpeed = 0.3;
 
-    private static double ARM_MIN_RANGE = 0.275;
-    private static double ARM_MAX_RANGE = 0.175;
+    private static double ARM_MIN_RANGE = 0.575;
+    private static double ARM_MAX_RANGE = 0.35;
 
     public DcMotor armMotor = null;
 
-    private Servo claw = null;
+    public Servo claw = null;
 
     IntegratingGyroscope gyro;
     NavxMicroNavigationSensor navxMicro;
@@ -159,6 +159,168 @@ public abstract class DriveDirections extends LinearOpMode {
         DriveInDirection(power, "FORWARD");
     }
 
+    public void StraightDrive(String direction, double power, double dist, double errorThresh){
+
+        double startAngle = getCumulativeZ();
+        double error = getCumulativeZ() - startAngle;
+        double powerDifference = error / 90;
+        double clicksPerMeter = 2492.788;
+        double targetClicks = dist*clicksPerMeter;
+        double currentClicks = 0;
+
+        double rightFrontClicks = 0;
+        double leftFrontClicks = 0;
+        double rightBackClicks = 0;
+        double leftBackClicks = 0;
+
+        rightFrontDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        leftFrontDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        rightBackDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        leftBackDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+
+        rightFrontDrive.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        leftFrontDrive.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        rightBackDrive.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        leftBackDrive.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+
+
+        switch(direction){
+            case "FORWARD":
+                while(currentClicks < targetClicks) {
+                    error = getCumulativeZ() - startAngle;
+                    rightFrontClicks = Math.abs(rightFrontDrive.getCurrentPosition());
+                    leftFrontClicks = Math.abs(leftFrontDrive.getCurrentPosition());
+                    rightBackClicks = Math.abs(rightBackDrive.getCurrentPosition());
+                    leftBackClicks = Math.abs(leftBackDrive.getCurrentPosition());
+
+                    currentClicks = (rightFrontClicks + leftFrontClicks + rightBackClicks + leftBackClicks) / 4;
+                    powerDifference = Math.abs(error / 90);
+                    if (error > errorThresh) {
+                        rightFrontDrive.setPower(power);
+                        leftFrontDrive.setPower(power + powerDifference);
+                        rightBackDrive.setPower(power);
+                        leftBackDrive.setPower(power + powerDifference);
+                        telemetry.addLine("turning right");
+                        telemetry.update();
+                    } else if (error < errorThresh) {
+                        rightFrontDrive.setPower(power + powerDifference);
+                        leftFrontDrive.setPower(power);
+                        rightBackDrive.setPower(power + powerDifference);
+                        leftBackDrive.setPower(power);
+                        telemetry.addLine("turning left");
+                        telemetry.update();
+                    } else {
+                        telemetry.addLine("straight");
+                        telemetry.update();
+                        rightFrontDrive.setPower(power);
+                        leftFrontDrive.setPower(power);
+                        rightBackDrive.setPower(power);
+                        leftBackDrive.setPower(power);
+                    }
+                }
+                break;
+
+            case "BACKWARD":
+                while(currentClicks < targetClicks){
+                    error = getCumulativeZ() - startAngle;
+                    rightFrontClicks = Math.abs(rightFrontDrive.getCurrentPosition());
+                    leftFrontClicks = Math.abs(leftFrontDrive.getCurrentPosition());
+                    rightBackClicks = Math.abs(rightBackDrive.getCurrentPosition());
+                    leftBackClicks = Math.abs(leftBackDrive.getCurrentPosition());
+
+                    currentClicks = (rightFrontClicks+leftFrontClicks+rightBackClicks+leftBackClicks)/4;
+                    powerDifference = Math.abs(error / 90);
+                    if(error > errorThresh){
+                        rightFrontDrive.setPower(-power);
+                        leftFrontDrive.setPower(-(power + powerDifference));
+                        rightBackDrive.setPower(-power);
+                        leftBackDrive.setPower(-(power + powerDifference));
+                        telemetry.addLine("turning right");
+                        telemetry.addData("error", error);
+                        telemetry.update();
+                    }else if(error < errorThresh){
+                        rightFrontDrive.setPower(-(power + powerDifference));
+                        leftFrontDrive.setPower(-power);
+                        rightBackDrive.setPower(-(power + powerDifference));
+                        leftBackDrive.setPower(-power);
+                        telemetry.addLine("turning left");
+                        telemetry.addData("error", error);
+                        telemetry.update();
+                    }else{
+                        telemetry.addLine("straight");
+                        telemetry.addData("error", error);
+                        telemetry.update();
+                        rightFrontDrive.setPower(-power);
+                        leftFrontDrive.setPower(-power);
+                        rightBackDrive.setPower(-power);
+                        leftBackDrive.setPower(-power);
+                    }
+                }
+                break;
+
+            case "LEFT":
+                while(currentClicks < targetClicks) {
+                    error = getCumulativeZ() - startAngle;
+                    rightFrontClicks = Math.abs(rightFrontDrive.getCurrentPosition());
+                    leftFrontClicks = Math.abs(leftFrontDrive.getCurrentPosition());
+                    rightBackClicks = Math.abs(rightBackDrive.getCurrentPosition());
+                    leftBackClicks = Math.abs(leftBackDrive.getCurrentPosition());
+
+                    currentClicks = (rightFrontClicks + leftFrontClicks + rightBackClicks + leftBackClicks) / 4;
+                    powerDifference = Math.abs(error / 90);
+                    if (error > errorThresh) {
+                        rightFrontDrive.setPower(power);
+                        leftFrontDrive.setPower(-(power + powerDifference));
+                        rightBackDrive.setPower(-power);
+                        leftBackDrive.setPower(power + powerDifference);
+                        telemetry.addLine("turning right");
+                        telemetry.update();
+                    } else if (error < errorThresh) {
+                        rightFrontDrive.setPower(power + powerDifference);
+                        leftFrontDrive.setPower(power);
+                        rightBackDrive.setPower(power + powerDifference);
+                        leftBackDrive.setPower(power);
+                        telemetry.addLine("turning left");
+                        telemetry.update();
+                    } else {
+                        telemetry.addLine("straight");
+                        telemetry.update();
+                        rightFrontDrive.setPower(power);
+                        leftFrontDrive.setPower(-power);
+                        rightBackDrive.setPower(-power);
+                        leftBackDrive.setPower(power);
+                    }
+                }
+                break;
+
+            case "RIGHT":
+                rightFrontDrive.setPower(-power);
+                leftFrontDrive.setPower(power);
+                rightBackDrive.setPower(power);
+                leftBackDrive.setPower(-power);
+                break;
+            case "ROTATE_RIGHT":
+                rightFrontDrive.setPower(-power);
+                leftFrontDrive.setPower(power);
+                rightBackDrive.setPower(-power);
+                leftBackDrive.setPower(power);
+                break;
+            case "ROTATE_LEFT":
+                rightFrontDrive.setPower(power);
+                leftFrontDrive.setPower(-power);
+                rightBackDrive.setPower(power);
+                leftBackDrive.setPower(-power);
+                break;
+            case "STOP":
+                rightFrontDrive.setPower(0);
+                leftFrontDrive.setPower(0);
+                rightBackDrive.setPower(0);
+                leftBackDrive.setPower(0);
+                break;
+        }
+
+    }
+
     public void rotateToZAbs(double targetAngle, double power){
         double angle = getCumulativeZ();
         double difference = targetAngle - angle;
@@ -178,42 +340,39 @@ public abstract class DriveDirections extends LinearOpMode {
 
     }
     //WIPPPPPPPP!!!!
-    public void rotateToZLoc(double targetAngle, double multiplier){
+    public void rotateToZLoc(double localTargetAngle, double dividend){
         double startAngle = getCumulativeZ();
-        double angle = startAngle;
-        double localAngle = startAngle;
-        double error = targetAngle - localAngle;
+        double absTargetAngle = localTargetAngle + startAngle;
+        double error = absTargetAngle - getCumulativeZ();
 
-        while (Math.abs(error) < 5) {
+        while (error < 1) {
 
 
-            //rotate clockwise/right
-            rightFrontDrive.setPower(-error/multiplier);
-            leftFrontDrive.setPower(error/multiplier);
-            rightBackDrive.setPower(-error/multiplier);
-            leftBackDrive.setPower(error/multiplier);
+            error = absTargetAngle - getCumulativeZ();
+            //rotate left
+            DriveInDirection(MapRange(0, error, -1, 1, getCumulativeZ()), "ROTATE_RIGHT");
 
 
 //            //telemetry
 //            telemetry.addLine("currentZ: " + getCurrentZ());
-//            telemetry.addLine("cumulativeZ: " + getCumulativeZ());
-//            telemetry.addLine("targetAngle: " + targetAngle);
-//            telemetry.addLine("rotation: counter clockwise");
-//            telemetry.update();
+            telemetry.addLine("cumulativeZ: " + getCumulativeZ());
+            telemetry.addLine("Error: " + error);
+            telemetry.addLine("rotation: counter clockwise");
+            telemetry.update();
         }
 
-        while (Math.abs(error) < 5) {
+        while (error > 1) {
 
-            //rotate counter-clock/left
-            rightFrontDrive.setPower(error/multiplier);
-            leftFrontDrive.setPower(-error/multiplier);
-            rightBackDrive.setPower(error/multiplier);
-            leftBackDrive.setPower(-error/multiplier);
+
+            error = absTargetAngle - getCumulativeZ();
+            //rotate right
+            DriveInDirection(MapRange(0, error, -1, 1, getCumulativeZ()), "ROTATE_LEFT");
 
             //telemetry
-            telemetry.addLine("currentZ" + getCurrentZ());
+//            telemetry.addLine("currentZ" + getCurrentZ());
             telemetry.addLine("cumulativeZ" + getCumulativeZ());
-            telemetry.addLine("targetAngle: " + targetAngle);
+            telemetry.addLine("Error: " + error);
+            telemetry.addLine("targetAngle: " + localTargetAngle);
             telemetry.addLine("rotation: clockwise");
             telemetry.update();
         }
@@ -226,13 +385,7 @@ public abstract class DriveDirections extends LinearOpMode {
 
     }
 
-//    public void straightDrive(String direction, double power, double dist, double errorThresh, double powerDifference){
-//        switch(direction){
-//            case "FORWARD":
-//
-//                break;
-//        }
-//    }
+
     public int fakeVision() {
         int location;
         location = (int) Math.random() * 3 + 1;
@@ -292,14 +445,12 @@ public abstract class DriveDirections extends LinearOpMode {
 
     public void closeClaw(){
         claw.setPosition(ARM_MIN_RANGE);
-        //telemetry.addLine("close");
-        //telemetry.update();
+
     }
 
     public void openClaw(){
         claw.setPosition(ARM_MAX_RANGE);
-        //telemetry.addLine("open");
-        //telemetry.update();
+
     }
 
     public double getArmHeight() {
@@ -334,6 +485,11 @@ public abstract class DriveDirections extends LinearOpMode {
         } else {
             armMotor.setPower(0);
         }
+    }
+//https://rosettacode.org/wiki/Map_range
+    //used this explanation
+    public double MapRange(double min1, double max1, double min2, double max2, double input){
+        return(min2 + ((input - min1)*(max2 - min2)/(max1 - min1)));
     }
 
 
