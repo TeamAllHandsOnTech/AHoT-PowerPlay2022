@@ -35,7 +35,7 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import org.firstinspires.ftc.teamcode.DriveDirections;
 
 
-@TeleOp(name="TestingIMU", group="a")
+@TeleOp(name="TestingArm", group="a")
 public class TestingArm extends DriveDirections {
 
     double armHeight;
