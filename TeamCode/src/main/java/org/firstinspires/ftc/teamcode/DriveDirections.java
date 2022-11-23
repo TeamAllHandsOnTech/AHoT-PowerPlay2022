@@ -159,7 +159,8 @@ public abstract class DriveDirections extends LinearOpMode {
         DriveInDirection(power, "FORWARD");
     }
 
-    public void StraightDrive(String direction, double power, double dist, double errorThresh){
+    public void StraightDrive(double power, double dist, String direction, double errorThresh){
+        intergratedHeading = 0;
 
         double startAngle = getCumulativeZ();
         double error = getCumulativeZ() - startAngle;
@@ -202,7 +203,7 @@ public abstract class DriveDirections extends LinearOpMode {
                         leftBackDrive.setPower(power + powerDifference);
                         telemetry.addLine("turning right");
                         telemetry.update();
-                    } else if (error < errorThresh) {
+                    } else if (error < -errorThresh) {
                         rightFrontDrive.setPower(power + powerDifference);
                         leftFrontDrive.setPower(power);
                         rightBackDrive.setPower(power + powerDifference);
@@ -218,6 +219,7 @@ public abstract class DriveDirections extends LinearOpMode {
                         leftBackDrive.setPower(power);
                     }
                 }
+                DriveInDirection(0, "FORWARD");
                 break;
 
             case "BACKWARD":
@@ -238,7 +240,7 @@ public abstract class DriveDirections extends LinearOpMode {
                         telemetry.addLine("turning right");
                         telemetry.addData("error", error);
                         telemetry.update();
-                    }else if(error < errorThresh){
+                    }else if(error < -errorThresh){
                         rightFrontDrive.setPower(-(power + powerDifference));
                         leftFrontDrive.setPower(-power);
                         rightBackDrive.setPower(-(power + powerDifference));
@@ -256,6 +258,7 @@ public abstract class DriveDirections extends LinearOpMode {
                         leftBackDrive.setPower(-power);
                     }
                 }
+                DriveInDirection(0, "FORWARD");
                 break;
 
             case "LEFT":
@@ -291,6 +294,7 @@ public abstract class DriveDirections extends LinearOpMode {
                         leftBackDrive.setPower(power);
                     }
                 }
+                DriveInDirection(0, "FORWARD");
                 break;
 
             case "RIGHT":
@@ -304,17 +308,17 @@ public abstract class DriveDirections extends LinearOpMode {
                     currentClicks = (rightFrontClicks + leftFrontClicks + rightBackClicks + leftBackClicks) / 4;
                     powerDifference = Math.abs(error / 90);
                     if (error > errorThresh) {
-                        rightFrontDrive.setPower(-(power + powerDifference));
-                        leftFrontDrive.setPower(power + powerDifference);
+                        rightFrontDrive.setPower(power);
+                        leftFrontDrive.setPower(power);
                         rightBackDrive.setPower(power);
                         leftBackDrive.setPower(-power);
                         telemetry.addLine("turning right");
                         telemetry.update();
                     } else if (error < -errorThresh) {
-                        rightFrontDrive.setPower(-power);
-                        leftFrontDrive.setPower(power);
-                        rightBackDrive.setPower(power + powerDifference);
-                        leftBackDrive.setPower(-(power + powerDifference));
+                        rightFrontDrive.setPower(-(power + powerDifference));
+                        leftFrontDrive.setPower(power + powerDifference);
+                        rightBackDrive.setPower(power);
+                        leftBackDrive.setPower(power);
                         telemetry.addLine("turning left");
                         telemetry.update();
                     } else {
@@ -326,6 +330,7 @@ public abstract class DriveDirections extends LinearOpMode {
                         leftBackDrive.setPower(-power);
                     }
                 }
+                DriveInDirection(0, "FORWARD");
                 break;
             case "STOP":
                 rightFrontDrive.setPower(0);
@@ -360,38 +365,38 @@ public abstract class DriveDirections extends LinearOpMode {
         double startAngle = getCumulativeZ();
         double absTargetAngle = localTargetAngle + startAngle;
         double error = absTargetAngle - getCumulativeZ();
-
-        while (error > 1) {
-
-
-            error = absTargetAngle - getCumulativeZ();
-            //rotate left
-            DriveInDirection(error / dividend, "ROTATE_RIGHT");
+        while(Math.abs(error) > 1){
+            while (error > 1) {
 
 
-//            //telemetry
-//            telemetry.addLine("currentZ: " + getCurrentZ());
-            telemetry.addLine("cumulativeZ: " + getCumulativeZ());
-            telemetry.addLine("Error: " + error);
-            telemetry.addLine("rotation: counter clockwise");
-            telemetry.update();
-        }
-
-        while (error < 1) {
+                error = absTargetAngle - getCumulativeZ();
+                //rotate left
+                DriveInDirection(error / dividend, "ROTATE_RIGHT");
 
 
-            error = absTargetAngle - getCumulativeZ();
-            //rotate right
-            DriveInDirection(error / dividend, "ROTATE_LEFT");
+    //            //telemetry
+    //            telemetry.addLine("currentZ: " + getCurrentZ());
+                telemetry.addLine("cumulativeZ: " + getCumulativeZ());
+                telemetry.addLine("Error: " + error);
+                telemetry.addLine("rotation: counter clockwise");
+                telemetry.update();
+            }
 
-            //telemetry
-//            telemetry.addLine("currentZ" + getCurrentZ());
-            telemetry.addLine("cumulativeZ" + getCumulativeZ());
-            telemetry.addLine("Error: " + error);
-            telemetry.addLine("targetAngle: " + localTargetAngle);
-            telemetry.addLine("rotation: clockwise");
-            telemetry.update();
-        }
+            while (error < -1) {
+
+
+                error = absTargetAngle - getCumulativeZ();
+                //rotate right
+                DriveInDirection(error / dividend, "ROTATE_LEFT");
+
+                //telemetry
+    //            telemetry.addLine("currentZ" + getCurrentZ());
+                telemetry.addLine("cumulativeZ" + getCumulativeZ());
+                telemetry.addLine("Error: " + error);
+                telemetry.addLine("targetAngle: " + localTargetAngle);
+                telemetry.addLine("rotation: clockwise");
+                telemetry.update();
+            }
 
 
         rightFrontDrive.setPower(0);
@@ -399,6 +404,7 @@ public abstract class DriveDirections extends LinearOpMode {
         rightBackDrive.setPower(0);
         leftBackDrive.setPower(0);
 
+        }
     }
 
 

@@ -62,9 +62,9 @@ public class BlueCornerHazard extends DriveDirections
 
         runtime.reset();
 
-        DriveForDistance(moveSpeed, .50, "LEFT");
-        DriveForDistance(moveSpeed, .07, "FORWARD");
-        DriveForDistance(moveSpeed, .12, "BACKWARD");
+        StraightDrive(moveSpeed, .50, "LEFT", 0.5);
+        DriveForTime("FORWARD", moveSpeed, 0.5);
+        StraightDrive(moveSpeed, .12, "BACKWARD", 0.6);
         openClaw();
 
         sleep(3000);
@@ -77,19 +77,19 @@ public class BlueCornerHazard extends DriveDirections
 
         switch(finalZone){
             case 1:
-                DriveForDistance(moveSpeed, 1.1, "RIGHT");
-                DriveForDistance(moveSpeed, .2, "FORWARD");
-                DriveForDistance(moveSpeed, .75, "BACKWARD");
+                StraightDrive(moveSpeed, 1.1, "RIGHT", 0.5);
+                StraightDrive(moveSpeed, .2, "FORWARD", 0.5);
+                StraightDrive(moveSpeed, .75, "BACKWARD", 0.5);
                 break;
             case 2:
-                DriveForDistance(moveSpeed, .36, "RIGHT");
-                DriveForDistance(moveSpeed, .05, "FORWARD");
-                DriveForDistance(moveSpeed, .75, "BACKWARD");
+                StraightDrive(moveSpeed, .36, "RIGHT", 0.5);
+                StraightDrive(moveSpeed, .05, "FORWARD", 0.5);
+                StraightDrive(moveSpeed, .75, "BACKWARD", 0.5);
                 break;
             case 3:
-                DriveForDistance(moveSpeed, .36, "LEFT");
-                DriveForDistance(moveSpeed, .05, "FORWARD");
-                DriveForDistance(moveSpeed, .75, "BACKWARD");
+                StraightDrive(moveSpeed, .36, "LEFT", 0.5);
+                StraightDrive(moveSpeed, .05, "FORWARD", 0.5);
+                StraightDrive(moveSpeed, .75, "BACKWARD", 0.5);
                 break;
         }
 
