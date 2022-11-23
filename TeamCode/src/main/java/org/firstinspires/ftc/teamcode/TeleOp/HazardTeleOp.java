@@ -114,7 +114,7 @@ public class HazardTeleOp extends DriveDirections {
                 telemetry.addData("error: ", error);
                 telemetry.addData("Current Height: ", currentHeight);
                 telemetry.update();
-                armMotor.setPower(-error / 100);
+                armMotor.setPower(error / 100);
             } else {
                 setHeight = false;
 
@@ -127,7 +127,7 @@ public class HazardTeleOp extends DriveDirections {
                 if (Math.abs(gamepad2.right_stick_y) > 0.1){
                     armPower = gamepad2.right_stick_y*0.4;
                 }
-                armMotor.setPower(armPower);
+                armMotor.setPower(-armPower);
             }
 
             if(gamepad2.right_bumper){
