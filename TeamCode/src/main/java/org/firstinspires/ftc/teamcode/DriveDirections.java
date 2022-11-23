@@ -362,6 +362,7 @@ public abstract class DriveDirections extends LinearOpMode {
     }
     //WIPPPPPPPP!!!!
     public void rotateToZLoc(double localTargetAngle, double dividend){
+        intergratedHeading = 0;
         double startAngle = getCumulativeZ();
         double absTargetAngle = localTargetAngle + startAngle;
         double error = absTargetAngle - getCumulativeZ();
