@@ -51,6 +51,8 @@ public class MalevolentTraumaTeleOp extends DriveDirections {
             //slow down power if bumper is pressed
             if(gamepad1.left_bumper){
                 powerLevel = 0.3;
+            }else if(gamepad1.right_bumper){
+                powerLevel = 0.6;
             }else{
                 powerLevel = 0.8;
             }
@@ -65,7 +67,7 @@ public class MalevolentTraumaTeleOp extends DriveDirections {
                     //Checks if moved more horizontally than up and down, if so, strafes
                     //"If joystick moved more horizontally than vertically, strafe"
                 } else if (Math.abs(gamepad1.left_stick_y) < Math.abs(gamepad1.left_stick_x)) {
-                    DriveInDirection(gamepad1.left_stick_x * powerLevel,"BACKWARD");
+                    DriveInDirection(gamepad1.left_stick_x * powerLevel,"FORWARD");
                 }
                 //Check if the right joystick is moved significantly, otherwise motors are stopped
             }else if(Math.abs(gamepad1.right_stick_x) > 0.1){
