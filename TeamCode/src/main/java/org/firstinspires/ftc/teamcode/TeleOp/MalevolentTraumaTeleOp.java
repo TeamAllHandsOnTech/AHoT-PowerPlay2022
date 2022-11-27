@@ -61,11 +61,11 @@ public class MalevolentTraumaTeleOp extends DriveDirections {
                 //Checks if joystick moved more up than side to side, if so, move forward or backward
                 //"If joystick moved more vertically than horizontally, then move forward/backward"
                 if (Math.abs(gamepad1.left_stick_x) < Math.abs(gamepad1.left_stick_y)) {
-                    DriveInDirection(gamepad1.left_stick_y * powerLevel,"BACKWARD");
+                    DriveInDirection(gamepad1.left_stick_y * powerLevel,"RIGHT");
                     //Checks if moved more horizontally than up and down, if so, strafes
                     //"If joystick moved more horizontally than vertically, strafe"
                 } else if (Math.abs(gamepad1.left_stick_y) < Math.abs(gamepad1.left_stick_x)) {
-                    DriveInDirection(gamepad1.left_stick_x * powerLevel,"RIGHT");
+                    DriveInDirection(gamepad1.left_stick_x * powerLevel,"BACKWARD");
                 }
                 //Check if the right joystick is moved significantly, otherwise motors are stopped
             }else if(Math.abs(gamepad1.right_stick_x) > 0.1){
