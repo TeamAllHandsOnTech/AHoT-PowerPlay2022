@@ -76,7 +76,7 @@ public class HazardTeleOp extends DriveDirections {
                 }
                 //Check if the right joystick is moved significantly, otherwise motors are stopped
             }else if(Math.abs(gamepad1.right_stick_x) > 0.1){
-                DriveInDirection(gamepad1.right_stick_x * powerLevel,"ROTATE_RIGHT");
+                DriveInDirection(gamepad1.right_stick_x * powerLevel,"ROTATE_LEFT");
             } else {
                 DriveInDirection(0,"STOP");
             }

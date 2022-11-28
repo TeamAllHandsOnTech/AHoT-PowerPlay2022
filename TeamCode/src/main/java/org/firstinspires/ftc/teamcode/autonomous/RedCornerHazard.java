@@ -18,6 +18,9 @@ public class RedCornerHazard extends DriveDirections {
 
     @Override
     public void runOpMode() {
+
+        isHazard = true;
+
         super.runOpMode();
 
         initArm();
@@ -38,14 +41,14 @@ public class RedCornerHazard extends DriveDirections {
 //        DriveForDistance(moveSpeed, .36, "LEFT");
 //        DriveForDistance(moveSpeed, .75, "FORWARD");
 
-        DriveForDistance(moveSpeed, .50, "RIGHT");
-        DriveForDistance(moveSpeed, .06, "FORWARD");
-        DriveForDistance(moveSpeed, .16, "BACKWARD");
+        DriveForDistance(moveSpeed, .50, "LEFT");
+        DriveForDistance(moveSpeed, .06, "BACKWARD");
+        DriveForDistance(moveSpeed, .16, "FORWARD");
         openClaw();
         sleep(3000);
-        DriveForDistance(moveSpeed, .2, "FORWARD");
-        DriveForDistance(moveSpeed, .36, "RIGHT");
-        DriveForDistance(moveSpeed, .75, "BACKWARD");
+        DriveForDistance(moveSpeed, .2, "BACKWARD");
+        DriveForDistance(moveSpeed, .36, "LEFT");
+        DriveForDistance(moveSpeed, .75, "FORWARD");
 
         // run until the end of the match (driver presses STOP)
         while (opModeIsActive()) {

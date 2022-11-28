@@ -1,6 +1,8 @@
 package org.firstinspires.ftc.teamcode.autonomous;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.robotcore.external.hardware.camera.WebcamName;
@@ -27,6 +29,7 @@ public class BlueCornerHazard extends DriveDirections
 
     @Override
     public void runOpMode(){
+
         webcam = OpenCvCameraFactory.getInstance().createWebcam(hardwareMap.get(WebcamName.class, "Webcam 1"));
 
         webcam.setPipeline(new SamplePipeline());
@@ -46,6 +49,8 @@ public class BlueCornerHazard extends DriveDirections
             }
         });
 
+        isHazard = true;
+
         super.runOpMode();
 
         initArm();
@@ -62,14 +67,23 @@ public class BlueCornerHazard extends DriveDirections
 
         runtime.reset();
 
-        StraightDrive(moveSpeed, .50, "LEFT", 0.5);
-        DriveForTime("FORWARD", moveSpeed, 0.5);
-        StraightDrive(moveSpeed, .12, "BACKWARD", 0.6);
+        StraightDrive(moveSpeed, 1, "BACKWARD", 0.5);
+        StraightDrive(moveSpeed, 1.5, "LEFT", 0.5);
+
+        armToHeight(0.5, 800);
+
+        StraightDrive(moveSpeed, 0.1, "BACKWARD", 0.5);
+
+        armMotor.setPower(0.01);
+
         openClaw();
 
         sleep(3000);
 
-        DriveForTime("FORWARD", moveSpeed, 1);
+        armMotor.setPower(0);
+
+        StraightDrive(moveSpeed, 0.1, "FORWARD", 0.5);
+        StraightDrive(moveSpeed, 0.4, "RIGHT", 0.5);
 
         telemetry.addData("Final Zone: ", finalZone);
         telemetry.addData("Zone: ", zone);
@@ -77,19 +91,12 @@ public class BlueCornerHazard extends DriveDirections
 
         switch(finalZone){
             case 1:
-                StraightDrive(moveSpeed, 1.1, "RIGHT", 0.5);
-                StraightDrive(moveSpeed, .2, "FORWARD", 0.5);
-                StraightDrive(moveSpeed, .75, "BACKWARD", 0.5);
                 break;
             case 2:
-                StraightDrive(moveSpeed, .36, "RIGHT", 0.5);
-                StraightDrive(moveSpeed, .05, "FORWARD", 0.5);
-                StraightDrive(moveSpeed, .75, "BACKWARD", 0.5);
+                StraightDrive(moveSpeed, 0.75, "FORWARD", 0.5);
                 break;
             case 3:
-                StraightDrive(moveSpeed, .36, "LEFT", 0.5);
-                StraightDrive(moveSpeed, .05, "FORWARD", 0.5);
-                StraightDrive(moveSpeed, .75, "BACKWARD", 0.5);
+                StraightDrive(moveSpeed, 1.5, "FORWARD", 0.5);
                 break;
         }
 

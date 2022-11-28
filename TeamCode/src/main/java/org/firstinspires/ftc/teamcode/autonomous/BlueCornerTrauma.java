@@ -16,6 +16,9 @@ public class BlueCornerTrauma extends DriveDirections {
 
     @Override
     public void runOpMode() {
+
+        isHazard = false;
+
         super.runOpMode();
 
         // Wait for the game to start (driver presses PLAY)

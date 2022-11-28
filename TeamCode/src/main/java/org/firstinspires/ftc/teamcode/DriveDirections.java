@@ -3,6 +3,7 @@ package org.firstinspires.ftc.teamcode;
 import com.qualcomm.hardware.kauailabs.NavxMicroNavigationSensor;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.IntegratingGyroscope;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.ElapsedTime;
@@ -20,6 +21,7 @@ public abstract class DriveDirections extends LinearOpMode {
     public DcMotor rightBackDrive = null;
     public DcMotor leftBackDrive = null;
     private double moveSpeed = 0.3;
+    public boolean isHazard;
 
     private static double ARM_MIN_RANGE = 0.575;
     private static double ARM_MAX_RANGE = 0.35;
@@ -46,10 +48,17 @@ public abstract class DriveDirections extends LinearOpMode {
         rightFrontDrive = hardwareMap.get(DcMotor.class, "frontRight");
         rightBackDrive = hardwareMap.get(DcMotor.class, "backRight");
 
-        leftFrontDrive.setDirection(DcMotor.Direction.FORWARD);
-        leftBackDrive.setDirection(DcMotor.Direction.FORWARD);
-        rightFrontDrive.setDirection(DcMotor.Direction.REVERSE);
-        rightBackDrive.setDirection(DcMotor.Direction.REVERSE);
+        if (isHazard){
+            leftFrontDrive.setDirection(DcMotor.Direction.REVERSE);
+            leftBackDrive.setDirection(DcMotor.Direction.REVERSE);
+            rightFrontDrive.setDirection(DcMotor.Direction.FORWARD);
+            rightBackDrive.setDirection(DcMotor.Direction.FORWARD);
+        } else {
+            leftFrontDrive.setDirection(DcMotor.Direction.FORWARD);
+            leftBackDrive.setDirection(DcMotor.Direction.FORWARD);
+            rightFrontDrive.setDirection(DcMotor.Direction.REVERSE);
+            rightBackDrive.setDirection(DcMotor.Direction.REVERSE);
+        }
 
         //Calibrate NavX
         navxMicro = hardwareMap.get(NavxMicroNavigationSensor.class, "navx");
@@ -490,7 +499,7 @@ public abstract class DriveDirections extends LinearOpMode {
         double error = targetHeight + currentHeight;
 
         if (targetHeight>currentHeight) {
-            if (Math.abs(error) > 100) {
+            while (Math.abs(error) > 100) {
                 telemetry.addData("error: ", error);
                 telemetry.addData("Current Height: ", currentHeight);
                 telemetry.update();
@@ -500,13 +509,13 @@ public abstract class DriveDirections extends LinearOpMode {
             }
         } else if (targetHeight<currentHeight) {
 
-            if (Math.abs(error) > 100) {
+            while (Math.abs(error) > 100) {
                 armMotor.setPower(error / 854);
                 currentHeight = getArmHeight();
                 error = targetHeight + currentHeight;
             }
         } else {
-            armMotor.setPower(0);
+            armMotor.setPower(0.1);
         }
     }
 //https://rosettacode.org/wiki/Map_range
