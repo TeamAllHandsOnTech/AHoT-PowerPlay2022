@@ -317,17 +317,17 @@ public abstract class DriveDirections extends LinearOpMode {
                     currentClicks = (rightFrontClicks + leftFrontClicks + rightBackClicks + leftBackClicks) / 4;
                     powerDifference = Math.abs(error / 90);
                     if (error > errorThresh) {
-                        rightFrontDrive.setPower(-power);
-                        leftFrontDrive.setPower(power);
-                        rightBackDrive.setPower(power + powerDifference);
-                        leftBackDrive.setPower(-(power + powerDifference));
-                        telemetry.addLine("turning right");
-                        telemetry.update();
-                    } else if (error < -errorThresh) {
                         rightFrontDrive.setPower(-(power + powerDifference));
                         leftFrontDrive.setPower(power + powerDifference);
                         rightBackDrive.setPower(power);
                         leftBackDrive.setPower(-power);
+                        telemetry.addLine("turning right");
+                        telemetry.update();
+                    } else if (error < -errorThresh) {
+                        rightFrontDrive.setPower(-power);
+                        leftFrontDrive.setPower(power);
+                        rightBackDrive.setPower(power + powerDifference);
+                        leftBackDrive.setPower(-(power + powerDifference));
                         telemetry.addLine("turning left");
                         telemetry.update();
                     } else {
