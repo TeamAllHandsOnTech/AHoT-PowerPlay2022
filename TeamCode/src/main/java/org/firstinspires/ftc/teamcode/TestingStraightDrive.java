@@ -34,7 +34,6 @@ public class TestingStraightDrive extends DriveDirections {
         rotateToZLoc(270, 50);
         rotateToZLoc(360, 50);
         rotateToZLoc(-360, 50);
-        StraightDrive(0.5, 1.5, "RIGHT");
 
 
         // run until the end of the match (driver presses STOP)

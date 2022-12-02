@@ -254,6 +254,7 @@ public abstract class DriveDirections extends LinearOpMode {
     }
     //WIPPPPPPPP!!!!
     public void rotateToZLoc(double localTargetAngle, double dividend){
+        sleep(20);
         intergratedHeading = 0;
         double startAngle = getCumulativeZ();
         double absTargetAngle = localTargetAngle + startAngle;
@@ -262,13 +263,14 @@ public abstract class DriveDirections extends LinearOpMode {
             while (error > 1) {
 
 
-                error = absTargetAngle - getCurrentZ();
+                error = absTargetAngle - getCumulativeZ();
                 //rotate left
                 DriveInDirection(error / dividend, "ROTATE_LEFT");
 
 
     //            //telemetry
     //            telemetry.addLine("currentZ: " + getCurrentZ());
+                telemetry.addLine("TargetAngle: " + absTargetAngle);
                 telemetry.addLine("cumulativeZ: " + getCumulativeZ());
                 telemetry.addLine("Error: " + error);
                 telemetry.addLine("rotation: counter clockwise");
@@ -278,9 +280,9 @@ public abstract class DriveDirections extends LinearOpMode {
             while (error < -1) {
 
 
-                error = absTargetAngle - getCurrentZ();
+                error = absTargetAngle - getCumulativeZ();
                 //rotate right
-                DriveInDirection(error / dividend, "ROTATE_RIGHT");
+                DriveInDirection(error / dividend, "ROTATE_LEFT");
 
                 //telemetry
     //            telemetry.addLine("currentZ" + getCurrentZ());
@@ -379,26 +381,19 @@ public abstract class DriveDirections extends LinearOpMode {
     public void armToHeight (double power, double targetHeight){
 
         double currentHeight = getArmHeight();
-        double error = targetHeight + currentHeight;
+        double error = targetHeight - currentHeight;
 
         if (targetHeight>currentHeight) {
-            while (Math.abs(error) > 100) {
+            while (Math.abs(error) > 75) {
                 telemetry.addData("error: ", error);
                 telemetry.addData("Current Height: ", currentHeight);
                 telemetry.update();
-                armMotor.setPower(-error / 100);
+                armMotor.setPower(error / 200);
                 currentHeight = getArmHeight();
-                error = targetHeight + currentHeight;
-            }
-        } else if (targetHeight<currentHeight) {
-
-            while (Math.abs(error) > 100) {
-                armMotor.setPower(error / 854);
-                currentHeight = getArmHeight();
-                error = targetHeight + currentHeight;
+                error = targetHeight - currentHeight;
             }
         } else {
-            armMotor.setPower(0.1);
+            armMotor.setPower(0);
         }
     }
 //https://rosettacode.org/wiki/Map_range

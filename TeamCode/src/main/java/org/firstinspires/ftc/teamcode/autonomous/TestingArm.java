@@ -61,6 +61,7 @@ public class TestingArm extends DriveDirections {
         while (opModeIsActive()) {
             armHeight = getArmHeight();
             telemetry.addData("ArmHeight", armHeight);
+            telemetry.update();
         }
     }
 }

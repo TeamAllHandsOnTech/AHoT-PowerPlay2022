@@ -68,21 +68,23 @@ public class BlueCornerHazard extends DriveDirections
         runtime.reset();
 
         StraightDrive(moveSpeed, 0.65, "FORWARD");
-        StraightDrive(moveSpeed, 1.25, "RIGHT");
+        StraightDrive(moveSpeed, 1.156, "RIGHT");
 
-        armToHeight(0.8, 800);
-
-        StraightDrive(moveSpeed, 0.1, "FORWARD");
-
+        armToHeight(0.8, 875);
         armMotor.setPower(0.01);
+
+        StraightDrive(moveSpeed, 0.05, "FORWARD");
+
+
+        sleep(2000);
 
         openClaw();
 
-        sleep(3000);
+        sleep(500);
 
         armMotor.setPower(0);
 
-        StraightDrive(moveSpeed, 0.1, "BACKWARD");
+        StraightDrive(moveSpeed, 0.05, "BACKWARD");
         StraightDrive(moveSpeed, 0.4, "RIGHT");
 
         telemetry.addData("Final Zone: ", finalZone);
@@ -93,10 +95,10 @@ public class BlueCornerHazard extends DriveDirections
             case 1:
                 break;
             case 2:
-                StraightDrive(moveSpeed, 0.75, "BACKWARD");
+                StraightDrive(moveSpeed, 0.6, "BACKWARD");
                 break;
             case 3:
-                StraightDrive(moveSpeed, 1.5, "BACKWARD");
+                StraightDrive(moveSpeed, 1.1, "BACKWARD");
                 break;
         }
 
