@@ -88,6 +88,7 @@ public class RedCornerHazard extends DriveDirections
 
         openClaw();
 
+
         sleep(500);
 
         armMotor.setPower(0);
