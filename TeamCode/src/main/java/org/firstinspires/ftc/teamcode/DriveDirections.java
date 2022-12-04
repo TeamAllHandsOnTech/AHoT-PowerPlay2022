@@ -234,7 +234,7 @@ public abstract class DriveDirections extends LinearOpMode {
         DriveInDirection(power, "FORWARD");
     }
 
-    public void rotateToZAbs(double targetAngle, double power, double dividend){
+    public void rotateToZAbs(double targetAngle, double dividend){
         double angle = getCumulativeZ();
         double error = targetAngle - angle;
         while(Math.abs(error) > 1){
