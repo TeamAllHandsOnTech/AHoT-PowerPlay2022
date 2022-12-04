@@ -17,7 +17,7 @@ import org.openftc.easyopencv.OpenCvCameraRotation;
 import org.openftc.easyopencv.OpenCvPipeline;
 import org.openftc.easyopencv.OpenCvWebcam;
 
-@Autonomous(name="BlueCornerHazard", group="Hazard")
+@Autonomous(name="BlueCornerHazard", group="A")
 public class BlueCornerHazard extends DriveDirections
 {
     OpenCvWebcam webcam;
@@ -67,8 +67,8 @@ public class BlueCornerHazard extends DriveDirections
 
         runtime.reset();
 
-        StraightDrive(moveSpeed, 0.65, "FORWARD");
-        StraightDrive(moveSpeed, 1.156, "RIGHT");
+        StraightDrive(moveSpeed, 0.65, "LEFT");
+        StraightDrive(moveSpeed, 0.8, "FORWARD");
 
         armToHeight(0.8, 875);
         armMotor.setPower(0.01);
@@ -76,7 +76,7 @@ public class BlueCornerHazard extends DriveDirections
         StraightDrive(moveSpeed, 0.05, "FORWARD");
 
 
-        sleep(2000);
+        sleep(500);
 
         openClaw();
 
@@ -85,7 +85,8 @@ public class BlueCornerHazard extends DriveDirections
         armMotor.setPower(0);
 
         StraightDrive(moveSpeed, 0.05, "BACKWARD");
-        StraightDrive(moveSpeed, 0.4, "RIGHT");
+        StraightDrive(moveSpeed, 0.5, "RIGHT");
+        StraightDrive(moveSpeed, 0.65, "FORWARD");
 
         telemetry.addData("Final Zone: ", finalZone);
         telemetry.addData("Zone: ", zone);
@@ -95,10 +96,10 @@ public class BlueCornerHazard extends DriveDirections
             case 1:
                 break;
             case 2:
-                StraightDrive(moveSpeed, 0.6, "BACKWARD");
+                StraightDrive(moveSpeed, 0.6, "RIGHT");
                 break;
             case 3:
-                StraightDrive(moveSpeed, 1.1, "BACKWARD");
+                StraightDrive(moveSpeed, 1.1, "RIGHT");
                 break;
         }
 

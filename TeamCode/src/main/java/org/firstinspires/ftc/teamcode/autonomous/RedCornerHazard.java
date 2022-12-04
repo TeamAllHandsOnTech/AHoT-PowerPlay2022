@@ -17,7 +17,7 @@ import org.openftc.easyopencv.OpenCvCameraRotation;
 import org.openftc.easyopencv.OpenCvPipeline;
 import org.openftc.easyopencv.OpenCvWebcam;
 
-@Autonomous(name="RedCornerHazard", group="Hazard")
+@Autonomous(name="RedCornerHazard", group="A")
 public class RedCornerHazard extends DriveDirections
 {
     OpenCvWebcam webcam;
