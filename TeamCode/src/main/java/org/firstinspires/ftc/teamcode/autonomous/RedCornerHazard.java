@@ -32,7 +32,7 @@ public class RedCornerHazard extends DriveDirections
 
         webcam = OpenCvCameraFactory.getInstance().createWebcam(hardwareMap.get(WebcamName.class, "Webcam 1"));
 
-        webcam.setPipeline(new SamplePipeline());
+        webcam.setPipeline(new RedCornerHazard.SamplePipeline());
 
         webcam.setMillisecondsPermissionTimeout(1000); // Timeout for obtaining permission is configurable. Set before opening.
         webcam.openCameraDeviceAsync(new OpenCvCamera.AsyncCameraOpenListener()
@@ -66,28 +66,21 @@ public class RedCornerHazard extends DriveDirections
         closeClaw();
 
         runtime.reset();
+        armToHeight(100);
+        armMotor.setPower(0.1);
 
-        sleep(100);
+        StraightDrive(moveSpeed, 0.85, "RIGHT");
+        StraightDrive(moveSpeed, 0.64, "FORWARD");
 
-        StraightDrive(moveSpeed, 0.05, "FORWARD");
+        armToHeight(900);
+        armMotor.setPower(0.1);
 
-        rotateToZLoc(-90, 50);
-
-        DriveForTime("RIGHT", 0.5, 0.25);
-
-        StraightDrive(moveSpeed, 0.65, "FORWARD");
-        StraightDrive(moveSpeed, 1.156, "LEFT");
-
-        armToHeight(875);
-        armMotor.setPower(0.01);
-
-        StraightDrive(moveSpeed, 0.05, "FORWARD");
+        StraightDrive(moveSpeed, 0.1, "FORWARD");
 
 
-        sleep(2000);
+        sleep(500);
 
         openClaw();
-
 
         sleep(500);
 
@@ -95,6 +88,7 @@ public class RedCornerHazard extends DriveDirections
 
         StraightDrive(moveSpeed, 0.05, "BACKWARD");
         StraightDrive(moveSpeed, 0.4, "LEFT");
+        StraightDrive(moveSpeed, 0.6, "FORWARD");
 
         telemetry.addData("Final Zone: ", finalZone);
         telemetry.addData("Zone: ", zone);
@@ -104,10 +98,10 @@ public class RedCornerHazard extends DriveDirections
             case 1:
                 break;
             case 2:
-                StraightDrive(moveSpeed, 0.6, "BACKWARD");
+                StraightDrive(moveSpeed, 0.6, "LEFT");
                 break;
             case 3:
-                StraightDrive(moveSpeed, 1.1, "BACKWARD");
+                StraightDrive(moveSpeed, 1.1, "LEFT");
                 break;
         }
 
