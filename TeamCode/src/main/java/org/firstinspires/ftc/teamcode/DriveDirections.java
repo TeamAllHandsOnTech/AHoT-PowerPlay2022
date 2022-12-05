@@ -380,7 +380,7 @@ public abstract class DriveDirections extends LinearOpMode {
         armMotor.setPower(0);
     }
     //distance is in millimeters
-    public void armToHeight (double power, double targetHeight){
+    public void armToHeight (double targetHeight){
 
         double currentHeight = getArmHeight();
         double error = targetHeight - currentHeight;
@@ -390,7 +390,7 @@ public abstract class DriveDirections extends LinearOpMode {
                 telemetry.addData("error: ", error);
                 telemetry.addData("Current Height: ", currentHeight);
                 telemetry.update();
-                armMotor.setPower(error / 200);
+                armMotor.setPower(error / 150);
                 currentHeight = getArmHeight();
                 error = targetHeight - currentHeight;
             }

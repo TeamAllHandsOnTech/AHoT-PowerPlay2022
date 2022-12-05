@@ -25,7 +25,7 @@ public class RedCornerHazard extends DriveDirections
     int finalZone;
 
     private ElapsedTime runtime = new ElapsedTime();
-    private double moveSpeed = 0.3;
+    private double moveSpeed = 0.4;
 
     @Override
     public void runOpMode(){
@@ -78,7 +78,7 @@ public class RedCornerHazard extends DriveDirections
         StraightDrive(moveSpeed, 0.65, "FORWARD");
         StraightDrive(moveSpeed, 1.156, "LEFT");
 
-        armToHeight(0.8, 875);
+        armToHeight(875);
         armMotor.setPower(0.01);
 
         StraightDrive(moveSpeed, 0.05, "FORWARD");

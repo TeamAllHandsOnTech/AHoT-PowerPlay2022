@@ -82,15 +82,15 @@ public class HazardTeleOp extends DriveDirections {
             }
 
             //ABS Rotation
-            if(gamepad1.dpad_up){
-                rotateToZAbs(0, 50);
-            } else if(gamepad1.dpad_left){
-                rotateToZAbs(90, 50);
-            } else if(gamepad1.dpad_right){
-                rotateToZAbs(-90, 50);
-            } else if(gamepad1.dpad_down){
-                rotateToZAbs(180, 50);
-            }
+//            if(gamepad1.dpad_up){
+//                rotateToZAbs(0, 50);
+//            } else if(gamepad1.dpad_left){
+//                rotateToZAbs(90, 50);
+//            } else if(gamepad1.dpad_right){
+//                rotateToZAbs(-90, 50);
+//            } else if(gamepad1.dpad_down){
+//                rotateToZAbs(180, 50);
+//            }
 
             /**GAMEPAD 2**/
 

@@ -25,7 +25,7 @@ public class BlueCornerHazard extends DriveDirections
     int finalZone;
 
     private ElapsedTime runtime = new ElapsedTime();
-    private double moveSpeed = 0.3;
+    private double moveSpeed = 0.4;
 
     @Override
     public void runOpMode(){
@@ -66,14 +66,16 @@ public class BlueCornerHazard extends DriveDirections
         closeClaw();
 
         runtime.reset();
+        armToHeight(100);
+        armMotor.setPower(0.1);
 
-        StraightDrive(moveSpeed, 0.65, "LEFT");
-        StraightDrive(moveSpeed, 0.8, "FORWARD");
+        StraightDrive(moveSpeed, 0.85, "LEFT");
+        StraightDrive(moveSpeed, 0.64, "FORWARD");
 
-        armToHeight(0.8, 875);
-        armMotor.setPower(0.01);
+        armToHeight(900);
+        armMotor.setPower(0.1);
 
-        StraightDrive(moveSpeed, 0.05, "FORWARD");
+        StraightDrive(moveSpeed, 0.1, "FORWARD");
 
 
         sleep(500);
@@ -85,8 +87,8 @@ public class BlueCornerHazard extends DriveDirections
         armMotor.setPower(0);
 
         StraightDrive(moveSpeed, 0.05, "BACKWARD");
-        StraightDrive(moveSpeed, 0.5, "RIGHT");
-        StraightDrive(moveSpeed, 0.65, "FORWARD");
+        StraightDrive(moveSpeed, 0.4, "RIGHT");
+        StraightDrive(moveSpeed, 0.6, "FORWARD");
 
         telemetry.addData("Final Zone: ", finalZone);
         telemetry.addData("Zone: ", zone);

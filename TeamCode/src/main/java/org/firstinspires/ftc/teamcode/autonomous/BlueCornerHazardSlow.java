@@ -68,7 +68,7 @@ public class BlueCornerHazardSlow extends DriveDirections
         StraightDrive(moveSpeed, 0.65, "FORWARD");
         StraightDrive(moveSpeed, 1.25, "RIGHT");
 
-        armToHeight(0.8, 800);
+        armToHeight(800);
 
         StraightDrive(moveSpeed, 0.1, "FORWARD");
 
