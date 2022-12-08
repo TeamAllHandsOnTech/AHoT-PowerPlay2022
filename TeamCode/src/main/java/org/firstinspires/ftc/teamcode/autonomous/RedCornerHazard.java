@@ -70,7 +70,7 @@ public class RedCornerHazard extends DriveDirections
         armMotor.setPower(0.1);
 
         StraightDrive(moveSpeed, 0.85, "RIGHT");
-        StraightDrive(moveSpeed, 0.64, "FORWARD");
+        StraightDrive(moveSpeed, 0.63, "FORWARD");
 
         armToHeight(900);
         armMotor.setPower(0.1);
@@ -82,13 +82,13 @@ public class RedCornerHazard extends DriveDirections
 
         openClaw();
 
-        sleep(500);
+        sleep(1000);
 
         armMotor.setPower(0);
 
         StraightDrive(moveSpeed, 0.05, "BACKWARD");
         StraightDrive(moveSpeed, 0.4, "LEFT");
-        StraightDrive(moveSpeed, 0.6, "FORWARD");
+        StraightDrive(moveSpeed, 0.55, "FORWARD");
 
         telemetry.addData("Final Zone: ", finalZone);
         telemetry.addData("Zone: ", zone);

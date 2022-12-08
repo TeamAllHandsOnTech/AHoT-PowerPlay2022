@@ -390,7 +390,7 @@ public abstract class DriveDirections extends LinearOpMode {
                 telemetry.addData("error: ", error);
                 telemetry.addData("Current Height: ", currentHeight);
                 telemetry.update();
-                armMotor.setPower(error / 150);
+                armMotor.setPower(error / 125);
                 currentHeight = getArmHeight();
                 error = targetHeight - currentHeight;
             }
