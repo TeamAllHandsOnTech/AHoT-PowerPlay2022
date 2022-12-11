@@ -208,7 +208,7 @@ public abstract class DriveDirections extends LinearOpMode {
             powerDifference = error / 90;
 //            powerMult = (targetClicks - currentClicks) / targetClicks;
 
-            powerMult = (0.25 * clicksPerMeter) / currentClicks;
+            powerMult = slowDownDistance + (0.1 * clicksPerMeter) / currentClicks;
 
 
             rightFrontClicks = Math.abs(rightFrontDrive.getCurrentPosition());
