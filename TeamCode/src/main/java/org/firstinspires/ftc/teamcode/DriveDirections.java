@@ -218,7 +218,7 @@ public abstract class DriveDirections extends LinearOpMode {
 
             currentClicks = (rightFrontClicks+leftFrontClicks+rightBackClicks+leftBackClicks)/4;
 
-            if(currentClicks > targetClicks - slowDownDistance) {
+            if(currentClicks < targetClicks - slowDownDistance) {
                 rightFrontDrive.setPower(RFPower - powerDifference);
                 leftFrontDrive.setPower(LFPower + powerDifference);
                 rightBackDrive.setPower(RBPower - powerDifference);
