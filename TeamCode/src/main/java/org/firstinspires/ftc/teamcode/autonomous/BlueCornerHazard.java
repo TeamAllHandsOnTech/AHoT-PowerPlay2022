@@ -123,8 +123,8 @@ public class BlueCornerHazard extends DriveDirections
 
         boolean viewportPaused;
 
-        Scalar greenLower = new Scalar(30, 127, 20);
-        Scalar greenHigher = new Scalar(90, 200, 155);
+        Scalar greenLower = new Scalar(30, 127, 50);
+        Scalar greenHigher = new Scalar(90, 255, 175);
 
         Scalar blueLower = new Scalar(90, 127, 100);
         Scalar blueHigher = new Scalar(100, 255, 255);
