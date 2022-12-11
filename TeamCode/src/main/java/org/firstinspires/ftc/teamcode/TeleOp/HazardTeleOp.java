@@ -80,7 +80,7 @@ public class HazardTeleOp extends DriveDirections {
             } else {
                 DriveInDirection(0, "STOP");
             }
-            
+
             if(gamepad1.dpad_up){
                 rotateToZAbs(0, 50);
             } else if(gamepad1.dpad_left){
