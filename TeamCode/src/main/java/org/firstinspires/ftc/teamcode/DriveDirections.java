@@ -182,6 +182,9 @@ public abstract class DriveDirections extends LinearOpMode {
         double error = getCumulativeZ() - target;
         double powerDifference = error / 90;
 
+        double slowDownDistance = 0.25 * clicksPerMeter;
+        double powerMult;
+
         rightFrontDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         leftFrontDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         rightBackDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
@@ -203,6 +206,10 @@ public abstract class DriveDirections extends LinearOpMode {
 
             error = getCumulativeZ() - target;
             powerDifference = error / 90;
+//            powerMult = (targetClicks - currentClicks) / targetClicks;
+
+            powerMult = (0.25 * clicksPerMeter) / currentClicks;
+
 
             rightFrontClicks = Math.abs(rightFrontDrive.getCurrentPosition());
             leftFrontClicks = Math.abs(leftFrontDrive.getCurrentPosition());
@@ -211,11 +218,17 @@ public abstract class DriveDirections extends LinearOpMode {
 
             currentClicks = (rightFrontClicks+leftFrontClicks+rightBackClicks+leftBackClicks)/4;
 
-            rightFrontDrive.setPower(RFPower - powerDifference);
-            leftFrontDrive.setPower(LFPower + powerDifference);
-            rightBackDrive.setPower(RBPower - powerDifference);
-            leftBackDrive.setPower(LBPower + powerDifference);
-
+            if(currentClicks > targetClicks - slowDownDistance) {
+                rightFrontDrive.setPower(RFPower - powerDifference);
+                leftFrontDrive.setPower(LFPower + powerDifference);
+                rightBackDrive.setPower(RBPower - powerDifference);
+                leftBackDrive.setPower(LBPower + powerDifference);
+            }else{
+                rightFrontDrive.setPower((RFPower - powerDifference) * powerMult);
+                leftFrontDrive.setPower((LFPower + powerDifference) * powerMult);
+                rightBackDrive.setPower((RBPower - powerDifference) * powerMult);
+                leftBackDrive.setPower((LBPower + powerDifference) * powerMult);
+            }
 
             telemetry.addData("Error: ", error);
             telemetry.addData("CurrentAngle: ", getCurrentZ());
