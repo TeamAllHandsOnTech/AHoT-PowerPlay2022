@@ -48,10 +48,9 @@ public class testingIMU extends DriveDirections {
 
         waitForStart();
 
-        rotateToZLoc(-90, 0.4);
 
-//        while (opModeIsActive()) {
-//
-//        }
+        while (opModeIsActive()) {
+            telemetry.addData("Heading", getCumulativeZ());
+        }
     }
 }
