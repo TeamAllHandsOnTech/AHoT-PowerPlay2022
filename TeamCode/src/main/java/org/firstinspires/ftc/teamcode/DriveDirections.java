@@ -234,24 +234,52 @@ public abstract class DriveDirections extends LinearOpMode {
         DriveInDirection(power, "FORWARD");
     }
 
-    public void rotateToZAbs(double targetAngle, double dividend){
-        double angle = getCumulativeZ();
-        double error = targetAngle - angle;
+    public void rotateToZAbs(double absTargetAngle, double dividend){
+        sleep(20);
+        intergratedHeading = 0;
+        double startAngle = getCumulativeZ();
+        double error = absTargetAngle - getCumulativeZ();
         while(Math.abs(error) > 1){
             while (error > 1) {
-                angle = getCumulativeZ();
-                DriveInDirection(error/dividend,"ROTATE_LEFT");
-                error = targetAngle - angle;
+
+
+                error = absTargetAngle - getCumulativeZ();
+                //rotate left
+                DriveInDirection(error / dividend, "ROTATE_LEFT");
+
+
+                //            //telemetry
+                //            telemetry.addLine("currentZ: " + getCurrentZ());
+                telemetry.addLine("TargetAngle: " + absTargetAngle);
+                telemetry.addLine("cumulativeZ: " + getCumulativeZ());
+                telemetry.addLine("Error: " + error);
+                telemetry.addLine("rotation: counter clockwise");
+                telemetry.update();
             }
-            while (error < 1) {
-                angle = getCumulativeZ();
-                DriveInDirection(error/dividend,"ROTATE_RIGHT");
-                error = targetAngle - angle;
+
+            while (error < -1) {
+
+
+                error = absTargetAngle - getCumulativeZ();
+                //rotate right
+                DriveInDirection(error / dividend, "ROTATE_LEFT");
+
+                //telemetry
+                //            telemetry.addLine("currentZ" + getCurrentZ());
+                telemetry.addLine("cumulativeZ" + getCumulativeZ());
+                telemetry.addLine("Error: " + error);
+                telemetry.addLine("targetAngle: " + absTargetAngle);
+                telemetry.addLine("rotation: clockwise");
+                telemetry.update();
             }
+
+
+            rightFrontDrive.setPower(0);
+            leftFrontDrive.setPower(0);
+            rightBackDrive.setPower(0);
+            leftBackDrive.setPower(0);
+
         }
-
-        DriveInDirection(0,"STOP");
-
     }
 
     //WIPPPPPPPP!!!!
