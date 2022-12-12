@@ -210,7 +210,7 @@ public abstract class DriveDirections extends LinearOpMode {
 
             powerMult = slowDownDistance + (0.1 * clicksPerMeter) / currentClicks;
             if(powerMult > 1){
-                powerMult = 0;
+                powerMult = 1;
             }
 
 
