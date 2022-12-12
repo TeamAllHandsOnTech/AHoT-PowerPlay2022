@@ -232,11 +232,8 @@ public abstract class DriveDirections extends LinearOpMode {
                 rightBackDrive.setPower((RBPower - powerDifference) * powerMult);
                 leftBackDrive.setPower((LBPower + powerDifference) * powerMult);
             }
-
-            telemetry.addData("Error: ", error);
-            telemetry.addData("CurrentAngle: ", getCurrentZ());
-            telemetry.addData("RFNetPower: ", RFPower + powerDifference);
-            telemetry.addData("RBNetPower: ", RBPower - powerDifference);
+            
+            telemetry.addData("PowerMult: ", powerMult);
             telemetry.update();
 
         }
