@@ -217,7 +217,7 @@ public abstract class DriveDirections extends LinearOpMode {
 
             currentClicks = (rightFrontClicks+leftFrontClicks+rightBackClicks+leftBackClicks)/4;
 
-            powerMult = (slowDownDistance / currentClicks) - 1;
+            powerMult = ((targetClicks - currentClicks) / slowDownDistance) + 0.25;
             if(powerMult > 1){
                 powerMult = 1;
             }
@@ -231,10 +231,10 @@ public abstract class DriveDirections extends LinearOpMode {
                 rightBackDrive.setPower(RBPower - powerDifference);
                 leftBackDrive.setPower(LBPower + powerDifference);
             }else{
-                rightFrontDrive.setPower((RFPower - powerDifference) * powerMult);
-                leftFrontDrive.setPower((LFPower + powerDifference) * powerMult);
-                rightBackDrive.setPower((RBPower - powerDifference) * powerMult);
-                leftBackDrive.setPower((LBPower + powerDifference) * powerMult);
+                rightFrontDrive.setPower((RFPower * powerMult) - powerDifference);
+                leftFrontDrive.setPower((LFPower * powerMult) + powerDifference);
+                rightBackDrive.setPower((RBPower * powerMult) - powerDifference);
+                leftBackDrive.setPower((LBPower * powerMult) + powerDifference);
             }
 
             telemetry.addData("PowerMult: ", powerMult);
