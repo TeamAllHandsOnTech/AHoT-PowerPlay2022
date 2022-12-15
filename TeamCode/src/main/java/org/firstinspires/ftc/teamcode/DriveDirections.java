@@ -184,6 +184,8 @@ public abstract class DriveDirections extends LinearOpMode {
 
         double slowDownDistance = 0.25 * clicksPerMeter;
         double powerMult;
+        double minPowerMult;
+        boolean reachedMinimum = false;
 
         rightFrontDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         leftFrontDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
@@ -222,7 +224,7 @@ public abstract class DriveDirections extends LinearOpMode {
                 powerMult = 1;
             }
             if(powerMult < 0.1){
-                powerMult = 0.1;
+                powerMult = 0.25;
             }
 
             if(currentClicks < targetClicks - slowDownDistance) {
@@ -231,10 +233,21 @@ public abstract class DriveDirections extends LinearOpMode {
                 rightBackDrive.setPower(RBPower - powerDifference);
                 leftBackDrive.setPower(LBPower + powerDifference);
             }else{
-                rightFrontDrive.setPower((RFPower * powerMult) - powerDifference);
-                leftFrontDrive.setPower((LFPower * powerMult) + powerDifference);
-                rightBackDrive.setPower((RBPower * powerMult) - powerDifference);
-                leftBackDrive.setPower((LBPower * powerMult) + powerDifference);
+                if(Math.abs(RFPower * powerMult) <= 0.15 && !reachedMinimum){
+                    reachedMinimum = true;
+                    minPowerMult = powerMult;
+                }
+                if(!reachedMinimum) {
+                    rightFrontDrive.setPower((RFPower * powerMult) - powerDifference);
+                    leftFrontDrive.setPower((LFPower * powerMult) + powerDifference);
+                    rightBackDrive.setPower((RBPower * powerMult) - powerDifference);
+                    leftBackDrive.setPower((LBPower * powerMult) + powerDifference);
+                }else{
+                    rightFrontDrive.setPower((RFPower * minPowerMult) - powerDifference);
+                    leftFrontDrive.setPower((LFPower * minPowerMult) + powerDifference);
+                    rightBackDrive.setPower((RBPower * minPowerMult) - powerDifference);
+                    leftBackDrive.setPower((LBPower * minPowerMult) + powerDifference);
+                }
             }
 
             telemetry.addData("PowerMult: ", powerMult);
