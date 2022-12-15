@@ -184,7 +184,7 @@ public abstract class DriveDirections extends LinearOpMode {
 
         double slowDownDistance = 0.25 * clicksPerMeter;
         double powerMult;
-        double minPowerMult;
+        double minPowerMult = 0;
         boolean reachedMinimum = false;
 
         rightFrontDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
@@ -233,7 +233,7 @@ public abstract class DriveDirections extends LinearOpMode {
                 rightBackDrive.setPower(RBPower - powerDifference);
                 leftBackDrive.setPower(LBPower + powerDifference);
             }else{
-                if(Math.abs(RFPower * powerMult) <= 0.15 && !reachedMinimum){
+                if(Math.abs(RFPower * powerMult) <= 0.25 && !reachedMinimum){
                     reachedMinimum = true;
                     minPowerMult = powerMult;
                 }
