@@ -1,8 +1,6 @@
 package org.firstinspires.ftc.teamcode.autonomous;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
-import com.qualcomm.robotcore.hardware.DcMotor;
-import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.robotcore.external.hardware.camera.WebcamName;
@@ -17,8 +15,8 @@ import org.openftc.easyopencv.OpenCvCameraRotation;
 import org.openftc.easyopencv.OpenCvPipeline;
 import org.openftc.easyopencv.OpenCvWebcam;
 
-@Autonomous(name="BlueCornerHazard", group="A")
-public class BlueCornerHazard extends DriveDirections
+@Autonomous(name="BlueCornerHazardColor", group="A")
+public class BlueCornerHazardColor extends DriveDirections
 {
     OpenCvWebcam webcam;
     protected int zone;
@@ -57,52 +55,20 @@ public class BlueCornerHazard extends DriveDirections
 
         waitForStart();
 
-        finalZone = zone;
 
-        telemetry.addData("Final Zone: ", finalZone);
-        telemetry.addData("Zone: ", zone);
-        telemetry.addData("arm height: ", getArmHeight());
-        telemetry.update();
-
-        closeClaw();
-
-        runtime.reset();
-        armToHeight(100);
-        armMotor.setPower(0.1);
-
-        StraightDrive(moveSpeed, 0.89, "LEFT");
-        StraightDrive(0.3, 0.63, "FORWARD");
 
         armToHeight(900);
         armMotor.setPower(0.1);
 
-        StraightDrive(0.1, 0.1, "FORWARD");
+
 
 
         sleep(500);
 
-        openClaw();
 
-        sleep(1000);
 
-        armMotor.setPower(0);
 
-        StraightDrive(moveSpeed, 0.05, "BACKWARD");
-        StraightDrive(moveSpeed, 0.4, "RIGHT");
-        StraightDrive(moveSpeed, 0.55, "FORWARD");
 
-        rotateToZLoc(-90,55);
-
-        StraightDrive(moveSpeed, 1.1, "FORWARD");
-
-        telemetry.addData("CurrentHeight: ", getArmHeight());
-        telemetry.update();
-
-        sleep(2000);
-
-        closeClaw();
-
-//        armToHeight(500);
 
 //        telemetry.addData("Final Zone: ", finalZone);
 //        telemetry.addData("Zone: ", zone);
