@@ -186,6 +186,8 @@ public abstract class DriveDirections extends LinearOpMode {
         double powerMult;
         double minPowerMult = 0;
         boolean reachedMinimum = false;
+        boolean lowPowerRun = false;
+
 
         rightFrontDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         leftFrontDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
@@ -203,6 +205,10 @@ public abstract class DriveDirections extends LinearOpMode {
         LFPower = leftFrontDrive.getPower();
         RBPower = rightBackDrive.getPower();
         LBPower = leftBackDrive.getPower();
+
+        if(Math.abs(RFPower) <= 0.2) {
+            lowPowerRun = true;
+        }
 
         while(currentClicks < targetClicks){
 
@@ -227,7 +233,7 @@ public abstract class DriveDirections extends LinearOpMode {
                 powerMult = 0.25;
             }
 
-            if(currentClicks < targetClicks - slowDownDistance) {
+            if(currentClicks < targetClicks - slowDownDistance || lowPowerRun) {
                 rightFrontDrive.setPower(RFPower - powerDifference);
                 leftFrontDrive.setPower(LFPower + powerDifference);
                 rightBackDrive.setPower(RBPower - powerDifference);
