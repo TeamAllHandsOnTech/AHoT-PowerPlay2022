@@ -407,7 +407,7 @@ public abstract class DriveDirections extends LinearOpMode {
 
                 error = absTargetAngle - getCumulativeZ();
                 //rotate left
-                DriveInDirection(error / dividend, "ROTATE_LEFT");
+                DriveInDirection(Math.abs(error) / dividend, "ROTATE_LEFT");
 
 
     //            //telemetry
