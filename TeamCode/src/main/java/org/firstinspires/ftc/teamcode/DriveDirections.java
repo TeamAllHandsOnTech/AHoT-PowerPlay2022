@@ -336,12 +336,19 @@ public abstract class DriveDirections extends LinearOpMode {
         intergratedHeading = 0;
         double startAngle = getCumulativeZ();
         double error = absTargetAngle - getCumulativeZ();
+        while(Math.abs(error) > 1){
             while (error > 1) {
 
 
                 error = absTargetAngle - getCumulativeZ();
+                double proportionalPower = error / dividend;
+
+                if(proportionalPower <= 0.01){
+                    proportionalPower = 0.15;
+                }
+
                 //rotate left
-                DriveInDirection(error / dividend, "ROTATE_LEFT");
+                DriveInDirection(proportionalPower, "ROTATE_LEFT");
 
 
                 //            //telemetry
@@ -358,8 +365,15 @@ public abstract class DriveDirections extends LinearOpMode {
 
 
                 error = absTargetAngle - getCumulativeZ();
+
+                double proportionalPower = error / dividend;
+
+                if(proportionalPower <= 0.01){
+                    proportionalPower = 0.15;
+                }
+
                 //rotate right
-                DriveInDirection(error / dividend, "ROTATE_LEFT");
+                DriveInDirection(proportionalPower, "ROTATE_LEFT");
 
                 //telemetry
                 //            telemetry.addLine("currentZ" + getCurrentZ());
@@ -376,7 +390,7 @@ public abstract class DriveDirections extends LinearOpMode {
             rightBackDrive.setPower(0);
             leftBackDrive.setPower(0);
 
-
+        }
     }
 
     //WIPPPPPPPP!!!!
