@@ -91,19 +91,21 @@ public class BlueCornerHazard extends DriveDirections
         StraightDrive(moveSpeed, 0.4, "RIGHT");
         StraightDrive(moveSpeed, 0.55, "FORWARD");
 
-        rotateToZLoc(-90,55);
+        rotateToZLoc(-90,50);
 
         StraightDrive(moveSpeed, 1.1, "FORWARD");
 
-        telemetry.addData("CurrentHeight: ", getArmHeight());
-        telemetry.update();
+        armToHeight(150);
+        armMotor.setPower(0.1);
 
         closeClaw();
 
         sleep(500);
 
-        armToHeight(600);
+        armToHeight(500);
         armMotor.setPower(0.1);
+
+        StraightDrive(moveSpeed, .55, "BACKWARD");
 
 //        telemetry.addData("Final Zone: ", finalZone);
 //        telemetry.addData("Zone: ", zone);
