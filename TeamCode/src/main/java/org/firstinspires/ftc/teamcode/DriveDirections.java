@@ -286,6 +286,7 @@ public abstract class DriveDirections extends LinearOpMode {
 
                 //            //telemetry
                 //            telemetry.addLine("currentZ: " + getCurrentZ());
+                telemetry.addLine("StartAngle: " + startAngle);
                 telemetry.addLine("TargetAngle: " + absTargetAngle);
                 telemetry.addLine("cumulativeZ: " + getCumulativeZ());
                 telemetry.addLine("Error: " + error);
