@@ -186,7 +186,6 @@ public abstract class DriveDirections extends LinearOpMode {
         double powerMult;
         double minPowerMult = 0;
         boolean reachedMinimum = false;
-        boolean lowPowerRun = false;
 
 
         rightFrontDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
@@ -206,9 +205,6 @@ public abstract class DriveDirections extends LinearOpMode {
         RBPower = rightBackDrive.getPower();
         LBPower = leftBackDrive.getPower();
 
-        if(Math.abs(RFPower) <= 0.2) {
-            lowPowerRun = true;
-        }
 
         while(currentClicks < targetClicks){
 
@@ -233,7 +229,7 @@ public abstract class DriveDirections extends LinearOpMode {
                 powerMult = 0.25;
             }
 
-            if(currentClicks < targetClicks - slowDownDistance || lowPowerRun) {
+            if(currentClicks < targetClicks - slowDownDistance) {
                 rightFrontDrive.setPower(RFPower - powerDifference);
                 leftFrontDrive.setPower(LFPower + powerDifference);
                 rightBackDrive.setPower(RBPower - powerDifference);
@@ -262,6 +258,71 @@ public abstract class DriveDirections extends LinearOpMode {
         }
         DriveInDirection(0, "FORWARD");
     }
+    //no slowdown as robot approaches target
+    public void StraightDriveNoSlow (double power, double distance, String direction){
+        double clicksPerMeter = 2492.788;
+        double targetClicks = distance*clicksPerMeter;
+        double currentClicks = 0;
+
+        double RFPower;
+        double LFPower;
+        double RBPower;
+        double LBPower;
+
+        double rightFrontClicks = 0;
+        double leftFrontClicks = 0;
+        double rightBackClicks = 0;
+        double leftBackClicks = 0;
+
+        intergratedHeading = 0;
+
+        double target = getCumulativeZ();
+        double error = getCumulativeZ() - target;
+        double powerDifference = error / 90;
+
+
+        rightFrontDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        leftFrontDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        rightBackDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        leftBackDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+
+        rightFrontDrive.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        leftFrontDrive.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        rightBackDrive.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        leftBackDrive.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+
+        DriveInDirection(power, direction);
+
+        RFPower = rightFrontDrive.getPower();
+        LFPower = leftFrontDrive.getPower();
+        RBPower = rightBackDrive.getPower();
+        LBPower = leftBackDrive.getPower();
+
+
+        while(currentClicks < targetClicks){
+
+            error = getCumulativeZ() - target;
+            powerDifference = error / 90;
+
+
+
+
+            rightFrontClicks = Math.abs(rightFrontDrive.getCurrentPosition());
+            leftFrontClicks = Math.abs(leftFrontDrive.getCurrentPosition());
+            rightBackClicks = Math.abs(rightBackDrive.getCurrentPosition());
+            leftBackClicks = Math.abs(leftBackDrive.getCurrentPosition());
+
+            currentClicks = (rightFrontClicks+leftFrontClicks+rightBackClicks+leftBackClicks)/4;
+
+            if(currentClicks < targetClicks) {
+                rightFrontDrive.setPower(RFPower - powerDifference);
+                leftFrontDrive.setPower(LFPower + powerDifference);
+                rightBackDrive.setPower(RBPower - powerDifference);
+                leftBackDrive.setPower(LBPower + powerDifference);
+            }
+        }
+        DriveInDirection(0, "FORWARD");
+    }
 
     public void DriveForTime(String direction, double power, double time){
         time*=1000;
@@ -281,7 +342,7 @@ public abstract class DriveDirections extends LinearOpMode {
 
                 error = absTargetAngle - getCumulativeZ();
                 //rotate left
-                DriveInDirection(-error / dividend, "ROTATE_LEFT");
+                DriveInDirection(error / dividend, "ROTATE_LEFT");
 
 
                 //            //telemetry
@@ -299,7 +360,7 @@ public abstract class DriveDirections extends LinearOpMode {
 
                 error = absTargetAngle - getCumulativeZ();
                 //rotate right
-                DriveInDirection(-error / dividend, "ROTATE_LEFT");
+                DriveInDirection(error / dividend, "ROTATE_LEFT");
 
                 //telemetry
                 //            telemetry.addLine("currentZ" + getCurrentZ());

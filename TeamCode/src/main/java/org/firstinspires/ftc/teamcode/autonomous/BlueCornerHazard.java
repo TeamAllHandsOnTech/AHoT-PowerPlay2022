@@ -76,7 +76,7 @@ public class BlueCornerHazard extends DriveDirections
         armToHeight(900);
         armMotor.setPower(0.1);
 
-        StraightDrive(0.1, 0.1, "FORWARD");
+        StraightDriveNoSlow(0.1, 0.1, "FORWARD");
 
 
         sleep(500);
