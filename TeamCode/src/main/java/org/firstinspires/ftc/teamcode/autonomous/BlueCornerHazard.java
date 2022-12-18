@@ -91,7 +91,7 @@ public class BlueCornerHazard extends DriveDirections
         StraightDrive(moveSpeed, 0.4, "RIGHT");
         StraightDrive(moveSpeed, 0.55, "FORWARD");
 
-        rotateToZLoc(-90,50);
+        rotateToZLoc(-90);
 
         StraightDrive(moveSpeed, 1.1, "FORWARD");
 
