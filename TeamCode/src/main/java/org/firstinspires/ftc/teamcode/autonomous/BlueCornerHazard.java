@@ -98,9 +98,9 @@ public class BlueCornerHazard extends DriveDirections
         telemetry.addData("CurrentHeight: ", getArmHeight());
         telemetry.update();
 
-        sleep(2000);
-
         closeClaw();
+
+        sleep(500);
 
         armToHeight(600);
         armMotor.setPower(0.1);
