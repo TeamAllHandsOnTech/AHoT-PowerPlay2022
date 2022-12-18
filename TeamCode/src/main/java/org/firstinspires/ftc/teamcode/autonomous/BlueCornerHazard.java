@@ -102,7 +102,8 @@ public class BlueCornerHazard extends DriveDirections
 
         closeClaw();
 
-//        armToHeight(500);
+        armToHeight(600);
+        armMotor.setPower(0.1);
 
 //        telemetry.addData("Final Zone: ", finalZone);
 //        telemetry.addData("Zone: ", zone);
