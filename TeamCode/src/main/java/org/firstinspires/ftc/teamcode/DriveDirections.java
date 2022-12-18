@@ -336,7 +336,6 @@ public abstract class DriveDirections extends LinearOpMode {
         intergratedHeading = 0;
         double startAngle = getCumulativeZ();
         double error = absTargetAngle - getCumulativeZ();
-        while(Math.abs(error) > 1){
             while (error > 1) {
 
 
@@ -377,7 +376,7 @@ public abstract class DriveDirections extends LinearOpMode {
             rightBackDrive.setPower(0);
             leftBackDrive.setPower(0);
 
-        }
+
     }
 
     //WIPPPPPPPP!!!!
