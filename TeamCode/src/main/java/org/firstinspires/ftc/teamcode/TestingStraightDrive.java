@@ -28,12 +28,12 @@ public class TestingStraightDrive extends DriveDirections {
         waitForStart();
         runtime.reset();
 
-        rotateToZLoc(90, 50);
+        rotateToZLoc(90);
 //        StraightDrive(0.2, 2, "LEFT", 0.5);
 //        DriveInDirection(0, "FORWARD");
-        rotateToZLoc(270, 50);
-        rotateToZLoc(360, 50);
-        rotateToZLoc(-360, 50);
+        rotateToZLoc(270);
+        rotateToZLoc(360);
+        rotateToZLoc(-360);
 
 
         // run until the end of the match (driver presses STOP)
