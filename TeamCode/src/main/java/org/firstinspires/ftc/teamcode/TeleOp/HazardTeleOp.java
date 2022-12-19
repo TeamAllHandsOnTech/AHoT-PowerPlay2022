@@ -141,13 +141,9 @@ public class HazardTeleOp extends DriveDirections {
                 armMotor.setPower(-armPower);
 
             if(gamepad2.right_bumper){
-                telemetry.addLine("close if");
-                telemetry.update();
                 closeClaw();
 
             }else if (!isClawOpen()){
-                telemetry.addLine("open if");
-                telemetry.update();
                 openClaw();
             }
             if(gamepad2.left_bumper){
