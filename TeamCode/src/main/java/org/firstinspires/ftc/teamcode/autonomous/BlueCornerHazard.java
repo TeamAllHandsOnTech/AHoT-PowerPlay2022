@@ -95,7 +95,10 @@ public class BlueCornerHazard extends DriveDirections
 
         StraightDrive(moveSpeed, 1.1, "FORWARD");
 
-        armToHeight(100);
+        armMotor.setPower(-0.2);
+
+        sleep(500);
+
         armMotor.setPower(0.1);
 
         closeClaw();
@@ -105,9 +108,13 @@ public class BlueCornerHazard extends DriveDirections
         armToHeight(500);
         armMotor.setPower(0.1);
 
+        sleep(500);
+
         StraightDrive(moveSpeed, 1.1, "BACKWARD");
 
         armToHeight(100);
+
+        sleep(500);
 
         rotateToZLoc(-90);
 
@@ -115,25 +122,32 @@ public class BlueCornerHazard extends DriveDirections
 
         StraightDrive(moveSpeed, .2, "LEFT");
 
-        armToHeight(200);
+        armToHeight(600);
         armMotor.setPower(0.1);
+
+        sleep(500);
+
+        StraightDrive(moveSpeed, .05, "FORWARD");
 
         openClaw();
 
-//        telemetry.addData("Final Zone: ", finalZone);
-//        telemetry.addData("Zone: ", zone);
-//        telemetry.update();
-//
-//        switch(finalZone){
-//            case 1:
-//                break;
-//            case 2:
-//                StraightDrive(moveSpeed, 0.6, "RIGHT");
-//                break;
-//            case 3:
-//                StraightDrive(moveSpeed, 1.2, "RIGHT");
-//                break;
-//        }
+        StraightDrive(moveSpeed, .05, "BACKWARD");
+
+        telemetry.addData("Final Zone: ", finalZone);
+        telemetry.addData("Zone: ", zone);
+        telemetry.update();
+
+        switch(finalZone){
+            case 1:
+                StraightDrive(moveSpeed,.2, "RIGHT");
+                break;
+            case 2:
+                StraightDrive(moveSpeed, 0.2, "LEFT");
+                break;
+            case 3:
+                StraightDrive(moveSpeed, .7, "LEFT");
+                break;
+        }
 
         while (opModeIsActive()){
 
