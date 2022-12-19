@@ -343,7 +343,7 @@ public abstract class DriveDirections extends LinearOpMode {
                 error = absTargetAngle - getCumulativeZ();
                 double proportionalPower = error / dividend;
 
-                if(proportionalPower <= 0.02){
+                if(proportionalPower < 0.2){
                     proportionalPower = 0.2;
                 }
 
@@ -368,7 +368,7 @@ public abstract class DriveDirections extends LinearOpMode {
 
                 double proportionalPower = error / dividend;
 
-                if(proportionalPower <= 0.02){
+                if(proportionalPower < 0.2){
                     proportionalPower = 0.2;
                 }
 
