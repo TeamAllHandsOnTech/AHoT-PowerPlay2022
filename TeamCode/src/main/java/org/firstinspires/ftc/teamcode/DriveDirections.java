@@ -334,8 +334,8 @@ public abstract class DriveDirections extends LinearOpMode {
     public void rotateToZAbs(double absTargetAngle, double dividend){
         sleep(20);
         intergratedHeading = 0;
-        double startAngle = getCumulativeZ();
-        double error = absTargetAngle - getCumulativeZ();
+        double startAngle = getCurrentZ();
+        double error = absTargetAngle - getCurrentZ();
         while(Math.abs(error) > 1){
             while (error > 1) {
 
@@ -365,7 +365,7 @@ public abstract class DriveDirections extends LinearOpMode {
             while (error < -1) {
 
 
-                error = absTargetAngle - getCumulativeZ();
+                error = absTargetAngle - getCurrentZ();
 
                 double proportionalPower = error / dividend;
                 proportionalPower = Math.abs(proportionalPower);
