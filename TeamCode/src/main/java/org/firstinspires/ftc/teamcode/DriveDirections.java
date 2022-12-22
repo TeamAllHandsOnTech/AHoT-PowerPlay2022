@@ -335,12 +335,12 @@ public abstract class DriveDirections extends LinearOpMode {
         sleep(20);
         intergratedHeading = 0;
         double startAngle = getCurrentZ();
-        double error = absTargetAngle - getCurrentZ();
+        double error = absTargetAngle - getCumulativeZ();
         while(Math.abs(error) > 1){
             while (error > 1) {
 
 
-                error = absTargetAngle - getCurrentZ();
+                error = absTargetAngle - getCumulativeZ();
                 double proportionalPower = error / dividend;
                 proportionalPower = Math.abs(proportionalPower);
 
@@ -356,7 +356,7 @@ public abstract class DriveDirections extends LinearOpMode {
                 //            telemetry.addLine("currentZ: " + getCurrentZ());
                 telemetry.addLine("StartAngle: " + startAngle);
                 telemetry.addLine("TargetAngle: " + absTargetAngle);
-                telemetry.addLine("CurrentZ: " + getCurrentZ());
+                telemetry.addLine("Cumulativez: " + getCumulativeZ());
                 telemetry.addLine("Error: " + error);
                 telemetry.addLine("rotation: counter clockwise");
                 telemetry.update();
@@ -365,7 +365,7 @@ public abstract class DriveDirections extends LinearOpMode {
             while (error < -1) {
 
 
-                error = absTargetAngle - getCurrentZ();
+                error = absTargetAngle - getCumulativeZ();
 
                 double proportionalPower = error / dividend;
                 proportionalPower = Math.abs(proportionalPower);
@@ -380,7 +380,7 @@ public abstract class DriveDirections extends LinearOpMode {
                 //telemetry
                 //            telemetry.addLine("currentZ" + getCurrentZ());
                 telemetry.addLine("StartAngle: " + startAngle);
-                telemetry.addLine("currentZ" + getCurrentZ());
+                telemetry.addLine("cumulativez" + getCumulativeZ());
                 telemetry.addLine("Error: " + error);
                 telemetry.addLine("targetAngle: " + absTargetAngle);
                 telemetry.addLine("rotation: clockwise");
