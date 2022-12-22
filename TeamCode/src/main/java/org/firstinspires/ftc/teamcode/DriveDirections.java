@@ -335,12 +335,21 @@ public abstract class DriveDirections extends LinearOpMode {
         sleep(20);
         intergratedHeading = 0;
         double startAngle = getCurrentZ();
-        double error = absTargetAngle - getCumulativeZ();
+        double error = absTargetAngle - getCurrentZ();
+
+        if(error > 180){
+            error -= 360;
+        }
+
+        if(error < -180){
+            error += 360;
+        }
+
         while(Math.abs(error) > 1){
             while (error > 1) {
 
 
-                error = absTargetAngle - getCumulativeZ();
+                error = absTargetAngle - getCurrentZ();
                 double proportionalPower = error / dividend;
                 proportionalPower = Math.abs(proportionalPower);
 
@@ -356,7 +365,7 @@ public abstract class DriveDirections extends LinearOpMode {
                 //            telemetry.addLine("currentZ: " + getCurrentZ());
                 telemetry.addLine("StartAngle: " + startAngle);
                 telemetry.addLine("TargetAngle: " + absTargetAngle);
-                telemetry.addLine("Cumulativez: " + getCumulativeZ());
+                telemetry.addLine("Cumulativez: " + getCurrentZ());
                 telemetry.addLine("Error: " + error);
                 telemetry.addLine("rotation: counter clockwise");
                 telemetry.update();
@@ -365,7 +374,7 @@ public abstract class DriveDirections extends LinearOpMode {
             while (error < -1) {
 
 
-                error = absTargetAngle - getCumulativeZ();
+                error = absTargetAngle - getCurrentZ();
 
                 double proportionalPower = error / dividend;
                 proportionalPower = Math.abs(proportionalPower);
@@ -380,7 +389,7 @@ public abstract class DriveDirections extends LinearOpMode {
                 //telemetry
                 //            telemetry.addLine("currentZ" + getCurrentZ());
                 telemetry.addLine("StartAngle: " + startAngle);
-                telemetry.addLine("cumulativez" + getCumulativeZ());
+                telemetry.addLine("cumulativez" + getCurrentZ());
                 telemetry.addLine("Error: " + error);
                 telemetry.addLine("targetAngle: " + absTargetAngle);
                 telemetry.addLine("rotation: clockwise");
