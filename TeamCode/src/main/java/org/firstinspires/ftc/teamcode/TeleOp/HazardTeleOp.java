@@ -150,5 +150,7 @@ public class HazardTeleOp extends DriveDirections {
                 armStop();
             }
         }
+        telemetry.addLine("heading: " + getCurrentZ());
+        telemetry.update();
     }
 }

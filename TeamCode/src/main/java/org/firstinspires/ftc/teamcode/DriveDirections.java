@@ -344,8 +344,8 @@ public abstract class DriveDirections extends LinearOpMode {
             error += 360;
         }
 
-        while(Math.abs(error) > 1){
-            while (error > 1) {
+        while(Math.abs(error) > 0.5){
+            while (error > 0.5) {
 
 
                 error = absTargetAngle - getCurrentZ();
@@ -376,7 +376,7 @@ public abstract class DriveDirections extends LinearOpMode {
                 telemetry.update();
             }
 
-            while (error < -1) {
+            while (error < -0.5) {
 
 
                 error = absTargetAngle - getCurrentZ();
@@ -399,7 +399,7 @@ public abstract class DriveDirections extends LinearOpMode {
                 //telemetry
                 //            telemetry.addLine("currentZ" + getCurrentZ());
                 telemetry.addLine("StartAngle: " + startAngle);
-                telemetry.addLine("cumulativez" + getCurrentZ());
+                telemetry.addLine("cumulativeZ" + getCurrentZ());
                 telemetry.addLine("Error: " + error);
                 telemetry.addLine("targetAngle: " + absTargetAngle);
                 telemetry.addLine("rotation: clockwise");
