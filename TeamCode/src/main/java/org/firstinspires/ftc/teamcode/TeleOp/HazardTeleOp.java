@@ -39,6 +39,7 @@ import org.firstinspires.ftc.teamcode.DriveDirections;
 
 
 public class HazardTeleOp extends DriveDirections {
+    double zero = 0;
     double powerLevel = 0.8;
 
     @Override
@@ -81,14 +82,18 @@ public class HazardTeleOp extends DriveDirections {
                 DriveInDirection(0, "STOP");
             }
 
+            if(gamepad1.a){
+                resetZero();
+            }
+
             if(gamepad1.dpad_up){
-                rotateToZAbs(0, 50);
+                rotateToZAbs(0, zero);
             } else if(gamepad1.dpad_left){
-                rotateToZAbs(90, 50);
+                rotateToZAbs(90, zero);
             } else if(gamepad1.dpad_right){
-                rotateToZAbs(-90, 50);
+                rotateToZAbs(-90, zero);
             } else if(gamepad1.dpad_down){
-                rotateToZAbs(180, 50);
+                rotateToZAbs(180, zero);
             }
 
             /**GAMEPAD 2**/
@@ -152,5 +157,8 @@ public class HazardTeleOp extends DriveDirections {
         }
         telemetry.addLine("heading: " + getCurrentZ());
         telemetry.update();
+    }
+    void resetZero(){
+        zero = getCurrentZ();
     }
 }

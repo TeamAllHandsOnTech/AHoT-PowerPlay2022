@@ -331,11 +331,12 @@ public abstract class DriveDirections extends LinearOpMode {
         DriveInDirection(power, "FORWARD");
     }
 
-    public void rotateToZAbs(double absTargetAngle, double dividend){
+    public void rotateToZAbs(double absTargetAngle, double zero){
+        double dividend = 50;
         sleep(20);
         intergratedHeading = 0;
         double startAngle = getCurrentZ();
-        double error = absTargetAngle - getCurrentZ();
+        double error = zero + absTargetAngle - getCurrentZ();
 
         if(error > 180){
             error -= 360;
@@ -348,7 +349,7 @@ public abstract class DriveDirections extends LinearOpMode {
             while (error > 0.1) {
 
 
-                error = absTargetAngle - getCurrentZ();
+                error = zero + absTargetAngle - getCurrentZ();
                 if(error > 180){
                     error -= 360;
                 }
@@ -379,7 +380,7 @@ public abstract class DriveDirections extends LinearOpMode {
             while (error < -0.1) {
 
 
-                error = absTargetAngle - getCurrentZ();
+                error = zero + absTargetAngle - getCurrentZ();
                 if(error > 180){
                     error -= 360;
                 }
