@@ -340,7 +340,6 @@ public abstract class DriveDirections extends LinearOpMode {
         if(error > 180){
             error -= 360;
         }
-
         if(error < -180){
             error += 360;
         }
@@ -350,6 +349,12 @@ public abstract class DriveDirections extends LinearOpMode {
 
 
                 error = absTargetAngle - getCurrentZ();
+                if(error > 180){
+                    error -= 360;
+                }
+                if(error < -180){
+                    error += 360;
+                }
                 double proportionalPower = error / dividend;
                 proportionalPower = Math.abs(proportionalPower);
 
@@ -375,7 +380,12 @@ public abstract class DriveDirections extends LinearOpMode {
 
 
                 error = absTargetAngle - getCurrentZ();
-
+                if(error > 180){
+                    error -= 360;
+                }
+                if(error < -180){
+                    error += 360;
+                }
                 double proportionalPower = error / dividend;
                 proportionalPower = Math.abs(proportionalPower);
 
