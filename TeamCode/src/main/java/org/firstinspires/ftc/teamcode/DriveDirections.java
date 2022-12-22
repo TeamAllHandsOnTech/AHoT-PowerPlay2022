@@ -340,7 +340,7 @@ public abstract class DriveDirections extends LinearOpMode {
             while (error > 1) {
 
 
-                error = absTargetAngle - getCumulativeZ();
+                error = absTargetAngle - getCurrentZ();
                 double proportionalPower = error / dividend;
                 proportionalPower = Math.abs(proportionalPower);
 
@@ -356,7 +356,7 @@ public abstract class DriveDirections extends LinearOpMode {
                 //            telemetry.addLine("currentZ: " + getCurrentZ());
                 telemetry.addLine("StartAngle: " + startAngle);
                 telemetry.addLine("TargetAngle: " + absTargetAngle);
-                telemetry.addLine("cumulativeZ: " + getCumulativeZ());
+                telemetry.addLine("CurrentZ: " + getCurrentZ());
                 telemetry.addLine("Error: " + error);
                 telemetry.addLine("rotation: counter clockwise");
                 telemetry.update();
@@ -380,7 +380,7 @@ public abstract class DriveDirections extends LinearOpMode {
                 //telemetry
                 //            telemetry.addLine("currentZ" + getCurrentZ());
                 telemetry.addLine("StartAngle: " + startAngle);
-                telemetry.addLine("cumulativeZ" + getCumulativeZ());
+                telemetry.addLine("currentZ" + getCurrentZ());
                 telemetry.addLine("Error: " + error);
                 telemetry.addLine("targetAngle: " + absTargetAngle);
                 telemetry.addLine("rotation: clockwise");
