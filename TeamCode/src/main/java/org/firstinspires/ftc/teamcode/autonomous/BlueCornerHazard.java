@@ -71,7 +71,7 @@ public class BlueCornerHazard extends DriveDirections
         armMotor.setPower(0.1);
 
         StraightDrive(moveSpeed, 0.9, "LEFT");
-        StraightDrive(0.3, 0.63, "FORWARD");
+        StraightDrive(0.4, 0.63, "FORWARD");
 
         armToHeight(900);
         armMotor.setPower(0.1);
@@ -83,23 +83,27 @@ public class BlueCornerHazard extends DriveDirections
 
         openClaw();
 
-        sleep(1000);
+        sleep(500);
 
         armMotor.setPower(0);
 
         StraightDrive(moveSpeed, 0.05, "BACKWARD");
         StraightDrive(moveSpeed, 0.4, "RIGHT");
-        StraightDrive(moveSpeed, 0.66, "FORWARD");
+        StraightDrive(moveSpeed, 0.6, "FORWARD");
 
-        rotateToZLoc(-90);
+        sleep(750);
+
+        rotateToZAbs(-90, 0);
+
+        sleep(500);
 
 
-        StraightDrive(moveSpeed, 1.12, "FORWARD");
+        StraightDrive(moveSpeed, 1.1, "FORWARD");
 
 
         armMotor.setPower(-0.1);
 
-        sleep(300);
+        sleep(500);
 
         armMotor.setPower(0.1);
 
@@ -116,20 +120,24 @@ public class BlueCornerHazard extends DriveDirections
 
         armToHeight(100);
 
-        sleep(500);
+        sleep(750);
 
-        rotateToZLoc(-90);
+        rotateToZAbs(180, 0);
 
-        StraightDrive(moveSpeed, .5, "FORWARD");
+        sleep(750);
 
-        StraightDrive(moveSpeed, .33, "LEFT");
+        StraightDrive(moveSpeed, .48, "FORWARD");
 
-        armToHeight(500);
+        StraightDrive(moveSpeed, .24, "LEFT");
+
+        armToHeight(450);
         armMotor.setPower(0.1);
 
         sleep(500);
 
-        StraightDrive(moveSpeed, .1, "FORWARD");
+        StraightDrive(0.2, .1, "FORWARD");
+
+        sleep(300);
 
         openClaw();
 
