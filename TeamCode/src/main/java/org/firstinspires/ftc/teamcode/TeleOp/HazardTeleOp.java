@@ -82,8 +82,17 @@ public class HazardTeleOp extends DriveDirections {
                 DriveInDirection(0, "STOP");
             }
 
+            if(gamepad1.y){
+                resetZero(0);
+            }
             if(gamepad1.a){
-                resetZero();
+                resetZero(180);
+            }
+            if(gamepad1.x){
+                resetZero(90);
+            }
+            if(gamepad1.b){
+                resetZero(-90);
             }
 
             if(gamepad1.dpad_up){
@@ -158,7 +167,7 @@ public class HazardTeleOp extends DriveDirections {
         telemetry.addLine("heading: " + getCurrentZ());
         telemetry.update();
     }
-    void resetZero(){
-        zero = getCurrentZ();
+    void resetZero(double degreeOffZero){
+        zero = getCurrentZ() - degreeOffZero;
     }
 }
