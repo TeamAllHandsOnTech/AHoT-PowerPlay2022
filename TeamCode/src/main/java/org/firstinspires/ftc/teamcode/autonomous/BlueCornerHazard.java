@@ -25,7 +25,7 @@ public class BlueCornerHazard extends DriveDirections
     int finalZone;
 
     private ElapsedTime runtime = new ElapsedTime();
-    private double moveSpeed = 0.4;
+    private double moveSpeed = 0.6;
 
     @Override
     public void runOpMode(){
@@ -89,15 +89,17 @@ public class BlueCornerHazard extends DriveDirections
 
         StraightDrive(moveSpeed, 0.05, "BACKWARD");
         StraightDrive(moveSpeed, 0.4, "RIGHT");
-        StraightDrive(moveSpeed, 0.6, "FORWARD");
+        StraightDrive(moveSpeed, 0.66, "FORWARD");
 
         rotateToZLoc(-90);
 
-        StraightDrive(moveSpeed, 1.05, "FORWARD");
 
-        armMotor.setPower(-0.2);
+        StraightDrive(moveSpeed, 1.12, "FORWARD");
 
-        sleep(500);
+
+        armMotor.setPower(-0.1);
+
+        sleep(300);
 
         armMotor.setPower(0.1);
 
@@ -118,20 +120,23 @@ public class BlueCornerHazard extends DriveDirections
 
         rotateToZLoc(-90);
 
-        StraightDrive(moveSpeed, .55, "FORWARD");
+        StraightDrive(moveSpeed, .5, "FORWARD");
 
-        StraightDrive(moveSpeed, .2, "LEFT");
+        StraightDrive(moveSpeed, .33, "LEFT");
 
-        armToHeight(600);
+        armToHeight(500);
         armMotor.setPower(0.1);
 
         sleep(500);
 
-        StraightDrive(moveSpeed, .05, "FORWARD");
+        StraightDrive(moveSpeed, .1, "FORWARD");
 
         openClaw();
 
-        StraightDrive(moveSpeed, .05, "BACKWARD");
+        sleep(500);
+
+        StraightDrive(moveSpeed, .1, "BACKWARD");
+
 
         telemetry.addData("Final Zone: ", finalZone);
         telemetry.addData("Zone: ", zone);
@@ -139,13 +144,13 @@ public class BlueCornerHazard extends DriveDirections
 
         switch(finalZone){
             case 1:
-                StraightDrive(moveSpeed,.2, "RIGHT");
+                StraightDrive(moveSpeed,.3, "RIGHT");
                 break;
             case 2:
-                StraightDrive(moveSpeed, 0.2, "LEFT");
+                StraightDrive(moveSpeed, 0.3, "LEFT");
                 break;
             case 3:
-                StraightDrive(moveSpeed, .7, "LEFT");
+                StraightDrive(moveSpeed, 1 , "LEFT");
                 break;
         }
 

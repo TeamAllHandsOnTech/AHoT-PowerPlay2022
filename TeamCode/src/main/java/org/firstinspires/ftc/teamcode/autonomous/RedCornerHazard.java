@@ -1,8 +1,6 @@
 package org.firstinspires.ftc.teamcode.autonomous;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
-import com.qualcomm.robotcore.hardware.DcMotor;
-import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.robotcore.external.hardware.camera.WebcamName;
@@ -25,14 +23,14 @@ public class RedCornerHazard extends DriveDirections
     int finalZone;
 
     private ElapsedTime runtime = new ElapsedTime();
-    private double moveSpeed = 0.4;
+    private double moveSpeed = 0.6;
 
     @Override
     public void runOpMode(){
 
         webcam = OpenCvCameraFactory.getInstance().createWebcam(hardwareMap.get(WebcamName.class, "Webcam 1"));
 
-        webcam.setPipeline(new RedCornerHazard.SamplePipeline());
+        webcam.setPipeline(new SamplePipeline());
 
         webcam.setMillisecondsPermissionTimeout(1000); // Timeout for obtaining permission is configurable. Set before opening.
         webcam.openCameraDeviceAsync(new OpenCvCamera.AsyncCameraOpenListener()
@@ -61,6 +59,7 @@ public class RedCornerHazard extends DriveDirections
 
         telemetry.addData("Final Zone: ", finalZone);
         telemetry.addData("Zone: ", zone);
+        telemetry.addData("arm height: ", getArmHeight());
         telemetry.update();
 
         closeClaw();
@@ -69,8 +68,8 @@ public class RedCornerHazard extends DriveDirections
         armToHeight(100);
         armMotor.setPower(0.1);
 
-        StraightDrive(moveSpeed, 0.86, "RIGHT");
-        StraightDrive(0.3, 0.64, "FORWARD");
+        StraightDrive(moveSpeed, 0.89, "RIGHT");
+        StraightDrive(0.3, 0.63, "FORWARD");
 
         armToHeight(900);
         armMotor.setPower(0.1);
@@ -88,20 +87,64 @@ public class RedCornerHazard extends DriveDirections
 
         StraightDrive(moveSpeed, 0.05, "BACKWARD");
         StraightDrive(moveSpeed, 0.4, "LEFT");
-        StraightDrive(moveSpeed, 0.5, "FORWARD");
+        StraightDrive(moveSpeed, 0.58, "FORWARD");
+
+        rotateToZLoc(90);
+
+        StraightDrive(moveSpeed, 1.15, "FORWARD");
+
+        armMotor.setPower(-0.1);
+
+        sleep(300);
+
+        armMotor.setPower(0.1);
+
+        closeClaw();
+
+        sleep(500);
+
+        armToHeight(500);
+        armMotor.setPower(0.1);
+
+        sleep(500);
+
+        StraightDrive(moveSpeed, 1.1, "BACKWARD");
+
+        armToHeight(100);
+
+        sleep(500);
+
+        rotateToZLoc(90);
+
+        StraightDrive(moveSpeed, .55, "FORWARD");
+
+        StraightDrive(moveSpeed, .37, "RIGHT");
+
+        armToHeight(500);
+        armMotor.setPower(0.1);
+
+        sleep(500);
+
+        StraightDrive(moveSpeed, .07, "FORWARD");
+
+        openClaw();
+
+        sleep(500);
+
 
         telemetry.addData("Final Zone: ", finalZone);
         telemetry.addData("Zone: ", zone);
         telemetry.update();
 
         switch(finalZone){
-            case 3:
+            case 1:
+                StraightDrive(moveSpeed,1, "RIGHT");
                 break;
             case 2:
-                StraightDrive(moveSpeed, 0.6, "LEFT");
+                StraightDrive(moveSpeed, .3, "RIGHT");
                 break;
-            case 1:
-                StraightDrive(moveSpeed, 1.25, "LEFT");
+            case 3:
+                StraightDrive(moveSpeed, .3, "LEFT");
                 break;
         }
 
