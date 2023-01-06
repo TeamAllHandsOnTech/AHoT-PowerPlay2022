@@ -87,11 +87,11 @@ public class RedCornerHazard extends DriveDirections
 
         StraightDrive(moveSpeed, 0.05, "BACKWARD");
         StraightDrive(moveSpeed, 0.4, "LEFT");
-        StraightDrive(moveSpeed, 0.58, "FORWARD");
+        StraightDrive(moveSpeed, 0.53, "FORWARD");
 
-        rotateToZLoc(90);
+        rotateToZAbs(90, 0);
 
-        StraightDrive(moveSpeed, 1.15, "FORWARD");
+        StraightDrive(moveSpeed, 1.14, "FORWARD");
 
         armMotor.setPower(-0.1);
 
@@ -114,18 +114,24 @@ public class RedCornerHazard extends DriveDirections
 
         sleep(500);
 
-        rotateToZLoc(90);
+        rotateToZAbs(180, 0);
 
         StraightDrive(moveSpeed, .55, "FORWARD");
 
-        StraightDrive(moveSpeed, .37, "RIGHT");
+        StraightDrive(moveSpeed, .39, "RIGHT");
 
-        armToHeight(500);
+        armToHeight(550);
         armMotor.setPower(0.1);
 
         sleep(500);
 
         StraightDrive(moveSpeed, .07, "FORWARD");
+
+        armMotor.setPower(-0.2);
+
+        sleep(300);
+
+        armMotor.setPower(0);
 
         openClaw();
 
