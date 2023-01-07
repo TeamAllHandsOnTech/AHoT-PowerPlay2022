@@ -89,7 +89,7 @@ public class BlueCornerHazard extends DriveDirections
 
         StraightDrive(moveSpeed, 0.05, "BACKWARD");
         StraightDrive(moveSpeed, 0.4, "RIGHT");
-        StraightDrive(moveSpeed, 0.58, "FORWARD");
+        StraightDrive(moveSpeed, 0.53, "FORWARD");
 
         sleep(750);
 
@@ -125,7 +125,7 @@ public class BlueCornerHazard extends DriveDirections
 
         sleep(750);
 
-        StraightDrive(moveSpeed, .46, "FORWARD");
+        StraightDrive(moveSpeed, .51, "FORWARD");
 
         StraightDrive(moveSpeed, .24, "LEFT");
 
