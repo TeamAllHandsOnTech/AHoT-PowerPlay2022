@@ -1,7 +1,10 @@
 package org.firstinspires.ftc.teamcode;
 
+import android.graphics.Color;
+
 import com.qualcomm.hardware.kauailabs.NavxMicroNavigationSensor;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
+import com.qualcomm.robotcore.hardware.ColorSensor;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.IntegratingGyroscope;
@@ -568,6 +571,25 @@ public abstract class DriveDirections extends LinearOpMode {
     //used this explanation
     public double MapRange(double min1, double max1, double min2, double max2, double input){
         return(min2 + ((input - min1)*(max2 - min2)/(max1 - min1)));
+    }
+
+    public void initColor(){
+        ColorSensor colorSensor = hardwareMap.get(ColorSensor.class, "colorV3");
+    }
+
+    public String senseColor(ColorSensor color){
+        int red = color.red();
+        int green = color.green();
+        int blue = color.blue();
+
+        if(red > green && red > blue){
+            return "Red";
+        } else if(green > blue){
+            return "Green";
+        } else {
+            return "Blue";
+        }
+
     }
 
 
