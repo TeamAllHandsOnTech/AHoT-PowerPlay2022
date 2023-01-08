@@ -61,11 +61,11 @@ public class BlueCornerHazardAltColor extends DriveDirections
         runtime.reset();
 
         for (int i=0; i<10; i++) {
-            StraightDrive(moveSpeed, 1, "RIGHT");
+            StraightDrive(moveSpeed, 0.1, "RIGHT");
             sleep(500);
         }
         for (int i=0; i<10; i++) {
-            StraightDrive(moveSpeed, 1, "FORWARD");
+            StraightDrive(moveSpeed, 0.1, "FORWARD");
             sleep(500);
         }
 
