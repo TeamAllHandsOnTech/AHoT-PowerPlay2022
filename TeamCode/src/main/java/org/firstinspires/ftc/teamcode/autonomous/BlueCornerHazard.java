@@ -99,7 +99,7 @@ public class BlueCornerHazard extends DriveDirections
         sleep(500);
 
 
-        StraightDrive(moveSpeed, 1.09, "FORWARD");
+        StraightDrive(moveSpeed, 1.07, "FORWARD");
 
         armMotor.setPower(-0.1);
 
@@ -128,7 +128,7 @@ public class BlueCornerHazard extends DriveDirections
 
         StraightDrive(moveSpeed, .4, "FORWARD");
 
-        StraightDrive(moveSpeed, .28, "LEFT");
+        StraightDrive(moveSpeed, .26, "LEFT");
 
         armToHeight(550);
 

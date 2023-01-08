@@ -92,7 +92,7 @@ public class RedCornerHazard extends DriveDirections
 
         rotateToZAbs(90, 0);
 
-        StraightDrive(moveSpeed, 1.13, "FORWARD");
+        StraightDrive(moveSpeed, 1.16, "FORWARD");
 
         armMotor.setPower(-0.1);
 
@@ -119,7 +119,7 @@ public class RedCornerHazard extends DriveDirections
 
         StraightDrive(moveSpeed, .54, "FORWARD");
 
-        StraightDrive(moveSpeed, .4, "RIGHT");
+        StraightDrive(moveSpeed, .36, "RIGHT");
 
         armToHeight(550);
         armMotor.setPower(0.1);
