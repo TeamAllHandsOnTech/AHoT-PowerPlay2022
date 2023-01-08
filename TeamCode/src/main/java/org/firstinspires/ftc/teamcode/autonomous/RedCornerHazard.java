@@ -68,11 +68,11 @@ public class RedCornerHazard extends DriveDirections
         armToHeight(100);
         armMotor.setPower(0.1);
 
-        StraightDrive(moveSpeed, 0.88, "RIGHT");
+        StraightDrive(moveSpeed, 0.87, "RIGHT");
         DriveForTime("BACKWARD", moveSpeed, 0.2);
         StraightDrive(0.3, 0.63, "FORWARD");
 
-        armToHeight(900);
+        armToHeight(925);
         armMotor.setPower(0.1);
 
         StraightDriveNoSlow(0.22, 0.12, "FORWARD");
@@ -109,7 +109,7 @@ public class RedCornerHazard extends DriveDirections
 
         sleep(500);
 
-        StraightDrive(moveSpeed, 1.13, "BACKWARD");
+        StraightDrive(moveSpeed, 1.09, "BACKWARD");
 
         armToHeight(100);
 
