@@ -1,6 +1,7 @@
 package org.firstinspires.ftc.teamcode.autonomous;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.hardware.ColorSensor;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.util.ElapsedTime;
@@ -17,10 +18,13 @@ import org.openftc.easyopencv.OpenCvCameraRotation;
 import org.openftc.easyopencv.OpenCvPipeline;
 import org.openftc.easyopencv.OpenCvWebcam;
 
+import com.qualcomm.robotcore.hardware.ColorSensor;
+
 @Autonomous(name="BlueCornerHazardAltColor", group="B")
 public class BlueCornerHazardAltColor extends DriveDirections
 {
     OpenCvWebcam webcam;
+    ColorSensor color;
     protected int zone;
     int finalZone;
 
@@ -49,6 +53,8 @@ public class BlueCornerHazardAltColor extends DriveDirections
             }
         });
 
+        color = hardwareMap.get(ColorSensor.class, "colorV3");
+
         isHazard = true;
 
         super.runOpMode();
@@ -60,14 +66,15 @@ public class BlueCornerHazardAltColor extends DriveDirections
 
         runtime.reset();
 
-        for (int i=0; i<10; i++) {
-            StraightDrive(moveSpeed, 0.1, "RIGHT");
-            sleep(500);
+        StraightDrive(moveSpeed, 0.8, "RIGHT");
+        
+        StraightDrive(moveSpeed, 0.5, "RIGHT");
+
+        while(senseColor(color)!="blue"){
+            DriveInDirection(0.3,"FORWARD");
         }
-        for (int i=0; i<10; i++) {
-            StraightDrive(moveSpeed, 0.1, "FORWARD");
-            sleep(500);
-        }
+        DriveInDirection(0,"STOP");
+
 
     }
 
