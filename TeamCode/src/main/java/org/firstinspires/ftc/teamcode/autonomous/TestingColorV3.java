@@ -21,6 +21,9 @@ public class TestingColorV3 extends DriveDirections {
 
         // While the Op Mode is running, update the telemetry values.
         while (opModeIsActive()) {
+            telemetry.addData("red", color.red());
+            telemetry.addData("green", color.green());
+            telemetry.addData("blue", color.blue());
             telemetry.addData("Color", senseColor(color));
             telemetry.update();
         }
