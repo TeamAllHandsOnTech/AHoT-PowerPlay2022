@@ -70,10 +70,12 @@ public class BlueCornerHazardAltColor extends DriveDirections
 
         rotateToZLoc(-90);
 
-        StraightDrive(moveSpeed, 0.8, "FORWARD");
+        StraightDrive(moveSpeed, 0.9, "FORWARD");
+
+        openClaw();
+        StraightDrive(moveSpeed, 0.1, "BACKWARD");
 
         StraightDrive(moveSpeed, 0.5, "LEFT");
-
         while(senseColor(color)!="Blue") {
             DriveInDirection(moveSpeed, "FORWARD");
         }
