@@ -66,14 +66,20 @@ public class BlueCornerHazardAltColor extends DriveDirections
 
         runtime.reset();
 
-        StraightDrive(moveSpeed, 0.8, "RIGHT");
-        
-        StraightDrive(moveSpeed, 0.5, "RIGHT");
+        StraightDrive(moveSpeed, 0.1, "FORWARD");
 
-        while(senseColor(color)!="blue"){
-            DriveInDirection(0.3,"FORWARD");
+        rotateToZLoc(-90);
+
+        StraightDrive(moveSpeed, 0.8, "FORWARD");
+
+        StraightDrive(moveSpeed, 0.5, "LEFT");
+
+        while(senseColor(color)!="Blue") {
+            DriveInDirection(moveSpeed, "FORWARD");
         }
-        DriveInDirection(0,"STOP");
+
+        DriveInDirection(0, "STOP");
+
 
 
     }
