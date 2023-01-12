@@ -56,6 +56,9 @@ public class BlueCornerHazardAltColor extends DriveDirections
 
         frontColor = hardwareMap.get(ColorSensor.class, "frontColor");
         backColor = hardwareMap.get(ColorSensor.class, "backColor");
+        boolean frontColorColor = senseColor(frontColor)=="Blue"||senseColor(frontColor)=="Red";
+        boolean backColorColor = senseColor(backColor)=="Blue"||senseColor(backColor)=="Red";
+
 
         isHazard = true;
 
@@ -78,11 +81,16 @@ public class BlueCornerHazardAltColor extends DriveDirections
         StraightDrive(moveSpeed, 0.05, "BACKWARD");
 
         StraightDrive(moveSpeed, 0.5, "LEFT");
-        while(senseColor(frontColor)!="Blue"||senseColor(frontColor)!="Red") {
-            DriveInDirection(moveSpeed, "FORWARD");
+        while(!frontColorColor && !backColorColor) {
+            DriveInDirection(moveSpeed, "LEFT");
+            sleep(2);
+            if(!frontColorColor || !backColorColor) {
+                DriveInDirection(moveSpeed, "ROTATE_LEFT");
+                sleep(2);
+            }
         }
-
         DriveInDirection(0, "STOP");
+
 
 
 
