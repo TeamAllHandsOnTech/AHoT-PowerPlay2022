@@ -9,22 +9,36 @@ import org.firstinspires.ftc.teamcode.DriveDirections;
 @TeleOp
 public class TestingColorV3 extends DriveDirections {
     // Define a variable for our color sensor
-    ColorSensor color;
+    ColorSensor frontColor;
+    ColorSensor backColor;
 
     @Override
     public void runOpMode() {
         // Get the color sensor from hardwareMap
-        color = hardwareMap.get(ColorSensor.class, "colorV3");
+        frontColor = hardwareMap.get(ColorSensor.class, "frontColor");
+        backColor = hardwareMap.get(ColorSensor.class, "backColor");
 
         // Wait for the Play button to be pressed
         waitForStart();
 
+        while(frontColor.blue() <= 300 || backColor.blue() <= 300){
+            //Drive Right
+            DriveInDirection(0.1, "RIGHT");
+            if(frontColor.blue() > 300 && backColor.blue() <= 300){
+                //Rotate Left
+                DriveInDirection(0.1, "ROTATE_LEFT");
+            } else if(frontColor.blue() > 300 && backColor.blue() <= 300){
+                // Rotate Right
+                DriveInDirection(0.1, "ROTATE_RIGHT");
+            }
+        }
+
         // While the Op Mode is running, update the telemetry values.
         while (opModeIsActive()) {
-            telemetry.addData("red", color.red());
-            telemetry.addData("green", color.green());
-            telemetry.addData("blue", color.blue());
-            telemetry.addData("Color", senseColor(color));
+            telemetry.addData("red", frontColor.red());
+            telemetry.addData("green", frontColor.green());
+            telemetry.addData("blue", frontColor.blue());
+            telemetry.addData("Color", senseColor(frontColor));
             telemetry.update();
         }
     }
