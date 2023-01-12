@@ -81,6 +81,10 @@ public class BlueCornerHazardAltColor extends DriveDirections
                 frontColorColor = senseColor(frontColor) == "Blue" || senseColor(frontColor) == "Red";
                 backColorColor = senseColor(backColor) == "Blue" || senseColor(backColor) == "Red";
 
+                telemetry.addLine("Front color: "+senseColor(frontColor));
+                telemetry.addLine("Back color: "+senseColor(backColor));
+                telemetry.update();
+
                 DriveInDirection(moveSpeed/2, "LEFT");
 
                 if (frontColorColor && !backColorColor) {
