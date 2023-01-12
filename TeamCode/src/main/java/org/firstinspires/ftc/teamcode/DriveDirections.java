@@ -348,8 +348,8 @@ public abstract class DriveDirections extends LinearOpMode {
             error += 360;
         }
 
-        while(Math.abs(error) > 0.1){
-            while (error > 0.1) {
+        while(Math.abs(error) > 0.5){
+            while (error > 0.5) {
 
                 if(error > 180){
                     error -= 360;
@@ -380,7 +380,7 @@ public abstract class DriveDirections extends LinearOpMode {
                 error = zero + absTargetAngle - getCurrentZ();
             }
 
-            while (error < -0.1) {
+            while (error < -0.5) {
                 if(error > 180){
                     error -= 360;
                 }
