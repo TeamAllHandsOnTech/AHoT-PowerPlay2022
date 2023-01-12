@@ -53,7 +53,7 @@ public class BlueCornerHazardAltColor extends DriveDirections
             }
         });
 
-        color = hardwareMap.get(ColorSensor.class, "colorV3");
+        color = hardwareMap.get(ColorSensor.class, "frontColor");
 
         isHazard = true;
 
