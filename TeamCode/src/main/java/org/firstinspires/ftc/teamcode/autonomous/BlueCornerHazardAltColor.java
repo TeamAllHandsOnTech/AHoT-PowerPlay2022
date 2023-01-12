@@ -73,17 +73,17 @@ public class BlueCornerHazardAltColor extends DriveDirections
 
         rotateToZLoc(-90);
 
-        StraightDrive(moveSpeed, 0.8, "FORWARD");
+        StraightDrive(moveSpeed, 0.7, "FORWARD");
 
-        openClaw();
-        StraightDrive(moveSpeed, 0.05, "BACKWARD");
-
-        StraightDrive(moveSpeed, 0.5, "LEFT");
+        StraightDrive(moveSpeed, 0.7, "LEFT");
         //for(int i=5; i>3;i--) {
             while (!frontColorColor && !backColorColor) {
-                DriveInDirection(moveSpeed, "LEFT");
+                frontColorColor = senseColor(frontColor) == "Blue" || senseColor(frontColor) == "Red";
+                backColorColor = senseColor(backColor) == "Blue" || senseColor(backColor) == "Red";
+                
+                DriveInDirection(moveSpeed/2, "LEFT");
                 if (frontColorColor && !backColorColor || !frontColorColor && backColorColor) {
-                    DriveInDirection(moveSpeed, "ROTATE_LEFT");
+                    DriveInDirection(moveSpeed/2, "ROTATE_LEFT");
                 }
                 DriveInDirection(0, "STOP");
             }
