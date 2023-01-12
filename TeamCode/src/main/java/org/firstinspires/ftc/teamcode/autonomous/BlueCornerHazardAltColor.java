@@ -24,7 +24,8 @@ import com.qualcomm.robotcore.hardware.ColorSensor;
 public class BlueCornerHazardAltColor extends DriveDirections
 {
     OpenCvWebcam webcam;
-    ColorSensor color;
+    ColorSensor frontColor;
+    ColorSensor backColor;
     protected int zone;
     int finalZone;
 
@@ -53,7 +54,8 @@ public class BlueCornerHazardAltColor extends DriveDirections
             }
         });
 
-        color = hardwareMap.get(ColorSensor.class, "frontColor");
+        frontColor = hardwareMap.get(ColorSensor.class, "frontColor");
+        backColor = hardwareMap.get(ColorSensor.class, "backColor");
 
         isHazard = true;
 
@@ -70,13 +72,13 @@ public class BlueCornerHazardAltColor extends DriveDirections
 
         rotateToZLoc(-90);
 
-        StraightDrive(moveSpeed, 0.9, "FORWARD");
+        StraightDrive(moveSpeed, 0.8, "FORWARD");
 
         openClaw();
-        StraightDrive(moveSpeed, 0.1, "BACKWARD");
+        StraightDrive(moveSpeed, 0.05, "BACKWARD");
 
         StraightDrive(moveSpeed, 0.5, "LEFT");
-        while(senseColor(color)!="Blue"||senseColor(color)!="Red") {
+        while(senseColor(frontColor)!="Blue"||senseColor(frontColor)!="Red") {
             DriveInDirection(moveSpeed, "FORWARD");
         }
 
