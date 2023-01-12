@@ -14,12 +14,16 @@ public class TestingColorV3 extends DriveDirections {
 
     @Override
     public void runOpMode() {
+
+        super.runOpMode();
         // Get the color sensor from hardwareMap
         frontColor = hardwareMap.get(ColorSensor.class, "frontColor");
         backColor = hardwareMap.get(ColorSensor.class, "backColor");
 
         // Wait for the Play button to be pressed
         waitForStart();
+
+
 
         while(frontColor.blue() <= 300 || backColor.blue() <= 300){
             //Drive Right
