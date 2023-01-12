@@ -117,7 +117,7 @@ public class RedCornerHazard extends DriveDirections
 
         rotateToZAbs(180, 0);
 
-        StraightDrive(moveSpeed, .54, "FORWARD");
+        StraightDrive(moveSpeed, .5, "FORWARD");
 
         StraightDrive(moveSpeed, .36, "RIGHT");
 
