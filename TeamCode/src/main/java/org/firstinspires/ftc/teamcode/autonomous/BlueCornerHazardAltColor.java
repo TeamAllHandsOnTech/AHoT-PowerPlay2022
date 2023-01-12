@@ -76,7 +76,7 @@ public class BlueCornerHazardAltColor extends DriveDirections
         StraightDrive(moveSpeed, 0.1, "BACKWARD");
 
         StraightDrive(moveSpeed, 0.5, "LEFT");
-        while(senseColor(color)!="Blue") {
+        while(senseColor(color)!="Blue"||senseColor(color)!="Red") {
             DriveInDirection(moveSpeed, "FORWARD");
         }
 
