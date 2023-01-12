@@ -33,31 +33,29 @@ public class BlueCornerHazardAltColor extends DriveDirections
     private double moveSpeed = 0.6;
 
     @Override
-    public void runOpMode(){
+    public void runOpMode() {
 
         webcam = OpenCvCameraFactory.getInstance().createWebcam(hardwareMap.get(WebcamName.class, "Webcam 1"));
 
         webcam.setPipeline(new SamplePipeline());
 
         webcam.setMillisecondsPermissionTimeout(1000); // Timeout for obtaining permission is configurable. Set before opening.
-        webcam.openCameraDeviceAsync(new OpenCvCamera.AsyncCameraOpenListener()
-        {
+        webcam.openCameraDeviceAsync(new OpenCvCamera.AsyncCameraOpenListener() {
             @Override
-            public void onOpened()
-            {
+            public void onOpened() {
                 webcam.startStreaming(320, 240, OpenCvCameraRotation.UPRIGHT);
             }
 
             @Override
-            public void onError(int errorCode){
+            public void onError(int errorCode) {
 
             }
         });
 
         frontColor = hardwareMap.get(ColorSensor.class, "frontColor");
         backColor = hardwareMap.get(ColorSensor.class, "backColor");
-        boolean frontColorColor = senseColor(frontColor)=="Blue"||senseColor(frontColor)=="Red";
-        boolean backColorColor = senseColor(backColor)=="Blue"||senseColor(backColor)=="Red";
+        boolean frontColorColor = senseColor(frontColor) == "Blue" || senseColor(frontColor) == "Red";
+        boolean backColorColor = senseColor(backColor) == "Blue" || senseColor(backColor) == "Red";
 
 
         isHazard = true;
@@ -81,13 +79,15 @@ public class BlueCornerHazardAltColor extends DriveDirections
         StraightDrive(moveSpeed, 0.05, "BACKWARD");
 
         StraightDrive(moveSpeed, 0.5, "LEFT");
-        while(!frontColorColor && !backColorColor) {
-            DriveInDirection(moveSpeed, "LEFT");
-            if(frontColorColor || backColorColor) {
-                DriveInDirection(moveSpeed, "ROTATE_LEFT");
+        //for(int i=5; i>3;i--) {
+            while (!frontColorColor && !backColorColor) {
+                DriveInDirection(moveSpeed, "LEFT");
+                if (frontColorColor && !backColorColor || !frontColorColor && backColorColor) {
+                    DriveInDirection(moveSpeed, "ROTATE_LEFT");
+                }
+                DriveInDirection(0, "STOP");
             }
-        }
-        DriveInDirection(0, "STOP");
+        //}
 
 
 
