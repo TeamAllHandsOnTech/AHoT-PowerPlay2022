@@ -65,7 +65,7 @@ public class BlueCornerHazardAltColor extends DriveDirections
         initArm();
 
         waitForStart();
-        closeClaw();
+        openClaw();
 
         runtime.reset();
 
@@ -73,10 +73,10 @@ public class BlueCornerHazardAltColor extends DriveDirections
 
         rotateToZLoc(-90);
 
-        StraightDrive(moveSpeed, 0.6, "FORWARD");
+        StraightDrive(moveSpeed, 0.55, "FORWARD");
 
         StraightDrive(moveSpeed, 0.7, "LEFT");
-        //for(int i=5; i>3;i--) {
+        for(int i=5; i>3;i--) {
             while (!frontColorColor && !backColorColor) {
                 frontColorColor = senseColor(frontColor) != "Green";
                 backColorColor = senseColor(backColor) != "Green";
@@ -94,7 +94,21 @@ public class BlueCornerHazardAltColor extends DriveDirections
                 }
             }
             DriveInDirection(0, "STOP");
-        //}
+
+            StraightDrive(moveSpeed,0.05,"RIGHT");
+            StraightDrive(moveSpeed,0.05,"FORWARD");
+
+            armToHeight(i*25);
+            closeClaw();
+
+            rightFrontDrive.setPower(-moveSpeed);
+            leftFrontDrive.setPower(moveSpeed);
+            sleep(200);
+            DriveInDirection(0, "STOP");
+
+            StraightDrive(moveSpeed,0.1,"FORWARD");
+
+        }
 
 
 
