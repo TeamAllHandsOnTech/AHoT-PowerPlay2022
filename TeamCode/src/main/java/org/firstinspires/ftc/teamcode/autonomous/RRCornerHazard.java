@@ -92,7 +92,7 @@ public class RRCornerHazard extends DriveDirections
 
         rotateToZAbs(90, 0);
 
-        StraightDrive(moveSpeed, 1.14, "FORWARD");
+        StraightDrive(moveSpeed, 1.16, "FORWARD");
 
 //        armMotor.setPower(-0.1);
 //
@@ -119,14 +119,14 @@ public class RRCornerHazard extends DriveDirections
 
         StraightDrive(moveSpeed, .5, "FORWARD");
 
-        StraightDrive(moveSpeed, .38, "RIGHT");
+        StraightDrive(moveSpeed, .23, "RIGHT");
 
         armToHeight(550);
         armMotor.setPower(0.1);
 
         sleep(500);
 
-        StraightDrive(moveSpeed, .07, "FORWARD");
+        StraightDrive(moveSpeed, .1, "FORWARD");
 
         armMotor.setPower(-0.2);
 
@@ -145,7 +145,7 @@ public class RRCornerHazard extends DriveDirections
 
         switch(finalZone){
             case 1:
-                StraightDrive(moveSpeed,1, "RIGHT");
+                StraightDrive(moveSpeed,1.3, "RIGHT");
                 break;
             case 2:
                 StraightDrive(moveSpeed, .3, "RIGHT");
