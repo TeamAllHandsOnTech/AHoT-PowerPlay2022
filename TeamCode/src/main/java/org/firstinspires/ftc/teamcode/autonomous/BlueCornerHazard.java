@@ -128,7 +128,7 @@ public class BlueCornerHazard extends DriveDirections
 
         StraightDrive(moveSpeed, .45, "FORWARD");
 
-        StraightDrive(moveSpeed, .26, "LEFT");
+        StraightDrive(moveSpeed, .23, "LEFT");
 
         armToHeight(550);
 
@@ -136,7 +136,7 @@ public class BlueCornerHazard extends DriveDirections
 
         sleep(500);
 
-        StraightDrive(0.2, .12, "FORWARD");
+        StraightDrive(0.2, .09, "FORWARD");
 
         armMotor.setPower(-0.2);
         sleep(300);
@@ -181,23 +181,16 @@ public class BlueCornerHazard extends DriveDirections
 
         boolean viewportPaused;
 
-        Scalar greenLower = new Scalar(30, 127, 50);
-        Scalar greenHigher = new Scalar(90, 255, 175);
+        Scalar greenLower = new Scalar(30, 75, 75);
+        Scalar greenHigher = new Scalar(90, 255, 255);
 
-        Scalar blueLower = new Scalar(90, 127, 100);
+        Scalar blueLower = new Scalar(90, 110, 50);
         Scalar blueHigher = new Scalar(100, 255, 255);
 
-        Scalar pinkLower = new Scalar(150, 127, 100);
-        Scalar pinkHigher = new Scalar(170, 255, 255);
+        Scalar pinkLower = new Scalar(150, 100, 100);
+        Scalar pinkHigher = new Scalar(170, 200, 255);
 
-        /*
-         * NOTE: if you wish to use additional Mat objects in your processing pipeline, it is
-         * highly recommended to declare them here as instance variables and re-use them for
-         * each invocation of processFrame(), rather than declaring them as new local variables
-         * each time through processFrame(). This removes the danger of causing a memory leak
-         * by forgetting to call mat.release(), and it also reduces memory pressure by not
-         * constantly allocating and freeing large chunks of memory.
-         */
+
 
         @Override
         public Mat processFrame(Mat input) {

@@ -29,63 +29,167 @@
 
 package org.firstinspires.ftc.teamcode.TeleOp;
 
-import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 
 import org.firstinspires.ftc.teamcode.DriveDirections;
 
-@TeleOp(name="Malevolent Trauma TeleOp", group="Trauma")
+@TeleOp(name="Trauma TeleOp", group="Trauma")
 
 
 public class MalevolentTraumaTeleOp extends DriveDirections {
+    double zero = 0;
     double powerLevel = 0.8;
 
     @Override
     public void runOpMode() {
+        isHazard=false;
         super.runOpMode();
+        leftFrontDrive.setDirection(DcMotor.Direction.REVERSE);
+        leftBackDrive.setDirection(DcMotor.Direction.REVERSE);
+        rightFrontDrive.setDirection(DcMotor.Direction.FORWARD);
+        rightBackDrive.setDirection(DcMotor.Direction.FORWARD);
+
+        double lfPower = 0;
+        double lbPower = 0;
+        double rfPower = 0;
+        double rbPower = 0;
+
+        initArm();
         waitForStart();
 
         while (opModeIsActive()) {
+            /**GAMEPAD 1**/
             //slow down power if bumper is pressed
-            if(gamepad1.left_bumper){
+            if (gamepad1.left_bumper) {
                 powerLevel = 0.3;
-            }else if(gamepad1.right_bumper){
+            } else if (gamepad1.right_bumper) {
                 powerLevel = 0.6;
-            }else{
+            } else {
                 powerLevel = 0.8;
             }
-
+            telemetry.addData("gamepad2 right stick", gamepad2.right_stick_x);
+            telemetry.update();
             //Checks if the left joystick is moved significantly, otherwise makes sure the motors are stopped
             //Aka "If X or Y are moved more than .1"
             if (Math.abs(gamepad1.left_stick_y) > .1 || Math.abs(gamepad1.left_stick_x) > .1) {
                 //Checks if joystick moved more up than side to side, if so, move forward or backward
-                //"If joystick moved more horizontally than vertically, strafe"
-                if (Math.abs(gamepad1.left_stick_x) > Math.abs(gamepad1.left_stick_y)) {
-                    DriveInDirection(gamepad1.left_stick_y * powerLevel,"RIGHT");
+                //"If joystick moved more vertically than horizontally, then move forward/backward"
+                if (Math.abs(gamepad1.left_stick_x) < Math.abs(gamepad1.left_stick_y)) {
+                    DriveInDirection((gamepad1.left_stick_y * -powerLevel), "FORWARD");
+                    lfPower = leftFrontDrive.getPower();
+                    lbPower = leftBackDrive.getPower();
+                    rfPower = rightFrontDrive.getPower();
+                    rbPower = rightBackDrive.getPower();
+
+                    if(lfPower < 0){lfPower = 0;}
+                    if(lbPower < 0){lbPower = 0;}
+                    if(rfPower < 0){rfPower = 0;}
+                    if(rbPower < 0){rbPower = 0;}
+
+//                    leftFrontDrive.setPower(lfPower + gamepad1.right_stick_x * 2);
+//                    leftBackDrive.setPower(lbPower + gamepad1.right_stick_x * 2);
+//                    rightFrontDrive.setPower(rfPower + gamepad1.right_stick_x * 2);
+//                    rightBackDrive.setPower(rbPower + gamepad1.right_stick_x * 2);
                     //Checks if moved more horizontally than up and down, if so, strafes
-                    //"If joystick moved more vertically than horizontally, then move forward/backward"
-                } else if (Math.abs(gamepad1.left_stick_y) > Math.abs(gamepad1.left_stick_x)) {
-                    DriveInDirection(gamepad1.left_stick_x * powerLevel,"FORWARD");
+                    //"If joystick moved more horizontally than vertically, strafe"
+                } else if (Math.abs(gamepad1.left_stick_y) < Math.abs(gamepad1.left_stick_x)) {
+                    DriveInDirection((gamepad1.left_stick_x * powerLevel) + ((gamepad1.right_stick_x * 0.1)), "RIGHT");
                 }
                 //Check if the right joystick is moved significantly, otherwise motors are stopped
-            }else if(Math.abs(gamepad1.right_stick_x) > 0.1){
-                DriveInDirection(gamepad1.right_stick_x * powerLevel,"ROTATE_LEFT");
+            } else if (Math.abs(gamepad1.right_stick_x) > 0.1) {
+                DriveInDirection(gamepad1.right_stick_x * powerLevel, "ROTATE_RIGHT");
             } else {
-                DriveInDirection(0,"STOP");
+                DriveInDirection(0, "STOP");
+            }
+
+            if(gamepad1.y){
+                resetZero(0);
+            }
+            if(gamepad1.a){
+                resetZero(180);
+            }
+            if(gamepad1.x){
+                resetZero(90);
+            }
+            if(gamepad1.b){
+                resetZero(-90);
             }
 
             if(gamepad1.dpad_up){
-                rotateToZAbs(0, 50);
+                rotateToZAbs(0, zero);
             } else if(gamepad1.dpad_left){
-                rotateToZAbs(90, 50);
+                rotateToZAbs(90, zero);
             } else if(gamepad1.dpad_right){
-                rotateToZAbs(-90, 50);
+                rotateToZAbs(-90, zero);
             } else if(gamepad1.dpad_down){
-                rotateToZAbs(180, 50);
+                rotateToZAbs(180, zero);
             }
 
+            /**GAMEPAD 2**/
+
+
+            //Distances have not been learned yet
+
+//            double targetHeight = 0;
+//            boolean setHeight = false;
+//            if (gamepad2.dpad_down) { //Ground Junction
+//                targetHeight=1;
+//                setHeight = true;
+//                //1
+//            } else if (gamepad2.dpad_left) { //Low Junction
+//                targetHeight=346;
+//                setHeight = true;
+//                //346
+//            } else if (gamepad2.dpad_right) { //Medium  Junction
+//                targetHeight=600;
+//                setHeight = true;
+//                //600
+//            } else if (gamepad2.dpad_up) { //High  Junction
+//                targetHeight=854;
+//                setHeight = true;
+//                //854
+//            }
+//            //Arm to height code doesn't work currently
+
+//            double currentHeight = getArmHeight();
+//            double error = targetHeight + currentHeight;
+//
+//            if (setHeight==true && Math.abs(error)>10) {
+//                telemetry.addData("error: ", error);
+//                telemetry.addData("Current Height: ", currentHeight);
+//                telemetry.update();
+//                armMotor.setPower(error / 100);
+//            } else {
+//                setHeight = false;
+//              }
+
+            double armPower = 0;
+            if (Math.abs(gamepad2.left_stick_y) > 0.1){
+                armPower = gamepad2.left_stick_y*0.75;
+            } else {
+                armPower = 0;
+            }
+            if (Math.abs(gamepad2.right_stick_y) > 0.1){
+                armPower = gamepad2.right_stick_y*0.9;
+            }
+            armMotor.setPower(-armPower);
+
+            if(gamepad2.right_bumper){
+                closeClaw();
+
+            }else if (!isClawOpen()){
+                openClaw();
+            }
+            if(gamepad2.left_bumper){
+                armStop();
+            }
         }
+        telemetry.addLine("heading: " + getCurrentZ());
+        telemetry.update();
+    }
+    void resetZero(double degreeOffZero){
+        zero = getCurrentZ() - degreeOffZero;
     }
 }
