@@ -111,7 +111,8 @@ public class BlueCornerHazardAltColor extends DriveDirections
             DriveInDirection(0, "STOP");
             armMotor.setPower(0.3);
             sleep(i*30);
-            StraightDrive(moveSpeed2,0.15,"RIGHT");
+            armMotor.setPower(0);
+            StraightDrive(moveSpeed2,0.1,"RIGHT");
             StraightDrive(moveSpeed2,0.15,"FORWARD");
             closeClaw();
             sleep(1000000);
