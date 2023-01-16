@@ -307,9 +307,6 @@ public abstract class DriveDirections extends LinearOpMode {
             error = getCumulativeZ() - target;
             powerDifference = error / 90;
 
-
-
-
             rightFrontClicks = Math.abs(rightFrontDrive.getCurrentPosition());
             leftFrontClicks = Math.abs(leftFrontDrive.getCurrentPosition());
             rightBackClicks = Math.abs(rightBackDrive.getCurrentPosition());
