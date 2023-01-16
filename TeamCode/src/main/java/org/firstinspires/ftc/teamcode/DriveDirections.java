@@ -468,21 +468,6 @@ public abstract class DriveDirections extends LinearOpMode {
     }
 
 
-    public int fakeVision() {
-        int location;
-        location = (int) Math.random() * 3 + 1;
-        if (location==1) {
-            return 1;
-        } else if (location==2) {
-            return 2;
-        } else if (location==3) {
-            return 3;
-        }else{
-            return 0;
-        }
-    }
-
-
     public double getCurrentZ() {
         Orientation angles = gyro.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES);
         return angles.firstAngle;
