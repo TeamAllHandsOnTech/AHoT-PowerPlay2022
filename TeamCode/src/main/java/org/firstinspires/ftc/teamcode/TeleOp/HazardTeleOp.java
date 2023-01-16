@@ -84,10 +84,6 @@ public class HazardTeleOp extends DriveDirections {
                     rfPower = rightFrontDrive.getPower();
                     rbPower = rightBackDrive.getPower();
 
-                    if(lfPower < 0){lfPower = 0;}
-                    if(lbPower < 0){lbPower = 0;}
-                    if(rfPower < 0){rfPower = 0;}
-                    if(rbPower < 0){rbPower = 0;}
 
                     leftFrontDrive.setPower(lfPower + gamepad1.right_stick_x * 1);
                     leftBackDrive.setPower(lbPower + gamepad1.right_stick_x * 1);
@@ -101,11 +97,7 @@ public class HazardTeleOp extends DriveDirections {
                     lbPower = leftBackDrive.getPower();
                     rfPower = rightFrontDrive.getPower();
                     rbPower = rightBackDrive.getPower();
-
-                    if(lfPower < 0){lfPower = 0;}
-                    if(lbPower < 0){lbPower = 0;}
-                    if(rfPower < 0){rfPower = 0;}
-                    if(rbPower < 0){rbPower = 0;}
+                    
 
                     leftFrontDrive.setPower(lfPower + gamepad1.right_stick_x * 1);
                     leftBackDrive.setPower(lbPower + gamepad1.right_stick_x * 1);
