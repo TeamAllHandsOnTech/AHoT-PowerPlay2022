@@ -96,14 +96,14 @@ public class BlueCornerHazardAltColor extends DriveDirections
                 telemetry.update();
 
                 if (!frontColorColor && !backColorColor) {
-                    rightFrontDrive.setPower(moveSpeed2/2.4);
-                    leftFrontDrive.setPower(-moveSpeed2/2);
-                    rightBackDrive.setPower(-moveSpeed2/2);
-                    leftBackDrive.setPower(moveSpeed2/2.4);
+                    rightFrontDrive.setPower(moveSpeed2/1.1);
+                    leftFrontDrive.setPower(-moveSpeed2);
+                    rightBackDrive.setPower(-moveSpeed2);
+                    leftBackDrive.setPower(moveSpeed2/1.1);
                 } else if (frontColorColor && !backColorColor) {
-                    DriveInDirection(moveSpeed2/2, "ROTATE_RIGHT");
+                    DriveInDirection(moveSpeed2, "ROTATE_RIGHT");
                 } else if (!frontColorColor && backColorColor) {
-                    DriveInDirection(moveSpeed2/2, "ROTATE_LEFT");
+                    DriveInDirection(moveSpeed2, "ROTATE_LEFT");
                 }
             }
             DriveInDirection(0, "STOP");
