@@ -357,8 +357,8 @@ public abstract class DriveDirections extends LinearOpMode {
                 double proportionalPower = error / dividend;
                 proportionalPower = Math.abs(proportionalPower);
 
-                if(proportionalPower < 0.1){
-                    proportionalPower = 0.1;
+                if(proportionalPower < 0.075){
+                    proportionalPower = 0.075;
                 }
 
                 //rotate left
@@ -387,8 +387,8 @@ public abstract class DriveDirections extends LinearOpMode {
                 double proportionalPower = error / dividend;
                 proportionalPower = Math.abs(proportionalPower);
 
-                if(proportionalPower < 0.1){
-                    proportionalPower = 0.1;
+                if(proportionalPower < 0.075){
+                    proportionalPower = 0.075;
                 }
 
                 //rotate right
