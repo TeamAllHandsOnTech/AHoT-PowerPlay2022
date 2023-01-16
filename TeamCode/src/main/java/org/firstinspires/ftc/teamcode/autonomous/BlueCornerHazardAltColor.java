@@ -31,6 +31,14 @@ public class BlueCornerHazardAltColor extends DriveDirections
 
     private ElapsedTime runtime = new ElapsedTime();
     private double moveSpeed = 0.6;
+    private double moveSpeed2 = 0.3;
+
+    public String pickColor(ColorSensor sensor) {
+        if (sensor.red()>1.3*(sensor.green()+sensor.blue())) {return "Red";}
+        else if (sensor.green()>1.3*(sensor.blue()+sensor.red())) {return "Red";}
+        else if (sensor.blue()>1.3*(sensor.red()+sensor.green())) {return "Red";}
+        else {return "Grey";}
+    }
 
     @Override
     public void runOpMode() {
@@ -54,8 +62,8 @@ public class BlueCornerHazardAltColor extends DriveDirections
 
         frontColor = hardwareMap.get(ColorSensor.class, "frontColor");
         backColor = hardwareMap.get(ColorSensor.class, "backColor");
-        boolean frontColorColor = senseColor(frontColor) != "Green";
-        boolean backColorColor = senseColor(backColor) != "Green";
+        boolean frontColorColor = pickColor(frontColor) == "Red" || pickColor(frontColor) == "Blue";
+        boolean backColorColor = pickColor(backColor) == "Red" || pickColor(backColor) == "Blue";
 
 
         isHazard = true;
@@ -77,26 +85,30 @@ public class BlueCornerHazardAltColor extends DriveDirections
 
         DriveInDirection(moveSpeed, "ROTATE_LEFT");
         sleep(25);
-        StraightDrive(moveSpeed, 0.7, "LEFT");
-        for(int i=5; i>3;i--) {
+        StraightDrive(moveSpeed, 1, "LEFT");
+        //for(int i=5; i>3;i--) {
             while (!frontColorColor && !backColorColor) {
-                frontColorColor = senseColor(frontColor) != "Green";
-                backColorColor = senseColor(backColor) != "Green";
+                frontColorColor = pickColor(frontColor) == "Red" || pickColor(frontColor) == "Blue";
+                backColorColor = pickColor(backColor) == "Red" || pickColor(backColor) == "Blue";
 
-                telemetry.addLine("Front color: "+senseColor(frontColor));
-                telemetry.addLine("Back color: "+senseColor(backColor));
+                telemetry.addLine("Front color: "+pickColor(frontColor));
+                telemetry.addLine("Back color: "+pickColor(backColor));
                 telemetry.update();
 
                 if (!frontColorColor && !backColorColor) {
-                    DriveInDirection(moveSpeed/2, "LEFT");
+                    rightFrontDrive.setPower(moveSpeed2/2.4);
+                    leftFrontDrive.setPower(-moveSpeed2/2);
+                    rightBackDrive.setPower(-moveSpeed2/2);
+                    leftBackDrive.setPower(moveSpeed2/2.4);
                 } else if (frontColorColor && !backColorColor) {
-                    DriveInDirection(moveSpeed/2, "ROTATE_RIGHT");
+                    DriveInDirection(moveSpeed2/2, "ROTATE_RIGHT");
                 } else if (!frontColorColor && backColorColor) {
-                    DriveInDirection(moveSpeed/2, "ROTATE_LEFT");
+                    DriveInDirection(moveSpeed2/2, "ROTATE_LEFT");
                 }
             }
             DriveInDirection(0, "STOP");
 
+            /*
             StraightDrive(moveSpeed,0.05,"RIGHT");
             StraightDrive(moveSpeed,0.05,"FORWARD");
 
@@ -111,6 +123,7 @@ public class BlueCornerHazardAltColor extends DriveDirections
             StraightDrive(moveSpeed,0.1,"FORWARD");
 
         }
+             */
 
 
 
