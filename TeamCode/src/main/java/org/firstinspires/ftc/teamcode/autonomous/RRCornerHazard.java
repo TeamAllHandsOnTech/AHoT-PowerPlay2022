@@ -119,14 +119,14 @@ public class RRCornerHazard extends DriveDirections
 
         StraightDrive(moveSpeed, .5, "FORWARD");
 
-        StraightDrive(moveSpeed, .23, "RIGHT");
+        StraightDrive(moveSpeed, .21, "RIGHT");
 
         armToHeight(550);
         armMotor.setPower(0.1);
 
         sleep(500);
 
-        StraightDrive(moveSpeed, .1, "FORWARD");
+        StraightDrive(moveSpeed, .12, "FORWARD");
 
         armMotor.setPower(-0.2);
 
