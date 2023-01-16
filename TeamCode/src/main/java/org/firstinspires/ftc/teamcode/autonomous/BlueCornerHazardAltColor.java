@@ -62,10 +62,10 @@ public class BlueCornerHazardAltColor extends DriveDirections
 
         super.runOpMode();
 
-        initArm();
+        //initArm();
 
         waitForStart();
-        openClaw();
+        //openClaw();
 
         runtime.reset();
 
@@ -73,7 +73,7 @@ public class BlueCornerHazardAltColor extends DriveDirections
 
         rotateToZLoc(-90);
 
-        StraightDrive(moveSpeed, 0.55, "FORWARD");
+        StraightDrive(moveSpeed, 0.6, "FORWARD");
 
         StraightDrive(moveSpeed, 0.7, "LEFT");
         for(int i=5; i>3;i--) {
@@ -98,8 +98,8 @@ public class BlueCornerHazardAltColor extends DriveDirections
             StraightDrive(moveSpeed,0.05,"RIGHT");
             StraightDrive(moveSpeed,0.05,"FORWARD");
 
-            armToHeight(i*25);
-            closeClaw();
+            //armToHeight(i*25);
+            //closeClaw();
 
             rightFrontDrive.setPower(-moveSpeed);
             leftFrontDrive.setPower(moveSpeed);
