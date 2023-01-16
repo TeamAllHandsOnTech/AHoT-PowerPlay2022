@@ -33,10 +33,10 @@ public class BlueCornerHazardAltColor extends DriveDirections
     private double moveSpeed = 0.6;
     private double moveSpeed2 = 0.3;
 
-    public String pickColor(ColorSensor sensor) {
-        if (sensor.red()>1.3*(sensor.green()+sensor.blue())) {return "Red";}
-        else if (sensor.green()>1.3*(sensor.blue()+sensor.red())) {return "Red";}
-        else if (sensor.blue()>1.3*(sensor.red()+sensor.green())) {return "Red";}
+    public String pickColor(ColorSensor sensor, double sensitivity) {
+        if (sensor.red()>sensitivity*(sensor.green()+sensor.blue())) {return "Red";}
+        else if (sensor.green()>sensitivity*(sensor.blue()+sensor.red())) {return "Green";}
+        else if (sensor.blue()>sensitivity*(sensor.red()+sensor.green())) {return "Blue";}
         else {return "Grey";}
     }
 
@@ -62,8 +62,8 @@ public class BlueCornerHazardAltColor extends DriveDirections
 
         frontColor = hardwareMap.get(ColorSensor.class, "frontColor");
         backColor = hardwareMap.get(ColorSensor.class, "backColor");
-        boolean frontColorColor = pickColor(frontColor) == "Red" || pickColor(frontColor) == "Blue";
-        boolean backColorColor = pickColor(backColor) == "Red" || pickColor(backColor) == "Blue";
+        boolean frontColorColor = pickColor(frontColor,1.1) == "Red" || pickColor(frontColor,1.1) == "Blue";
+        boolean backColorColor = pickColor(backColor,1.1) == "Red" || pickColor(backColor,1.1) == "Blue";
 
 
         isHazard = true;
@@ -86,13 +86,13 @@ public class BlueCornerHazardAltColor extends DriveDirections
         DriveInDirection(moveSpeed, "ROTATE_LEFT");
         sleep(25);
         StraightDrive(moveSpeed, 1, "LEFT");
-        //for(int i=5; i>3;i--) {
+        for(int i=5; i>3;i--) {
             while (!frontColorColor && !backColorColor) {
-                frontColorColor = pickColor(frontColor) == "Red" || pickColor(frontColor) == "Blue";
-                backColorColor = pickColor(backColor) == "Red" || pickColor(backColor) == "Blue";
+                frontColorColor = pickColor(frontColor,1.1) == "Red" || pickColor(frontColor,1.1) == "Blue";
+                backColorColor = pickColor(backColor,1.1) == "Red" || pickColor(backColor,1.1) == "Blue";
 
-                telemetry.addLine("Front color: "+pickColor(frontColor));
-                telemetry.addLine("Back color: "+pickColor(backColor));
+                telemetry.addLine("Front color: "+pickColor(frontColor,1.1));
+                telemetry.addLine("Back color: "+pickColor(backColor,1.1));
                 telemetry.update();
 
                 if (!frontColorColor && !backColorColor) {
@@ -108,23 +108,7 @@ public class BlueCornerHazardAltColor extends DriveDirections
             }
             DriveInDirection(0, "STOP");
 
-            /*
-            StraightDrive(moveSpeed,0.05,"RIGHT");
-            StraightDrive(moveSpeed,0.05,"FORWARD");
-
-            //armToHeight(i*25);
-            //closeClaw();
-
-            rightFrontDrive.setPower(-moveSpeed);
-            leftFrontDrive.setPower(moveSpeed);
-            sleep(200);
-            DriveInDirection(0, "STOP");
-
-            StraightDrive(moveSpeed,0.1,"FORWARD");
-
         }
-             */
-
 
 
 
