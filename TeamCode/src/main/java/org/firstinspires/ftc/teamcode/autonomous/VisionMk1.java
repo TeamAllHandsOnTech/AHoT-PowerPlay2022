@@ -22,19 +22,19 @@ public class VisionMk1 extends DriveDirections {
         waitForStart();
         runtime.reset();
 
-        //Pushes cone onto junction
-        switch (fakeVision()){
-            case 1:
-                DriveForDistance(0.5, 0.4, "LEFT");
-                break;
-            case 2:
-                break;
-            case 3:
-                DriveForDistance(0.5, 1, "RIGHT");
-                break;
-            default:
-                break;
-        }
+//        //Pushes cone onto junction
+//        switch (fakeVision()){
+//            case 1:
+//                DriveForDistance(0.5, 0.4, "LEFT");
+//                break;
+//            case 2:
+//                break;
+//            case 3:
+//                DriveForDistance(0.5, 1, "RIGHT");
+//                break;
+//            default:
+//                break;
+//        }
         DriveForDistance(0.5, 0.9, "FORWARD");
 
         // run until the end of the match (driver presses STOP)
