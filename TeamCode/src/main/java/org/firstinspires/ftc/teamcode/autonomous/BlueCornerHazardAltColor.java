@@ -109,8 +109,10 @@ public class BlueCornerHazardAltColor extends DriveDirections
                 }
             }
             DriveInDirection(0, "STOP");
-            armToHeight(i*25);
+            StraightDrive(moveSpeed2,0.1,"RIGHT");
+            armToHeight(i*40);
             closeClaw();
+            sleep(100000);
         }
 
 

@@ -15,8 +15,8 @@ import org.openftc.easyopencv.OpenCvCameraRotation;
 import org.openftc.easyopencv.OpenCvPipeline;
 import org.openftc.easyopencv.OpenCvWebcam;
 
-@Autonomous(name="RedCornerHazard", group="A")
-public class RedCornerHazard extends DriveDirections
+@Autonomous(name="RBCornerHazard", group="A")
+public class RBCornerHazard extends DriveDirections
 {
     OpenCvWebcam webcam;
     protected int zone;
@@ -68,35 +68,40 @@ public class RedCornerHazard extends DriveDirections
         armToHeight(100);
         armMotor.setPower(0.1);
 
-        StraightDrive(moveSpeed, 0.89, "RIGHT");
-        DriveForTime("BACKWARD", moveSpeed, 0.2);
-        StraightDrive(0.3, 0.63, "FORWARD");
+        StraightDrive(moveSpeed, 0.89, "LEFT");
+        DriveForTime("BACKWARD",moveSpeed, 0.3);
+        StraightDrive(0.4, 0.68, "FORWARD");
 
         armToHeight(925);
         armMotor.setPower(0.1);
 
-        StraightDriveNoSlow(0.22, 0.12, "FORWARD");
+        StraightDriveNoSlow(0.2, 0.1, "FORWARD");
 
 
         sleep(500);
 
         openClaw();
 
-        sleep(1000);
+        sleep(500);
 
         armMotor.setPower(0);
 
         StraightDrive(moveSpeed, 0.05, "BACKWARD");
-        StraightDrive(moveSpeed, 0.36, "LEFT");
-        StraightDrive(moveSpeed, 0.5, "FORWARD");
+        StraightDrive(moveSpeed, 0.4, "RIGHT");
+        StraightDrive(moveSpeed, 0.53, "FORWARD");
 
-        rotateToZAbs(90, 0);
+        sleep(750);
 
-        StraightDrive(moveSpeed, 1.14, "FORWARD");
+        rotateToZAbs(-90, 0);
 
-        armMotor.setPower(-0.1);
+        sleep(500);
 
-        sleep(300);
+
+        StraightDrive(moveSpeed, 1.1, "FORWARD");
+
+//        armMotor.setPower(-0.1);
+//
+//        sleep(500);
 
         armMotor.setPower(0.1);
 
@@ -109,31 +114,32 @@ public class RedCornerHazard extends DriveDirections
 
         sleep(500);
 
-        StraightDrive(moveSpeed, 1.09, "BACKWARD");
+        StraightDrive(moveSpeed, 1.1, "BACKWARD");
 
         armToHeight(100);
 
-        sleep(500);
+        sleep(750);
 
         rotateToZAbs(180, 0);
 
-        StraightDrive(moveSpeed, .5, "FORWARD");
+        sleep(750);
 
-        StraightDrive(moveSpeed, .38, "RIGHT");
+        StraightDrive(moveSpeed, .45, "FORWARD");
+
+        StraightDrive(moveSpeed, .25, "LEFT");
 
         armToHeight(550);
+
         armMotor.setPower(0.1);
 
         sleep(500);
 
-        StraightDrive(moveSpeed, .07, "FORWARD");
+        StraightDrive(0.2, .07, "FORWARD");
 
         armMotor.setPower(-0.2);
-
         sleep(300);
 
         armMotor.setPower(0);
-
         openClaw();
 
         sleep(500);
@@ -145,13 +151,13 @@ public class RedCornerHazard extends DriveDirections
 
         switch(finalZone){
             case 1:
-                StraightDrive(moveSpeed,1, "RIGHT");
+                StraightDrive(moveSpeed,.3, "RIGHT");
                 break;
             case 2:
-                StraightDrive(moveSpeed, .3, "RIGHT");
+                StraightDrive(moveSpeed, .4, "LEFT");
                 break;
             case 3:
-                StraightDrive(moveSpeed, .4, "LEFT");
+                StraightDrive(moveSpeed, 1.1, "LEFT");
                 break;
         }
 
@@ -181,6 +187,7 @@ public class RedCornerHazard extends DriveDirections
 
         Scalar pinkLower = new Scalar(150, 100, 100);
         Scalar pinkHigher = new Scalar(170, 200, 255);
+
 
 
         @Override
