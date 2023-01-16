@@ -1,8 +1,6 @@
 package org.firstinspires.ftc.teamcode.autonomous;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
-import com.qualcomm.robotcore.hardware.DcMotor;
-import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.robotcore.external.hardware.camera.WebcamName;
@@ -17,8 +15,8 @@ import org.openftc.easyopencv.OpenCvCameraRotation;
 import org.openftc.easyopencv.OpenCvPipeline;
 import org.openftc.easyopencv.OpenCvWebcam;
 
-@Autonomous(name="BlueCornerHazard", group="A")
-public class BlueCornerHazard extends DriveDirections
+@Autonomous(name="BRCornerHazard", group="A")
+public class BRCornerHazard extends DriveDirections
 {
     OpenCvWebcam webcam;
     protected int zone;
@@ -70,40 +68,35 @@ public class BlueCornerHazard extends DriveDirections
         armToHeight(100);
         armMotor.setPower(0.1);
 
-        StraightDrive(moveSpeed, 0.89, "LEFT");
-        DriveForTime("BACKWARD",moveSpeed, 0.3);
-        StraightDrive(0.4, 0.68, "FORWARD");
+        StraightDrive(moveSpeed, 0.89, "RIGHT");
+        DriveForTime("BACKWARD", moveSpeed, 0.2);
+        StraightDrive(0.3, 0.63, "FORWARD");
 
         armToHeight(925);
         armMotor.setPower(0.1);
 
-        StraightDriveNoSlow(0.2, 0.1, "FORWARD");
+        StraightDriveNoSlow(0.22, 0.12, "FORWARD");
 
 
         sleep(500);
 
         openClaw();
 
-        sleep(500);
+        sleep(1000);
 
         armMotor.setPower(0);
 
         StraightDrive(moveSpeed, 0.05, "BACKWARD");
-        StraightDrive(moveSpeed, 0.4, "RIGHT");
-        StraightDrive(moveSpeed, 0.53, "FORWARD");
+        StraightDrive(moveSpeed, 0.36, "LEFT");
+        StraightDrive(moveSpeed, 0.5, "FORWARD");
 
-        sleep(750);
+        rotateToZAbs(90, 0);
 
-        rotateToZAbs(-90, 0);
+        StraightDrive(moveSpeed, 1.14, "FORWARD");
 
-        sleep(500);
-
-
-        StraightDrive(moveSpeed, 1.08, "FORWARD");
-
-        armMotor.setPower(-0.1);
-
-        sleep(500);
+//        armMotor.setPower(-0.1);
+//
+//        sleep(300);
 
         armMotor.setPower(0.1);
 
@@ -116,32 +109,31 @@ public class BlueCornerHazard extends DriveDirections
 
         sleep(500);
 
-        StraightDrive(moveSpeed, 1.1, "BACKWARD");
+        StraightDrive(moveSpeed, 1.09, "BACKWARD");
 
         armToHeight(100);
 
-        sleep(750);
+        sleep(500);
 
         rotateToZAbs(180, 0);
 
-        sleep(750);
+        StraightDrive(moveSpeed, .5, "FORWARD");
 
-        StraightDrive(moveSpeed, .45, "FORWARD");
-
-        StraightDrive(moveSpeed, .23, "LEFT");
+        StraightDrive(moveSpeed, .38, "RIGHT");
 
         armToHeight(550);
-
         armMotor.setPower(0.1);
 
         sleep(500);
 
-        StraightDrive(0.2, .07, "FORWARD");
+        StraightDrive(moveSpeed, .07, "FORWARD");
 
         armMotor.setPower(-0.2);
+
         sleep(300);
 
         armMotor.setPower(0);
+
         openClaw();
 
         sleep(500);
@@ -153,13 +145,13 @@ public class BlueCornerHazard extends DriveDirections
 
         switch(finalZone){
             case 1:
-                StraightDrive(moveSpeed,.3, "RIGHT");
+                StraightDrive(moveSpeed,1, "RIGHT");
                 break;
             case 2:
-                StraightDrive(moveSpeed, .4, "LEFT");
+                StraightDrive(moveSpeed, .3, "RIGHT");
                 break;
             case 3:
-                StraightDrive(moveSpeed, 1.1, "LEFT");
+                StraightDrive(moveSpeed, .4, "LEFT");
                 break;
         }
 
@@ -189,7 +181,6 @@ public class BlueCornerHazard extends DriveDirections
 
         Scalar pinkLower = new Scalar(150, 100, 100);
         Scalar pinkHigher = new Scalar(170, 200, 255);
-
 
 
         @Override
