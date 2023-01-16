@@ -84,9 +84,12 @@ public class BlueCornerHazardAltColor extends DriveDirections
         StraightDrive(moveSpeed, 0.6, "FORWARD");
 
         DriveInDirection(moveSpeed, "ROTATE_LEFT");
-        sleep(20);
+        sleep(30);
         StraightDrive(moveSpeed, 1, "LEFT");
-        StraightDrive(moveSpeed, 0.04, "BACKWARD");
+        DriveInDirection(moveSpeed, "ROTATE_LEFT");
+        sleep(30);
+        StraightDrive(moveSpeed, 0.05, "BACKWARD");
+
 
         for(int i=5; i>3;i--) {
             while (!frontColorColor && !backColorColor) {
