@@ -86,8 +86,6 @@ public class BlueCornerHazardAltColor extends DriveDirections
         DriveInDirection(moveSpeed, "ROTATE_LEFT");
         sleep(30);
         StraightDrive(moveSpeed, 1, "LEFT");
-        DriveInDirection(moveSpeed, "ROTATE_LEFT");
-        sleep(30);
         StraightDrive(moveSpeed, 0.05, "BACKWARD");
 
 
@@ -112,11 +110,14 @@ public class BlueCornerHazardAltColor extends DriveDirections
                 }
             }
             DriveInDirection(0, "STOP");
+            rotateToZAbs(-90,0);
             armMotor.setPower(0.5);
-            sleep(i*100);
+            sleep(i*80);
             armMotor.setPower(0);
             StraightDrive(moveSpeed2,0.1,"RIGHT");
+            StraightDrive(moveSpeed2,0.1,"FORWARD");
             closeClaw();
+            
             sleep(1000000);
         }
 
