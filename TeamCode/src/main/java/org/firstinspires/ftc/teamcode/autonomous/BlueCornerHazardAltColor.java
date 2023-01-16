@@ -31,7 +31,6 @@ public class BlueCornerHazardAltColor extends DriveDirections
 
     private ElapsedTime runtime = new ElapsedTime();
     private double moveSpeed = 0.6;
-    private double moveSpeed2 = 0.3;
 
     public String pickColor(ColorSensor sensor, double sensitivity) {
         if (sensor.red()>sensitivity*(sensor.green()+sensor.blue())) {return "Red";}
@@ -98,14 +97,14 @@ public class BlueCornerHazardAltColor extends DriveDirections
                 telemetry.update();
 
                 if (!frontColorColor && !backColorColor) {
-                    rightFrontDrive.setPower(moveSpeed2/1.1);
-                    leftFrontDrive.setPower(-moveSpeed2);
-                    rightBackDrive.setPower(-moveSpeed2);
-                    leftBackDrive.setPower(moveSpeed2/1.1);
+                    rightFrontDrive.setPower(moveSpeed/1.1);
+                    leftFrontDrive.setPower(-moveSpeed);
+                    rightBackDrive.setPower(-moveSpeed);
+                    leftBackDrive.setPower(moveSpeed/1.1);
                 } else if (frontColorColor && !backColorColor) {
-                    DriveInDirection(moveSpeed2, "ROTATE_RIGHT");
+                    DriveInDirection(moveSpeed, "ROTATE_RIGHT");
                 } else if (!frontColorColor && backColorColor) {
-                    DriveInDirection(moveSpeed2, "ROTATE_LEFT");
+                    DriveInDirection(moveSpeed, "ROTATE_LEFT");
                 }
             }
             DriveInDirection(0, "STOP");
