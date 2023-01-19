@@ -67,10 +67,12 @@ public class HazardTeleOp extends DriveDirections {
                 powerLevel = 0.3;
             } else if (gamepad1.right_bumper) {
                 powerLevel = 0.6;
-            } else {
+            }else if (gamepad1.left_stick_button) {
+                powerLevel = 1;
+            }else {
                 powerLevel = 0.8;
             }
-            telemetry.addData("gamepad2 right stick", gamepad2.right_stick_x);
+            telemetry.addData("gamepad1 right stick", gamepad1.right_stick_x);
             telemetry.update();
             //Checks if the left joystick is moved significantly, otherwise makes sure the motors are stopped
             //Aka "If X or Y are moved more than .1"
@@ -78,36 +80,66 @@ public class HazardTeleOp extends DriveDirections {
                 //Checks if joystick moved more up than side to side, if so, move forward or backward
                 //"If joystick moved more vertically than horizontally, then move forward/backward"
                 if (Math.abs(gamepad1.left_stick_x) < Math.abs(gamepad1.left_stick_y)) {
-                    DriveInDirection((gamepad1.left_stick_y * -powerLevel), "FORWARD");
-                    if(gamepad1.right_stick_x > deadZone) {
-                        lfPower = leftFrontDrive.getPower();
-                        lbPower = leftBackDrive.getPower();
-                        rfPower = rightFrontDrive.getPower();
-                        rbPower = rightBackDrive.getPower();
+                    if(Math.abs(gamepad1.right_stick_x) < deadZone) {
+                        DriveInDirection((gamepad1.left_stick_y * -powerLevel), "FORWARD");
+                    }
+                    if(Math.abs(gamepad1.right_stick_x) > deadZone) {
+//                        lfPower = leftFrontDrive.getPower();
+//                        lbPower = leftBackDrive.getPower();
+//                        rfPower = rightFrontDrive.getPower();
+//                        rbPower = rightBackDrive.getPower();
 
-
-                        leftFrontDrive.setPower(lfPower + gamepad1.right_stick_x * 1);
-                        leftBackDrive.setPower(lbPower + gamepad1.right_stick_x * 1);
-                        rightFrontDrive.setPower(rfPower + gamepad1.right_stick_x * 1);
-                        rightBackDrive.setPower(rbPower + gamepad1.right_stick_x * 1);
+                        lfPower = gamepad1.left_stick_y * -powerLevel;
+                        lbPower = gamepad1.left_stick_y * -powerLevel;
+                        rfPower = gamepad1.left_stick_y * -powerLevel;
+                        rbPower = gamepad1.left_stick_y * -powerLevel;
+                        if (gamepad1.left_stick_y < -deadZone) {
+                            if (gamepad1.right_stick_x > 0) {
+                                leftFrontDrive.setPower(lfPower + lfPower);
+                                leftBackDrive.setPower(lbPower + lbPower);
+                                rightFrontDrive.setPower(rfPower - rfPower);
+                                rightBackDrive.setPower(rbPower - rbPower);
+                            } else if (gamepad1.right_stick_x < 0) {
+                                leftFrontDrive.setPower(lfPower - lfPower);
+                                leftBackDrive.setPower(lbPower - lbPower);
+                                rightFrontDrive.setPower(rfPower + rfPower);
+                                rightBackDrive.setPower(rbPower + rbPower);
+                            }
+                        }
                     }
                     //Checks if moved more horizontally than up and down, if so, strafes
                     //"If joystick moved more horizontally than vertically, strafe"
                 } else if (Math.abs(gamepad1.left_stick_y) < Math.abs(gamepad1.left_stick_x)) {
-                    DriveInDirection((gamepad1.left_stick_x * powerLevel), "RIGHT");
-                    if(gamepad1.right_stick_x > deadZone) {
-                        lfPower = leftFrontDrive.getPower();
-                        lbPower = leftBackDrive.getPower();
-                        rfPower = rightFrontDrive.getPower();
-                        rbPower = rightBackDrive.getPower();
-
-
-                        leftFrontDrive.setPower(lfPower + gamepad1.right_stick_x * 1);
-                        leftBackDrive.setPower(lbPower + gamepad1.right_stick_x * 1);
-                        rightFrontDrive.setPower(rfPower + gamepad1.right_stick_x * 1);
-                        rightBackDrive.setPower(rbPower + gamepad1.right_stick_x * 1);
+                    if(Math.abs(gamepad1.right_stick_x) < deadZone) {
+                        DriveInDirection((gamepad1.left_stick_x * powerLevel), "RIGHT");
                     }
-                }
+                    if(Math.abs(gamepad1.right_stick_x) > deadZone) {
+//                        lfPower = leftFrontDrive.getPower();
+//                        lbPower = leftBackDrive.getPower();
+//                        rfPower = rightFrontDrive.getPower();
+//                        rbPower = rightBackDrive.getPower();
+
+                        lfPower = gamepad1.left_stick_y * -powerLevel;
+                        lbPower = gamepad1.left_stick_y * -powerLevel;
+                        rfPower = gamepad1.left_stick_y * -powerLevel;
+                        rbPower = gamepad1.left_stick_y * -powerLevel;
+
+
+                        if (gamepad1.right_stick_x > 0) {
+                            leftFrontDrive.setPower(lfPower + lfPower);
+                            leftBackDrive.setPower(lbPower - lbPower);
+                            rightFrontDrive.setPower(rfPower + rfPower);
+                            rightBackDrive.setPower(rbPower - rbPower);
+                        } else if (gamepad1.right_stick_x < 0) {
+                            leftFrontDrive.setPower(lfPower - lfPower);
+                            leftBackDrive.setPower(lbPower + lbPower);
+                            rightFrontDrive.setPower(rfPower - rfPower);
+                            rightBackDrive.setPower(rbPower + rbPower);
+                        }
+
+                    }
+                    }
+
                 //Check if the right joystick is moved significantly, otherwise motors are stopped
             } else if (Math.abs(gamepad1.right_stick_x) > 0.1) {
                 DriveInDirection(gamepad1.right_stick_x * powerLevel, "ROTATE_RIGHT");
