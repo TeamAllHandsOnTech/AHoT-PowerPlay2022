@@ -138,6 +138,8 @@ public class RRCornerHazard extends DriveDirections
 
         sleep(500);
 
+        StraightDrive(moveSpeed,.05, "BACKWARD");
+
 
         telemetry.addData("Final Zone: ", finalZone);
         telemetry.addData("Zone: ", zone);

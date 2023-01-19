@@ -68,7 +68,7 @@ public class BRCornerHazard extends DriveDirections
         armToHeight(100);
         armMotor.setPower(0.1);
 
-        StraightDrive(moveSpeed, 0.89, "RIGHT");
+        StraightDrive(moveSpeed, 0.87, "RIGHT");
         DriveForTime("BACKWARD", moveSpeed, 0.2);
         StraightDrive(0.3, 0.63, "FORWARD");
 
@@ -92,7 +92,7 @@ public class BRCornerHazard extends DriveDirections
 
         rotateToZAbs(90, 0);
 
-        StraightDrive(moveSpeed, 1.14, "FORWARD");
+        StraightDrive(moveSpeed, 1.21, "FORWARD");
 
 //        armMotor.setPower(-0.1);
 //
@@ -119,7 +119,7 @@ public class BRCornerHazard extends DriveDirections
 
         StraightDrive(moveSpeed, .5, "FORWARD");
 
-        StraightDrive(moveSpeed, .38, "RIGHT");
+        StraightDrive(moveSpeed, .35, "RIGHT");
 
         armToHeight(550);
         armMotor.setPower(0.1);
@@ -137,6 +137,8 @@ public class BRCornerHazard extends DriveDirections
         openClaw();
 
         sleep(500);
+
+        StraightDrive(moveSpeed,.05, "BACKWARD");
 
 
         telemetry.addData("Final Zone: ", finalZone);

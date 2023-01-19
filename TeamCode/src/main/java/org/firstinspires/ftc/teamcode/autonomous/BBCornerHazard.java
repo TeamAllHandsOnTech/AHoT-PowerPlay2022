@@ -68,8 +68,8 @@ public class BBCornerHazard extends DriveDirections
         armToHeight(100);
         armMotor.setPower(0.1);
 
-        StraightDrive(moveSpeed, 0.89, "LEFT");
-        DriveForTime("BACKWARD",moveSpeed, 0.3);
+        StraightDrive(moveSpeed, 0.9, "LEFT");
+        DriveForTime("BACKWARD",.2, 0.6);
         StraightDrive(0.4, 0.68, "FORWARD");
 
         armToHeight(925);
@@ -97,13 +97,15 @@ public class BBCornerHazard extends DriveDirections
         sleep(500);
 
 
-        StraightDrive(moveSpeed, 1.1, "FORWARD");
+        StraightDrive(moveSpeed, 1.07, "FORWARD");
 
-//        armMotor.setPower(-0.1);
-//
-//        sleep(500);
+        armMotor.setPower(0.2);
+
+        sleep(300);
 
         armMotor.setPower(0.1);
+
+        sleep(500);
 
         closeClaw();
 
@@ -114,7 +116,7 @@ public class BBCornerHazard extends DriveDirections
 
         sleep(500);
 
-        StraightDrive(moveSpeed, 1.1, "BACKWARD");
+        StraightDrive(moveSpeed, 1.13, "BACKWARD");
 
         armToHeight(100);
 
@@ -124,7 +126,7 @@ public class BBCornerHazard extends DriveDirections
 
         sleep(750);
 
-        StraightDrive(moveSpeed, .45, "FORWARD");
+        StraightDrive(moveSpeed, .43, "FORWARD");
 
         StraightDrive(moveSpeed, .25, "LEFT");
 
@@ -134,15 +136,17 @@ public class BBCornerHazard extends DriveDirections
 
         sleep(500);
 
-        StraightDrive(0.2, .07, "FORWARD");
+        StraightDrive(0.2, .09, "FORWARD");
 
-        armMotor.setPower(-0.2);
+        armMotor.setPower(-0.3);
         sleep(300);
 
         armMotor.setPower(0);
         openClaw();
 
         sleep(500);
+
+        StraightDrive(moveSpeed,.05, "BACKWARD");
 
 
         telemetry.addData("Final Zone: ", finalZone);
