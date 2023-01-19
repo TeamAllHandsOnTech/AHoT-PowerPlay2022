@@ -134,7 +134,7 @@ public class RBCornerHazard extends DriveDirections
 
         sleep(500);
 
-        StraightDrive(0.2, .07, "FORWARD");
+        StraightDrive(0.2, .12, "FORWARD");
 
         armMotor.setPower(-0.2);
         sleep(300);

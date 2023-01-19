@@ -119,7 +119,7 @@ public class BRCornerHazard extends DriveDirections
 
         StraightDrive(moveSpeed, .5, "FORWARD");
 
-        StraightDrive(moveSpeed, .35, "RIGHT");
+        StraightDrive(moveSpeed, .33, "RIGHT");
 
         armToHeight(550);
         armMotor.setPower(0.1);
