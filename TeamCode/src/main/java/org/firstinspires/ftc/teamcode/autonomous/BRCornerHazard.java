@@ -126,7 +126,7 @@ public class BRCornerHazard extends DriveDirections
 
         sleep(500);
 
-        StraightDrive(moveSpeed, .07, "FORWARD");
+        StraightDrive(moveSpeed, .10, "FORWARD");
 
         armMotor.setPower(-0.2);
 
@@ -138,7 +138,7 @@ public class BRCornerHazard extends DriveDirections
 
         sleep(500);
 
-        StraightDrive(moveSpeed,.05, "BACKWARD");
+        StraightDrive(moveSpeed,.10, "BACKWARD");
 
 
         telemetry.addData("Final Zone: ", finalZone);
