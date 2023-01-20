@@ -1,9 +1,6 @@
 package org.firstinspires.ftc.teamcode.autonomous;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
-import com.qualcomm.robotcore.eventloop.opmode.Disabled;
-import com.qualcomm.robotcore.hardware.DcMotor;
-import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.robotcore.external.hardware.camera.WebcamName;
@@ -18,9 +15,8 @@ import org.openftc.easyopencv.OpenCvCameraRotation;
 import org.openftc.easyopencv.OpenCvPipeline;
 import org.openftc.easyopencv.OpenCvWebcam;
 
-@Disabled
-@Autonomous(name="BlueCornerTrauma", group="A")
-public class BlueCornerTrauma extends DriveDirections
+@Autonomous(name="RBCornerTrauma", group="A")
+public class RBCornerTrauma extends DriveDirections
 {
     OpenCvWebcam webcam;
     protected int zone;
@@ -101,11 +97,11 @@ public class BlueCornerTrauma extends DriveDirections
         sleep(500);
 
 
-        StraightDrive(moveSpeed, 1.12, "FORWARD");
+        StraightDrive(moveSpeed, 1.1, "FORWARD");
 
-        armMotor.setPower(-0.1);
-
-        sleep(500);
+//        armMotor.setPower(-0.1);
+//
+//        sleep(500);
 
         armMotor.setPower(0.1);
 
@@ -130,7 +126,7 @@ public class BlueCornerTrauma extends DriveDirections
 
         StraightDrive(moveSpeed, .45, "FORWARD");
 
-        StraightDrive(moveSpeed, .23, "LEFT");
+        StraightDrive(moveSpeed, .25, "LEFT");
 
         armToHeight(550);
 
@@ -138,7 +134,7 @@ public class BlueCornerTrauma extends DriveDirections
 
         sleep(500);
 
-        StraightDrive(0.2, .09, "FORWARD");
+        StraightDrive(0.2, .12, "FORWARD");
 
         armMotor.setPower(-0.2);
         sleep(300);
@@ -147,6 +143,8 @@ public class BlueCornerTrauma extends DriveDirections
         openClaw();
 
         sleep(500);
+
+        StraightDrive(moveSpeed,.05, "BACKWARD");
 
 
         telemetry.addData("Final Zone: ", finalZone);
@@ -191,6 +189,7 @@ public class BlueCornerTrauma extends DriveDirections
 
         Scalar pinkLower = new Scalar(150, 100, 100);
         Scalar pinkHigher = new Scalar(170, 200, 255);
+
 
 
         @Override
