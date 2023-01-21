@@ -2,8 +2,6 @@ package org.firstinspires.ftc.teamcode.autonomous;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.Disabled;
-import com.qualcomm.robotcore.hardware.DcMotor;
-import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.robotcore.external.hardware.camera.WebcamName;
@@ -18,7 +16,6 @@ import org.openftc.easyopencv.OpenCvCameraRotation;
 import org.openftc.easyopencv.OpenCvPipeline;
 import org.openftc.easyopencv.OpenCvWebcam;
 
-@Disabled
 @Autonomous(name="BlueCornerTrauma", group="A")
 public class BlueCornerTrauma extends DriveDirections
 {
@@ -51,7 +48,7 @@ public class BlueCornerTrauma extends DriveDirections
             }
         });
 
-        isHazard = false;
+        isHazard = true;
 
         super.runOpMode();
 
@@ -72,8 +69,8 @@ public class BlueCornerTrauma extends DriveDirections
         armToHeight(100);
         armMotor.setPower(0.1);
 
-        StraightDrive(moveSpeed, 0.89, "LEFT");
-        DriveForTime("BACKWARD",moveSpeed, 0.3);
+        StraightDrive(moveSpeed, 0.9, "LEFT");
+        DriveForTime("BACKWARD",.2, 0.6);
         StraightDrive(0.4, 0.68, "FORWARD");
 
         armToHeight(925);
@@ -101,13 +98,15 @@ public class BlueCornerTrauma extends DriveDirections
         sleep(500);
 
 
-        StraightDrive(moveSpeed, 1.12, "FORWARD");
+        StraightDrive(moveSpeed, 1.07, "FORWARD");
 
-        armMotor.setPower(-0.1);
+        armMotor.setPower(0.2);
 
-        sleep(500);
+        sleep(300);
 
         armMotor.setPower(0.1);
+
+        sleep(500);
 
         closeClaw();
 
@@ -118,7 +117,7 @@ public class BlueCornerTrauma extends DriveDirections
 
         sleep(500);
 
-        StraightDrive(moveSpeed, 1.1, "BACKWARD");
+        StraightDrive(moveSpeed, 1.13, "BACKWARD");
 
         armToHeight(100);
 
@@ -128,9 +127,9 @@ public class BlueCornerTrauma extends DriveDirections
 
         sleep(750);
 
-        StraightDrive(moveSpeed, .45, "FORWARD");
+        StraightDrive(moveSpeed, .43, "FORWARD");
 
-        StraightDrive(moveSpeed, .23, "LEFT");
+        StraightDrive(moveSpeed, .25, "LEFT");
 
         armToHeight(550);
 
@@ -140,13 +139,15 @@ public class BlueCornerTrauma extends DriveDirections
 
         StraightDrive(0.2, .09, "FORWARD");
 
-        armMotor.setPower(-0.2);
+        armMotor.setPower(-0.3);
         sleep(300);
 
         armMotor.setPower(0);
         openClaw();
 
         sleep(500);
+
+        StraightDrive(moveSpeed,.05, "BACKWARD");
 
 
         telemetry.addData("Final Zone: ", finalZone);
@@ -191,6 +192,7 @@ public class BlueCornerTrauma extends DriveDirections
 
         Scalar pinkLower = new Scalar(150, 100, 100);
         Scalar pinkHigher = new Scalar(170, 200, 255);
+
 
 
         @Override

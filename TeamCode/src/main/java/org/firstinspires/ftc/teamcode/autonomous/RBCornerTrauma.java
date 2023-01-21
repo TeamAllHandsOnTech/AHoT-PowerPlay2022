@@ -1,6 +1,7 @@
 package org.firstinspires.ftc.teamcode.autonomous;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.robotcore.external.hardware.camera.WebcamName;
@@ -15,6 +16,7 @@ import org.openftc.easyopencv.OpenCvCameraRotation;
 import org.openftc.easyopencv.OpenCvPipeline;
 import org.openftc.easyopencv.OpenCvWebcam;
 
+@Disabled
 @Autonomous(name="RBCornerTrauma", group="A")
 public class RBCornerTrauma extends DriveDirections
 {
@@ -47,7 +49,7 @@ public class RBCornerTrauma extends DriveDirections
             }
         });
 
-        isHazard = false;
+        isHazard = true;
 
         super.runOpMode();
 
@@ -66,44 +68,41 @@ public class RBCornerTrauma extends DriveDirections
 
         runtime.reset();
         armToHeight(100);
-        armMotor.setPower(0.1);
 
-        StraightDrive(moveSpeed, 0.89, "LEFT");
-        DriveForTime("BACKWARD",moveSpeed, 0.3);
-        StraightDrive(0.4, 0.68, "FORWARD");
+        StraightDrive(moveSpeed, 0.87, "RIGHT");
+        DriveForTime("BACKWARD", moveSpeed, 0.2);
+        StraightDrive(0.3, 0.63, "FORWARD");
 
         armToHeight(925);
-        armMotor.setPower(0.1);
 
-        StraightDriveNoSlow(0.2, 0.1, "FORWARD");
+        StraightDriveNoSlow(0.22, 0.12, "FORWARD");
 
 
         sleep(500);
 
         openClaw();
 
-        sleep(500);
+        sleep(1000);
+
+        armMotor.setPower(-0.3);
+
+        StraightDrive(moveSpeed, 0.05, "BACKWARD");
+        StraightDrive(moveSpeed, 0.36, "LEFT");
+        StraightDrive(moveSpeed, 0.65, "FORWARD");
 
         armMotor.setPower(0);
 
-        StraightDrive(moveSpeed, 0.05, "BACKWARD");
-        StraightDrive(moveSpeed, 0.4, "RIGHT");
-        StraightDrive(moveSpeed, 0.53, "FORWARD");
+        rotateToZAbs(90, 0);
 
-        sleep(750);
+        StraightDrive(moveSpeed, 1.17, "FORWARD");
 
-        rotateToZAbs(-90, 0);
+        armMotor.setPower(-0.5);
+
+        sleep(300);
+
+        armMotor.setPower(0);
 
         sleep(500);
-
-
-        StraightDrive(moveSpeed, 1.1, "FORWARD");
-
-//        armMotor.setPower(-0.1);
-//
-//        sleep(500);
-
-        armMotor.setPower(0.1);
 
         closeClaw();
 
@@ -114,37 +113,33 @@ public class RBCornerTrauma extends DriveDirections
 
         sleep(500);
 
-        StraightDrive(moveSpeed, 1.1, "BACKWARD");
+        StraightDrive(moveSpeed, 1.09, "BACKWARD");
 
         armToHeight(100);
 
-        sleep(750);
+        sleep(500);
 
         rotateToZAbs(180, 0);
 
-        sleep(750);
+        StraightDrive(moveSpeed, .5, "FORWARD");
 
-        StraightDrive(moveSpeed, .45, "FORWARD");
-
-        StraightDrive(moveSpeed, .25, "LEFT");
-
-        armToHeight(550);
-
-        armMotor.setPower(0.1);
+        StraightDrive(moveSpeed, .35, "RIGHT");
 
         sleep(500);
 
-        StraightDrive(0.2, .12, "FORWARD");
+        StraightDrive(moveSpeed, .1, "FORWARD");
 
         armMotor.setPower(-0.2);
+
         sleep(300);
 
         armMotor.setPower(0);
+
         openClaw();
 
         sleep(500);
 
-        StraightDrive(moveSpeed,.05, "BACKWARD");
+        StraightDrive(moveSpeed,.10, "BACKWARD");
 
 
         telemetry.addData("Final Zone: ", finalZone);
@@ -153,13 +148,13 @@ public class RBCornerTrauma extends DriveDirections
 
         switch(finalZone){
             case 1:
-                StraightDrive(moveSpeed,.3, "RIGHT");
+                StraightDrive(moveSpeed,1, "RIGHT");
                 break;
             case 2:
-                StraightDrive(moveSpeed, .4, "LEFT");
+                StraightDrive(moveSpeed, .3, "RIGHT");
                 break;
             case 3:
-                StraightDrive(moveSpeed, 1.1, "LEFT");
+                StraightDrive(moveSpeed, .4, "LEFT");
                 break;
         }
 
@@ -189,7 +184,6 @@ public class RBCornerTrauma extends DriveDirections
 
         Scalar pinkLower = new Scalar(150, 100, 100);
         Scalar pinkHigher = new Scalar(170, 200, 255);
-
 
 
         @Override

@@ -1,6 +1,7 @@
 package org.firstinspires.ftc.teamcode.autonomous;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.robotcore.external.hardware.camera.WebcamName;
@@ -15,6 +16,7 @@ import org.openftc.easyopencv.OpenCvCameraRotation;
 import org.openftc.easyopencv.OpenCvPipeline;
 import org.openftc.easyopencv.OpenCvWebcam;
 
+@Disabled
 @Autonomous(name="BRCornerTrauma", group="A")
 public class BRCornerTrauma extends DriveDirections
 {
@@ -47,7 +49,7 @@ public class BRCornerTrauma extends DriveDirections
             }
         });
 
-        isHazard = false;
+        isHazard = true;
 
         super.runOpMode();
 
@@ -66,14 +68,12 @@ public class BRCornerTrauma extends DriveDirections
 
         runtime.reset();
         armToHeight(100);
-        armMotor.setPower(0.1);
 
         StraightDrive(moveSpeed, 0.87, "RIGHT");
         DriveForTime("BACKWARD", moveSpeed, 0.2);
         StraightDrive(0.3, 0.63, "FORWARD");
 
         armToHeight(925);
-        armMotor.setPower(0.1);
 
         StraightDriveNoSlow(0.22, 0.12, "FORWARD");
 
@@ -84,21 +84,25 @@ public class BRCornerTrauma extends DriveDirections
 
         sleep(1000);
 
-        armMotor.setPower(0);
+        armMotor.setPower(-0.3);
 
         StraightDrive(moveSpeed, 0.05, "BACKWARD");
         StraightDrive(moveSpeed, 0.36, "LEFT");
-        StraightDrive(moveSpeed, 0.5, "FORWARD");
+        StraightDrive(moveSpeed, 0.65, "FORWARD");
+
+        armMotor.setPower(0);
 
         rotateToZAbs(90, 0);
 
-        StraightDrive(moveSpeed, 1.21, "FORWARD");
+        StraightDrive(moveSpeed, 1.17, "FORWARD");
 
-//        armMotor.setPower(-0.1);
-//
-//        sleep(300);
+        armMotor.setPower(-0.5);
 
-        armMotor.setPower(0.1);
+        sleep(300);
+
+        armMotor.setPower(0);
+
+        sleep(500);
 
         closeClaw();
 
@@ -119,14 +123,11 @@ public class BRCornerTrauma extends DriveDirections
 
         StraightDrive(moveSpeed, .5, "FORWARD");
 
-        StraightDrive(moveSpeed, .33, "RIGHT");
-
-        armToHeight(550);
-        armMotor.setPower(0.1);
+        StraightDrive(moveSpeed, .35, "RIGHT");
 
         sleep(500);
 
-        StraightDrive(moveSpeed, .10, "FORWARD");
+        StraightDrive(moveSpeed, .1, "FORWARD");
 
         armMotor.setPower(-0.2);
 

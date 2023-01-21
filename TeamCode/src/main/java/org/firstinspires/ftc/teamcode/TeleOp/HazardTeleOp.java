@@ -35,7 +35,8 @@ import com.qualcomm.robotcore.hardware.DcMotorSimple;
 
 import org.firstinspires.ftc.teamcode.DriveDirections;
 
-@TeleOp(name="Hazard TeleOp", group="Hazard")
+//IMPORTANT: NAMED TRAUMA TELEOP TEMP SO PEOPLE DON'T CONFUSE IT - USE THIS ON TRAUMA PLS
+@TeleOp(name="Trauma TeleOp", group="Hazard")
 
 
 public class HazardTeleOp extends DriveDirections {
