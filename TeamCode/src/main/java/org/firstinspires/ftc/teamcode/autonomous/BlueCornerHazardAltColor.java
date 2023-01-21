@@ -1,6 +1,7 @@
 package org.firstinspires.ftc.teamcode.autonomous;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.hardware.ColorSensor;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
@@ -20,6 +21,7 @@ import org.openftc.easyopencv.OpenCvWebcam;
 
 import com.qualcomm.robotcore.hardware.ColorSensor;
 
+@Disabled
 @Autonomous(name="BlueCornerHazardAltColor", group="B")
 public class BlueCornerHazardAltColor extends DriveDirections
 {

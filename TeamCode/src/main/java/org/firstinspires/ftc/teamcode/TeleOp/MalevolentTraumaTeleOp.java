@@ -29,13 +29,15 @@
 
 package org.firstinspires.ftc.teamcode.TeleOp;
 
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 
 import org.firstinspires.ftc.teamcode.DriveDirections;
 
-@TeleOp(name="Trauma TeleOp", group="Trauma")
+@Disabled
+@TeleOp(name="Disabled Trauma TeleOp", group="Trauma")
 
 
 public class MalevolentTraumaTeleOp extends DriveDirections {

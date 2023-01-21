@@ -1,11 +1,12 @@
 package org.firstinspires.ftc.teamcode.autonomous;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.teamcode.DriveDirections;
 
-
+@Disabled
 @Autonomous(name="RedCornerHazardSlow", group="Z")
 
 public class RedCornerHazardSlow extends DriveDirections {

@@ -15,23 +15,24 @@ import org.openftc.easyopencv.OpenCvCameraFactory;
 import org.openftc.easyopencv.OpenCvCameraRotation;
 import org.openftc.easyopencv.OpenCvPipeline;
 import org.openftc.easyopencv.OpenCvWebcam;
+
 @Disabled
-@Autonomous(name="RedCornerHazardDelay", group="A")
-public class RedCornerHazardDelay extends DriveDirections
+@Autonomous(name="BBCornerTrauma", group="A")
+public class BBCornerTrauma extends DriveDirections
 {
     OpenCvWebcam webcam;
     protected int zone;
     int finalZone;
 
     private ElapsedTime runtime = new ElapsedTime();
-    private double moveSpeed = 0.4;
+    private double moveSpeed = 0.6;
 
     @Override
     public void runOpMode(){
 
         webcam = OpenCvCameraFactory.getInstance().createWebcam(hardwareMap.get(WebcamName.class, "Webcam 1"));
 
-        webcam.setPipeline(new RedCornerHazardDelay.SamplePipeline());
+        webcam.setPipeline(new SamplePipeline());
 
         webcam.setMillisecondsPermissionTimeout(1000); // Timeout for obtaining permission is configurable. Set before opening.
         webcam.openCameraDeviceAsync(new OpenCvCamera.AsyncCameraOpenListener()
@@ -60,6 +61,7 @@ public class RedCornerHazardDelay extends DriveDirections
 
         telemetry.addData("Final Zone: ", finalZone);
         telemetry.addData("Zone: ", zone);
+        telemetry.addData("arm height: ", getArmHeight());
         telemetry.update();
 
         closeClaw();
@@ -68,41 +70,100 @@ public class RedCornerHazardDelay extends DriveDirections
         armToHeight(100);
         armMotor.setPower(0.1);
 
-        sleep(5000);
+        StraightDrive(moveSpeed, 0.9, "LEFT");
+        DriveForTime("BACKWARD",.2, 0.6);
+        StraightDrive(0.4, 0.68, "FORWARD");
 
-        StraightDrive(moveSpeed, 0.86, "RIGHT");
-        StraightDrive(0.3, 0.64, "FORWARD");
-
-        armToHeight(900);
+        armToHeight(925);
         armMotor.setPower(0.1);
 
-        StraightDrive(0.1, 0.1, "FORWARD");
+        StraightDriveNoSlow(0.2, 0.1, "FORWARD");
 
 
         sleep(500);
 
         openClaw();
 
-        sleep(1000);
+        sleep(500);
 
         armMotor.setPower(0);
 
         StraightDrive(moveSpeed, 0.05, "BACKWARD");
-        StraightDrive(moveSpeed, 0.4, "LEFT");
-        StraightDrive(moveSpeed, 0.5, "FORWARD");
+        StraightDrive(moveSpeed, 0.4, "RIGHT");
+        StraightDrive(moveSpeed, 0.53, "FORWARD");
+
+        sleep(750);
+
+        rotateToZAbs(-90, 0);
+
+        sleep(500);
+
+
+        StraightDrive(moveSpeed, 1.07, "FORWARD");
+
+        armMotor.setPower(0.2);
+
+        sleep(300);
+
+        armMotor.setPower(0.1);
+
+        sleep(500);
+
+        closeClaw();
+
+        sleep(500);
+
+        armToHeight(500);
+        armMotor.setPower(0.1);
+
+        sleep(500);
+
+        StraightDrive(moveSpeed, 1.13, "BACKWARD");
+
+        armToHeight(100);
+
+        sleep(750);
+
+        rotateToZAbs(180, 0);
+
+        sleep(750);
+
+        StraightDrive(moveSpeed, .43, "FORWARD");
+
+        StraightDrive(moveSpeed, .25, "LEFT");
+
+        armToHeight(550);
+
+        armMotor.setPower(0.1);
+
+        sleep(500);
+
+        StraightDrive(0.2, .09, "FORWARD");
+
+        armMotor.setPower(-0.3);
+        sleep(300);
+
+        armMotor.setPower(0);
+        openClaw();
+
+        sleep(500);
+
+        StraightDrive(moveSpeed,.05, "BACKWARD");
+
 
         telemetry.addData("Final Zone: ", finalZone);
         telemetry.addData("Zone: ", zone);
         telemetry.update();
 
         switch(finalZone){
-            case 3:
+            case 1:
+                StraightDrive(moveSpeed,.3, "RIGHT");
                 break;
             case 2:
-                StraightDrive(moveSpeed, 0.6, "LEFT");
+                StraightDrive(moveSpeed, .4, "LEFT");
                 break;
-            case 1:
-                StraightDrive(moveSpeed, 1.25, "LEFT");
+            case 3:
+                StraightDrive(moveSpeed, 1.1, "LEFT");
                 break;
         }
 
@@ -124,23 +185,16 @@ public class RedCornerHazardDelay extends DriveDirections
 
         boolean viewportPaused;
 
-        Scalar greenLower = new Scalar(30, 127, 20);
-        Scalar greenHigher = new Scalar(90, 200, 155);
+        Scalar greenLower = new Scalar(30, 75, 75);
+        Scalar greenHigher = new Scalar(90, 255, 255);
 
-        Scalar blueLower = new Scalar(90, 127, 100);
+        Scalar blueLower = new Scalar(90, 110, 50);
         Scalar blueHigher = new Scalar(100, 255, 255);
 
-        Scalar pinkLower = new Scalar(150, 127, 100);
-        Scalar pinkHigher = new Scalar(170, 255, 255);
+        Scalar pinkLower = new Scalar(150, 100, 100);
+        Scalar pinkHigher = new Scalar(170, 200, 255);
 
-        /*
-         * NOTE: if you wish to use additional Mat objects in your processing pipeline, it is
-         * highly recommended to declare them here as instance variables and re-use them for
-         * each invocation of processFrame(), rather than declaring them as new local variables
-         * each time through processFrame(). This removes the danger of causing a memory leak
-         * by forgetting to call mat.release(), and it also reduces memory pressure by not
-         * constantly allocating and freeing large chunks of memory.
-         */
+
 
         @Override
         public Mat processFrame(Mat input) {
