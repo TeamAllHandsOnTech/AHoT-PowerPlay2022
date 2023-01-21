@@ -37,7 +37,7 @@ import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import org.firstinspires.ftc.teamcode.DriveDirections;
 
 @Disabled
-@TeleOp(name="Trauma TeleOp", group="Trauma")
+@TeleOp(name="Disabled Trauma TeleOp", group="Trauma")
 
 
 public class MalevolentTraumaTeleOp extends DriveDirections {
