@@ -49,8 +49,6 @@ public class RRCornerHazard extends DriveDirections
             }
         });
 
-        isHazard = true;
-
         super.runOpMode();
 
         initArm();

@@ -49,8 +49,6 @@ public class BlueCornerHazardDelay extends DriveDirections
             }
         });
 
-        isHazard = true;
-
         super.runOpMode();
 
         initArm();

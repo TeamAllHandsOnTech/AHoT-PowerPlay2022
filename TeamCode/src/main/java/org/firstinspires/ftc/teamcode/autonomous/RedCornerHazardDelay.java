@@ -48,8 +48,6 @@ public class RedCornerHazardDelay extends DriveDirections
             }
         });
 
-        isHazard = true;
-
         super.runOpMode();
 
         initArm();

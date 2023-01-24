@@ -49,8 +49,6 @@ public class BlueCornerHazardSlow extends DriveDirections
             }
         });
 
-        isHazard = true;
-
         super.runOpMode();
 
         initArm();

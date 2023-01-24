@@ -48,8 +48,6 @@ public class BlueCornerHazardColor extends DriveDirections
             }
         });
 
-        isHazard = true;
-
         super.runOpMode();
 
         initArm();

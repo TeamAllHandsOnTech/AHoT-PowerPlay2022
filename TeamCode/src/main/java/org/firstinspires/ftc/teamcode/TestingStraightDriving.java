@@ -2,8 +2,6 @@ package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 
-import org.firstinspires.ftc.teamcode.DriveDirections;
-
 
 @Autonomous(name="TestingStraightDriving", group="Hazard")
 public class TestingStraightDriving extends DriveDirections
@@ -12,8 +10,6 @@ public class TestingStraightDriving extends DriveDirections
 
     @Override
     public void runOpMode(){
-
-        isHazard = true;
 
         super.runOpMode();
 
