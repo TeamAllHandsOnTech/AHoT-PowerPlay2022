@@ -18,8 +18,6 @@ public class RedCornerHazardSlow extends DriveDirections {
     @Override
     public void runOpMode() {
 
-        isHazard = true;
-
         super.runOpMode();
 
         initArm();

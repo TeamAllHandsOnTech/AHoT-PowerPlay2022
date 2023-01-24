@@ -15,8 +15,8 @@ import org.openftc.easyopencv.OpenCvCameraRotation;
 import org.openftc.easyopencv.OpenCvPipeline;
 import org.openftc.easyopencv.OpenCvWebcam;
 
-@Autonomous(name="BCornerTraumaNoStack", group="A")
-public class BCornerTraumaNoStack extends DriveDirections
+@Autonomous(name="RCornerTraumaNoStack", group="A")
+public class RedCornerTraumaNoStack extends DriveDirections
 {
     OpenCvWebcam webcam;
     protected int zone;
@@ -47,8 +47,6 @@ public class BCornerTraumaNoStack extends DriveDirections
             }
         });
 
-        isHazard = true;
-
         super.runOpMode();
 
         initArm();
@@ -68,7 +66,7 @@ public class BCornerTraumaNoStack extends DriveDirections
         armToHeight(100);
         armMotor.setPower(0.1);
 
-        StraightDrive(moveSpeed, 0.9, "LEFT");
+        StraightDrive(moveSpeed, 0.9, "RIGHT");
         DriveForTime("BACKWARD",.2, 0.6);
         StraightDrive(0.4, 0.68, "FORWARD");
 
@@ -87,7 +85,7 @@ public class BCornerTraumaNoStack extends DriveDirections
         armMotor.setPower(0);
 
         StraightDrive(moveSpeed, 0.05, "BACKWARD");
-        StraightDrive(moveSpeed, 0.4, "RIGHT");
+        StraightDrive(moveSpeed, 0.4, "LEFT");
 
         telemetry.addData("Final Zone: ", finalZone);
         telemetry.addData("Zone: ", zone);
@@ -95,13 +93,13 @@ public class BCornerTraumaNoStack extends DriveDirections
 
         switch(finalZone){
             case 1:
-                StraightDrive(moveSpeed,0, "RIGHT");
+                StraightDrive(moveSpeed,0, "LEFT");
                 break;
             case 2:
-                StraightDrive(moveSpeed, .4, "RIGHT");
+                StraightDrive(moveSpeed, .75, "LEFT");
                 break;
             case 3:
-                StraightDrive(moveSpeed, 1.1, "RIGHT");
+                StraightDrive(moveSpeed, 1.4, "LEFT");
                 break;
         }
 

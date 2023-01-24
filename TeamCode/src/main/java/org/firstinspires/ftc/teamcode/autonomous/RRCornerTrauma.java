@@ -49,8 +49,6 @@ public class RRCornerTrauma extends DriveDirections
             }
         });
 
-        isHazard = true;
-
         super.runOpMode();
 
         initArm();

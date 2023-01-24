@@ -1,11 +1,7 @@
 package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
-import com.qualcomm.robotcore.hardware.DcMotor;
-import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.util.ElapsedTime;
-
-import org.firstinspires.ftc.teamcode.DriveDirections;
 
 
 @Autonomous(name="Straight Drive", group="Hazard")
@@ -18,8 +14,6 @@ public class TestingStraightDrive extends DriveDirections {
 
     @Override
     public void runOpMode() {
-
-        isHazard = true;
 
         super.runOpMode();
 

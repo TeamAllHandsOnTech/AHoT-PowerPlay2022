@@ -42,7 +42,6 @@ public class TestingArm extends DriveDirections {
 
     @Override
     public void runOpMode() {
-        isHazard = true;
         super.runOpMode();
 
 

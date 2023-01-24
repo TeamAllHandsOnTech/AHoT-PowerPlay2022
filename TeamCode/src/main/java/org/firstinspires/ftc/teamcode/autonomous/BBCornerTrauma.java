@@ -49,7 +49,6 @@ public class BBCornerTrauma extends DriveDirections
             }
         });
 
-        isHazard = true;
 
         super.runOpMode();
 

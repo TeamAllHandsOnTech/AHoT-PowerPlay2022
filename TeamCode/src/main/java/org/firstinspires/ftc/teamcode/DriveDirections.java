@@ -24,8 +24,8 @@ public abstract class DriveDirections extends LinearOpMode {
     public DcMotor rightBackDrive = null;
     public DcMotor leftBackDrive = null;
     private double moveSpeed = 0.3;
-    public boolean isHazard;
 
+    //Claw values for trauma
     private static double ARM_MIN_RANGE = .65;
     private static double ARM_MAX_RANGE = 0.4;
 
@@ -51,17 +51,10 @@ public abstract class DriveDirections extends LinearOpMode {
         rightFrontDrive = hardwareMap.get(DcMotor.class, "frontRight");
         rightBackDrive = hardwareMap.get(DcMotor.class, "backRight");
 
-        if (isHazard){
-            leftFrontDrive.setDirection(DcMotor.Direction.REVERSE);
-            leftBackDrive.setDirection(DcMotor.Direction.REVERSE);
-            rightFrontDrive.setDirection(DcMotor.Direction.FORWARD);
-            rightBackDrive.setDirection(DcMotor.Direction.FORWARD);
-        } else {
-            leftFrontDrive.setDirection(DcMotor.Direction.FORWARD);
-            leftBackDrive.setDirection(DcMotor.Direction.FORWARD);
-            rightFrontDrive.setDirection(DcMotor.Direction.REVERSE);
-            rightBackDrive.setDirection(DcMotor.Direction.REVERSE);
-        }
+        leftFrontDrive.setDirection(DcMotor.Direction.REVERSE);
+        leftBackDrive.setDirection(DcMotor.Direction.REVERSE);
+        rightFrontDrive.setDirection(DcMotor.Direction.FORWARD);
+        rightBackDrive.setDirection(DcMotor.Direction.FORWARD);
 
         //Calibrate NavX
         navxMicro = hardwareMap.get(NavxMicroNavigationSensor.class, "navx");

@@ -31,12 +31,11 @@ package org.firstinspires.ftc.teamcode.TeleOp;
 
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
-import com.qualcomm.robotcore.hardware.DcMotorSimple;
 
 import org.firstinspires.ftc.teamcode.DriveDirections;
 
-//IMPORTANT: NAMED TRAUMA TELEOP TEMP SO PEOPLE DON'T CONFUSE IT - USE THIS ON TRAUMA PLS
-@TeleOp(name="Trauma TeleOp", group="Hazard")
+
+@TeleOp(name="TeleOp", group="Hazard")
 
 
 public class HazardTeleOp extends DriveDirections {
@@ -46,7 +45,6 @@ public class HazardTeleOp extends DriveDirections {
 
     @Override
     public void runOpMode() {
-        isHazard=true;
         super.runOpMode();
         leftFrontDrive.setDirection(DcMotor.Direction.REVERSE);
         leftBackDrive.setDirection(DcMotor.Direction.REVERSE);

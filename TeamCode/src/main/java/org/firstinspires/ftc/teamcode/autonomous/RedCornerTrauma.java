@@ -47,8 +47,6 @@ public class RedCornerTrauma extends DriveDirections
             }
         });
 
-        isHazard = true;
-
         super.runOpMode();
 
         initArm();
@@ -69,9 +67,9 @@ public class RedCornerTrauma extends DriveDirections
 
         StraightDrive(moveSpeed, 0.87, "RIGHT");
         DriveForTime("BACKWARD", moveSpeed, 0.2);
-        StraightDrive(0.3, 0.63, "FORWARD");
+        StraightDrive(0.3, 0.67, "FORWARD");
 
-        armToHeight(925);
+//        armToHeight(925);
 
         StraightDriveNoSlow(0.22, 0.12, "FORWARD");
 
@@ -92,17 +90,17 @@ public class RedCornerTrauma extends DriveDirections
 
         rotateToZAbs(90, 0);
 
-        StraightDrive(moveSpeed, 1.17, "FORWARD");
+        StraightDrive(moveSpeed, 1.15, "FORWARD");
 
-        armMotor.setPower(-0.5);
+        armMotor.setPower(-0.3);
 
-        sleep(300);
+        sleep(100);
 
         armMotor.setPower(0);
 
         sleep(500);
 
-        closeClaw();
+//        closeClaw();
 
         sleep(500);
 
@@ -111,7 +109,7 @@ public class RedCornerTrauma extends DriveDirections
 
         sleep(500);
 
-        StraightDrive(moveSpeed, 1.09, "BACKWARD");
+        StraightDrive(moveSpeed, 1.15, "BACKWARD");
 
         armToHeight(100);
 
@@ -121,11 +119,11 @@ public class RedCornerTrauma extends DriveDirections
 
         StraightDrive(moveSpeed, .5, "FORWARD");
 
-        StraightDrive(moveSpeed, .35, "RIGHT");
+        StraightDrive(moveSpeed, .36, "RIGHT");
 
         sleep(500);
 
-        StraightDrive(moveSpeed, .1, "FORWARD");
+        StraightDrive(moveSpeed, .11, "FORWARD");
 
         armMotor.setPower(-0.2);
 

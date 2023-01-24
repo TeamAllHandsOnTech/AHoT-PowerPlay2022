@@ -1,7 +1,6 @@
 package org.firstinspires.ftc.teamcode.autonomous;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
-import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.robotcore.external.hardware.camera.WebcamName;
@@ -48,8 +47,6 @@ public class BlueCornerTrauma extends DriveDirections
             }
         });
 
-        isHazard = true;
-
         super.runOpMode();
 
         initArm();
@@ -70,11 +67,9 @@ public class BlueCornerTrauma extends DriveDirections
 
         StraightDrive(moveSpeed, 0.9, "LEFT");
         DriveForTime("BACKWARD",.2, 0.6);
-        StraightDrive(0.4, 0.68, "FORWARD");
+        StraightDrive(0.4, 0.79, "FORWARD");
 
         armToHeight(925);
-
-        StraightDriveNoSlow(0.2, 0.1, "FORWARD");
 
 
         sleep(500);
@@ -96,17 +91,17 @@ public class BlueCornerTrauma extends DriveDirections
         sleep(500);
 
 
-        StraightDrive(moveSpeed, 1.07, "FORWARD");
+        StraightDrive(moveSpeed, 1.11, "FORWARD");
 
-        armMotor.setPower(-0.5);
+        armMotor.setPower(.1);
 
-        sleep(250);
+        sleep(1000);
 
         armMotor.setPower(0);
 
         sleep(500);
 
-        closeClaw();
+//        closeClaw();
 
         sleep(500);
 
@@ -125,7 +120,7 @@ public class BlueCornerTrauma extends DriveDirections
 
         sleep(750);
 
-        StraightDrive(moveSpeed, .5, "FORWARD");
+        StraightDrive(moveSpeed, .58, "FORWARD");
 
         StraightDrive(moveSpeed, .4, "LEFT");
 
@@ -153,13 +148,13 @@ public class BlueCornerTrauma extends DriveDirections
 
         switch(finalZone){
             case 1:
-                StraightDrive(moveSpeed,.3, "RIGHT");
+                StraightDrive(moveSpeed,.35, "RIGHT");
                 break;
             case 2:
-                StraightDrive(moveSpeed, .3, "LEFT");
+                StraightDrive(moveSpeed, .35, "LEFT");
                 break;
             case 3:
-                StraightDrive(moveSpeed, .9, "LEFT");
+                StraightDrive(moveSpeed, .95, "LEFT");
                 break;
         }
 

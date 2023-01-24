@@ -48,7 +48,6 @@ public class BBCornerHazard extends DriveDirections
             }
         });
 
-        isHazard = true;
 
         super.runOpMode();
 

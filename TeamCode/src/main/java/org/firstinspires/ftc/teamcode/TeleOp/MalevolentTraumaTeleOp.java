@@ -32,12 +32,12 @@ package org.firstinspires.ftc.teamcode.TeleOp;
 import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
-import com.qualcomm.robotcore.hardware.DcMotorSimple;
 
 import org.firstinspires.ftc.teamcode.DriveDirections;
 
 @Disabled
-@TeleOp(name="Disabled Trauma TeleOp", group="Trauma")
+// It's broken, please do not use.
+@TeleOp(name="Trauma TeleOp", group="Trauma")
 
 
 public class MalevolentTraumaTeleOp extends DriveDirections {
@@ -46,7 +46,6 @@ public class MalevolentTraumaTeleOp extends DriveDirections {
 
     @Override
     public void runOpMode() {
-        isHazard=false;
         super.runOpMode();
         leftFrontDrive.setDirection(DcMotor.Direction.REVERSE);
         leftBackDrive.setDirection(DcMotor.Direction.REVERSE);

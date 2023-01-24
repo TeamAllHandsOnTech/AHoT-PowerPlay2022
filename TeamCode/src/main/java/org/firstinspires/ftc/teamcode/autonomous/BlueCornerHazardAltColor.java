@@ -3,8 +3,6 @@ package org.firstinspires.ftc.teamcode.autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.hardware.ColorSensor;
-import com.qualcomm.robotcore.hardware.DcMotor;
-import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.robotcore.external.hardware.camera.WebcamName;
@@ -18,8 +16,6 @@ import org.openftc.easyopencv.OpenCvCameraFactory;
 import org.openftc.easyopencv.OpenCvCameraRotation;
 import org.openftc.easyopencv.OpenCvPipeline;
 import org.openftc.easyopencv.OpenCvWebcam;
-
-import com.qualcomm.robotcore.hardware.ColorSensor;
 
 @Disabled
 @Autonomous(name="BlueCornerHazardAltColor", group="B")
@@ -67,8 +63,6 @@ public class BlueCornerHazardAltColor extends DriveDirections
         boolean frontColorColor = pickColor(frontColor,1.1) == "Red" || pickColor(frontColor,1.1) == "Blue";
         boolean backColorColor = pickColor(backColor,1.1) == "Red" || pickColor(backColor,1.1) == "Blue";
 
-
-        isHazard = true;
 
         super.runOpMode();
 
