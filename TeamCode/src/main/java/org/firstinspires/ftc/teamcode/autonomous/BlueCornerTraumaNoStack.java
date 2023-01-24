@@ -66,14 +66,14 @@ public class BlueCornerTraumaNoStack extends DriveDirections
         armToHeight(100);
         armMotor.setPower(0.1);
 
-        StraightDrive(moveSpeed, 0.9, "LEFT");
-        DriveForTime("BACKWARD",.2, 0.6);
-        StraightDrive(0.4, 0.68, "FORWARD");
+        straightDrive(moveSpeed, 0.9, "LEFT");
+        driveForTime("BACKWARD",.2, 0.6);
+        straightDrive(0.4, 0.68, "FORWARD");
 
         armToHeight(925);
         armMotor.setPower(0.1);
 
-        StraightDriveNoSlow(0.2, 0.1, "FORWARD");
+        straightDriveNoSlow(0.2, 0.1, "FORWARD");
 
 
         sleep(500);
@@ -84,8 +84,8 @@ public class BlueCornerTraumaNoStack extends DriveDirections
 
         armMotor.setPower(0);
 
-        StraightDrive(moveSpeed, 0.05, "BACKWARD");
-        StraightDrive(moveSpeed, 0.4, "RIGHT");
+        straightDrive(moveSpeed, 0.05, "BACKWARD");
+        straightDrive(moveSpeed, 0.4, "RIGHT");
 
         telemetry.addData("Final Zone: ", finalZone);
         telemetry.addData("Zone: ", zone);
@@ -93,13 +93,13 @@ public class BlueCornerTraumaNoStack extends DriveDirections
 
         switch(finalZone){
             case 1:
-                StraightDrive(moveSpeed,0, "RIGHT");
+                straightDrive(moveSpeed,0, "RIGHT");
                 break;
             case 2:
-                StraightDrive(moveSpeed, .7, "RIGHT");
+                straightDrive(moveSpeed, .7, "RIGHT");
                 break;
             case 3:
-                StraightDrive(moveSpeed, 1.4, "RIGHT");
+                straightDrive(moveSpeed, 1.4, "RIGHT");
                 break;
         }
 

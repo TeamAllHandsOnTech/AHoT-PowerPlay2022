@@ -66,14 +66,14 @@ public class RedCornerTraumaNoStack extends DriveDirections
         armToHeight(100);
         armMotor.setPower(0.1);
 
-        StraightDrive(moveSpeed, 0.9, "RIGHT");
-        DriveForTime("BACKWARD",.2, 0.6);
-        StraightDrive(0.4, 0.68, "FORWARD");
+        straightDrive(moveSpeed, 0.9, "RIGHT");
+        driveForTime("BACKWARD",.2, 0.6);
+        straightDrive(0.4, 0.68, "FORWARD");
 
         armToHeight(925);
         armMotor.setPower(0.1);
 
-        StraightDriveNoSlow(0.2, 0.1, "FORWARD");
+        straightDriveNoSlow(0.2, 0.1, "FORWARD");
 
 
         sleep(500);
@@ -84,8 +84,8 @@ public class RedCornerTraumaNoStack extends DriveDirections
 
         armMotor.setPower(0);
 
-        StraightDrive(moveSpeed, 0.05, "BACKWARD");
-        StraightDrive(moveSpeed, 0.4, "LEFT");
+        straightDrive(moveSpeed, 0.05, "BACKWARD");
+        straightDrive(moveSpeed, 0.4, "LEFT");
 
         telemetry.addData("Final Zone: ", finalZone);
         telemetry.addData("Zone: ", zone);
@@ -93,13 +93,13 @@ public class RedCornerTraumaNoStack extends DriveDirections
 
         switch(finalZone){
             case 1:
-                StraightDrive(moveSpeed,0, "LEFT");
+                straightDrive(moveSpeed,0, "LEFT");
                 break;
             case 2:
-                StraightDrive(moveSpeed, .75, "LEFT");
+                straightDrive(moveSpeed, .75, "LEFT");
                 break;
             case 3:
-                StraightDrive(moveSpeed, 1.4, "LEFT");
+                straightDrive(moveSpeed, 1.4, "LEFT");
                 break;
         }
 

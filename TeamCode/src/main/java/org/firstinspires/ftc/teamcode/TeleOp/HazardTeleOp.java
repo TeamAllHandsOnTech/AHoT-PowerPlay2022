@@ -80,7 +80,7 @@ public class HazardTeleOp extends DriveDirections {
                 //"If joystick moved more vertically than horizontally, then move forward/backward"
                 if (Math.abs(gamepad1.left_stick_x) < Math.abs(gamepad1.left_stick_y)) {
                     if(Math.abs(gamepad1.right_stick_x) < deadZone) {
-                        DriveInDirection((gamepad1.left_stick_y * -powerLevel), "FORWARD");
+                        driveInDirection((gamepad1.left_stick_y * -powerLevel), "FORWARD");
                     }
                     if(Math.abs(gamepad1.right_stick_x) > deadZone) {
 //                        lfPower = leftFrontDrive.getPower();
@@ -110,7 +110,7 @@ public class HazardTeleOp extends DriveDirections {
                     //"If joystick moved more horizontally than vertically, strafe"
                 } else if (Math.abs(gamepad1.left_stick_y) < Math.abs(gamepad1.left_stick_x)) {
                     if(Math.abs(gamepad1.right_stick_x) < deadZone) {
-                        DriveInDirection((gamepad1.left_stick_x * powerLevel), "RIGHT");
+                        driveInDirection((gamepad1.left_stick_x * powerLevel), "RIGHT");
                     }
                     if(Math.abs(gamepad1.right_stick_x) > deadZone) {
 //                        lfPower = leftFrontDrive.getPower();
@@ -141,9 +141,9 @@ public class HazardTeleOp extends DriveDirections {
 
                 //Check if the right joystick is moved significantly, otherwise motors are stopped
             } else if (Math.abs(gamepad1.right_stick_x) > 0.1) {
-                DriveInDirection(gamepad1.right_stick_x * powerLevel, "ROTATE_RIGHT");
+                driveInDirection(gamepad1.right_stick_x * powerLevel, "ROTATE_RIGHT");
             } else {
-                DriveInDirection(0, "STOP");
+                driveInDirection(0, "STOP");
             }
 
             if(gamepad1.y){

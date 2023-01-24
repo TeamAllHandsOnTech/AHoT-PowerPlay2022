@@ -38,14 +38,14 @@ public class RedCornerHazardSlow extends DriveDirections {
 //        DriveForDistance(moveSpeed, .36, "LEFT");
 //        DriveForDistance(moveSpeed, .75, "FORWARD");
 
-        DriveForDistance(moveSpeed, .50, "LEFT");
-        DriveForDistance(moveSpeed, .06, "BACKWARD");
-        DriveForDistance(moveSpeed, .16, "FORWARD");
+        driveForDistance(moveSpeed, .50, "LEFT");
+        driveForDistance(moveSpeed, .06, "BACKWARD");
+        driveForDistance(moveSpeed, .16, "FORWARD");
         openClaw();
         sleep(3000);
-        DriveForDistance(moveSpeed, .2, "BACKWARD");
-        DriveForDistance(moveSpeed, .36, "LEFT");
-        DriveForDistance(moveSpeed, .75, "FORWARD");
+        driveForDistance(moveSpeed, .2, "BACKWARD");
+        driveForDistance(moveSpeed, .36, "LEFT");
+        driveForDistance(moveSpeed, .75, "FORWARD");
 
         // run until the end of the match (driver presses STOP)
         while (opModeIsActive()) {

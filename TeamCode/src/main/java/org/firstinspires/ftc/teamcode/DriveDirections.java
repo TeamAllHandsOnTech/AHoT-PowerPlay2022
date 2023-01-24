@@ -1,15 +1,11 @@
 package org.firstinspires.ftc.teamcode;
 
-import android.graphics.Color;
-
 import com.qualcomm.hardware.kauailabs.NavxMicroNavigationSensor;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.ColorSensor;
 import com.qualcomm.robotcore.hardware.DcMotor;
-import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.IntegratingGyroscope;
 import com.qualcomm.robotcore.hardware.Servo;
-import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
 import org.firstinspires.ftc.robotcore.external.navigation.AxesOrder;
@@ -18,16 +14,19 @@ import org.firstinspires.ftc.robotcore.external.navigation.Orientation;
 
 public abstract class DriveDirections extends LinearOpMode {
 
-    private ElapsedTime runtime = new ElapsedTime();
     public DcMotor rightFrontDrive = null;
     public DcMotor leftFrontDrive = null;
     public DcMotor rightBackDrive = null;
     public DcMotor leftBackDrive = null;
-    private double moveSpeed = 0.3;
 
-    //Claw values for trauma
-    private static double ARM_MIN_RANGE = .65;
-    private static double ARM_MAX_RANGE = 0.4;
+    //Claw values for Trauma
+    private static final double ARM_MIN_RANGE = .65;
+    private static final double ARM_MAX_RANGE = 0.4;
+
+    //Claw values for Hazard, uncomment if using Hazard
+
+    //    private static final double ARM_MIN_RANGE = .88;
+    //    private static final double ARM_MAX_RANGE = 0.7;
 
     public DcMotor armMotor = null;
 
@@ -37,7 +36,7 @@ public abstract class DriveDirections extends LinearOpMode {
     NavxMicroNavigationSensor navxMicro;
 
     double previousHeading = 0;
-    double intergratedHeading = 0;
+    double integratedHeading = 0;
 
 
 
@@ -73,7 +72,7 @@ public abstract class DriveDirections extends LinearOpMode {
 
     }
 
-    public void DriveInDirection(double power, String direction){
+    public void driveInDirection(double power, String direction){
         switch(direction){
             case "FORWARD":
                 rightFrontDrive.setPower(power);
@@ -123,15 +122,15 @@ public abstract class DriveDirections extends LinearOpMode {
         }
     }
 
-    public void DriveForDistance (double power, double distance, String direction){
+    public void driveForDistance(double power, double distance, String direction){
         double clicksPerMeter = 2492.788;
         double targetClicks = distance*clicksPerMeter;
         double currentClicks = 0;
 
-        double rightFrontClicks = 0;
-        double leftFrontClicks = 0;
-        double rightBackClicks = 0;
-        double leftBackClicks = 0;
+        double rightFrontClicks;
+        double leftFrontClicks;
+        double rightBackClicks;
+        double leftBackClicks;
 
         rightFrontDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         leftFrontDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
@@ -143,7 +142,7 @@ public abstract class DriveDirections extends LinearOpMode {
         rightBackDrive.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         leftBackDrive.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
 
-        DriveInDirection(power, direction);
+        driveInDirection(power, direction);
 
         while(currentClicks < targetClicks){
 
@@ -154,10 +153,10 @@ public abstract class DriveDirections extends LinearOpMode {
 
             currentClicks = (rightFrontClicks+leftFrontClicks+rightBackClicks+leftBackClicks)/4;
         }
-        DriveInDirection(0, "FORWARD");
+        driveInDirection(0, "FORWARD");
     }
 
-    public void StraightDrive (double power, double distance, String direction){
+    public void straightDrive(double power, double distance, String direction){
         double clicksPerMeter = 2492.788;
         double targetClicks = distance*clicksPerMeter;
         double currentClicks = 0;
@@ -167,12 +166,12 @@ public abstract class DriveDirections extends LinearOpMode {
         double RBPower;
         double LBPower;
 
-        double rightFrontClicks = 0;
-        double leftFrontClicks = 0;
-        double rightBackClicks = 0;
-        double leftBackClicks = 0;
+        double rightFrontClicks;
+        double leftFrontClicks;
+        double rightBackClicks;
+        double leftBackClicks;
 
-        intergratedHeading = 0;
+        integratedHeading = 0;
 
         double target = getCumulativeZ();
         double error = getCumulativeZ() - target;
@@ -194,7 +193,7 @@ public abstract class DriveDirections extends LinearOpMode {
         rightBackDrive.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         leftBackDrive.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
 
-        DriveInDirection(power, direction);
+        driveInDirection(power, direction);
 
         RFPower = rightFrontDrive.getPower();
         LFPower = leftFrontDrive.getPower();
@@ -252,10 +251,10 @@ public abstract class DriveDirections extends LinearOpMode {
             telemetry.update();
 
         }
-        DriveInDirection(0, "FORWARD");
+        driveInDirection(0, "FORWARD");
     }
     //no slowdown as robot approaches target
-    public void StraightDriveNoSlow (double power, double distance, String direction){
+    public void straightDriveNoSlow(double power, double distance, String direction){
         double clicksPerMeter = 2492.788;
         double targetClicks = distance*clicksPerMeter;
         double currentClicks = 0;
@@ -265,12 +264,12 @@ public abstract class DriveDirections extends LinearOpMode {
         double RBPower;
         double LBPower;
 
-        double rightFrontClicks = 0;
-        double leftFrontClicks = 0;
-        double rightBackClicks = 0;
-        double leftBackClicks = 0;
+        double rightFrontClicks;
+        double leftFrontClicks;
+        double rightBackClicks;
+        double leftBackClicks;
 
-        intergratedHeading = 0;
+        integratedHeading = 0;
 
         double target = getCumulativeZ();
         double error = getCumulativeZ() - target;
@@ -287,7 +286,7 @@ public abstract class DriveDirections extends LinearOpMode {
         rightBackDrive.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         leftBackDrive.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
 
-        DriveInDirection(power, direction);
+        driveInDirection(power, direction);
 
         RFPower = rightFrontDrive.getPower();
         LFPower = leftFrontDrive.getPower();
@@ -314,20 +313,20 @@ public abstract class DriveDirections extends LinearOpMode {
                 leftBackDrive.setPower(LBPower + powerDifference);
             }
         }
-        DriveInDirection(0, "FORWARD");
+        driveInDirection(0, "FORWARD");
     }
 
-    public void DriveForTime(String direction, double power, double time){
+    public void driveForTime(String direction, double power, double time){
         time*=1000;
-        DriveInDirection(power, direction);
+        driveInDirection(power, direction);
         sleep((long)time);
-        DriveInDirection(power, "FORWARD");
+        driveInDirection(power, "FORWARD");
     }
 
     public void rotateToZAbs(double absTargetAngle, double zero){
         double dividend = 50;
         sleep(20);
-        intergratedHeading = 0;
+        integratedHeading = 0;
         double startAngle = getCurrentZ();
         double error = zero + absTargetAngle - getCurrentZ();
 
@@ -355,14 +354,12 @@ public abstract class DriveDirections extends LinearOpMode {
                 }
 
                 //rotate left
-                DriveInDirection(proportionalPower, "ROTATE_LEFT");
+                driveInDirection(proportionalPower, "ROTATE_LEFT");
 
 
-                //            //telemetry
-                //            telemetry.addLine("currentZ: " + getCurrentZ());
                 telemetry.addLine("StartAngle: " + startAngle);
                 telemetry.addLine("TargetAngle: " + absTargetAngle);
-                telemetry.addLine("Cumulativez: " + getCurrentZ());
+                telemetry.addLine("CumulativeZ: " + getCurrentZ());
                 telemetry.addLine("Error: " + error);
                 telemetry.addLine("rotation: counter clockwise");
                 telemetry.update();
@@ -385,7 +382,7 @@ public abstract class DriveDirections extends LinearOpMode {
                 }
 
                 //rotate right
-                DriveInDirection(proportionalPower, "ROTATE_RIGHT");
+                driveInDirection(proportionalPower, "ROTATE_RIGHT");
 
                 //telemetry
                 //            telemetry.addLine("currentZ" + getCurrentZ());
@@ -406,11 +403,10 @@ public abstract class DriveDirections extends LinearOpMode {
         }
     }
 
-    //WIPPPPPPPP!!!!
     public void rotateToZLoc(double localTargetAngle){
         double dividend = 50;
         sleep(20);
-        intergratedHeading = 0;
+        integratedHeading = 0;
         double startAngle = getCumulativeZ();
         double absTargetAngle = localTargetAngle + startAngle;
         double error = absTargetAngle - getCumulativeZ();
@@ -420,11 +416,8 @@ public abstract class DriveDirections extends LinearOpMode {
 
                 error = absTargetAngle - getCumulativeZ();
                 //rotate left
-                DriveInDirection(error / dividend, "ROTATE_LEFT");
+                driveInDirection(error / dividend, "ROTATE_LEFT");
 
-
-    //            //telemetry
-    //            telemetry.addLine("currentZ: " + getCurrentZ());
                 telemetry.addLine("TargetAngle: " + absTargetAngle);
                 telemetry.addLine("cumulativeZ: " + getCumulativeZ());
                 telemetry.addLine("Error: " + error);
@@ -437,7 +430,7 @@ public abstract class DriveDirections extends LinearOpMode {
 
                 error = absTargetAngle - getCumulativeZ();
                 //rotate right
-                DriveInDirection(error / dividend, "ROTATE_LEFT");
+                driveInDirection(error / dividend, "ROTATE_LEFT");
 
                 //telemetry
     //            telemetry.addLine("currentZ" + getCurrentZ());
@@ -472,17 +465,15 @@ public abstract class DriveDirections extends LinearOpMode {
             deltaHeading -= 360;
         }
 
-        intergratedHeading += deltaHeading;
+        integratedHeading += deltaHeading;
         previousHeading = currentHeading;
 
-        return  intergratedHeading;
+        return integratedHeading;
     }
 
     //Test code for arm
     //Gets height in millimeters
     public void initArm() {
-        double Slow_Arm_Speed = 0.3;
-        double Fast_Arm_Speed = 0.55;
         armMotor = hardwareMap.get(DcMotor.class, "arm");
         armMotor.setDirection(DcMotor.Direction.FORWARD);
         claw = hardwareMap.get(Servo.class, "claw");
@@ -497,8 +488,7 @@ public abstract class DriveDirections extends LinearOpMode {
     }
 
     public boolean isClawOpen() {
-        if (claw.getPosition()>0.1) {return false;}
-        else { return true;}
+        return !(claw.getPosition() > 0.1);
 
     }
 
@@ -538,15 +528,6 @@ public abstract class DriveDirections extends LinearOpMode {
         } else {
             armMotor.setPower(0);
         }
-    }
-//https://rosettacode.org/wiki/Map_range
-    //used this explanation
-    public double MapRange(double min1, double max1, double min2, double max2, double input){
-        return(min2 + ((input - min1)*(max2 - min2)/(max1 - min1)));
-    }
-
-    public void initColor(){
-        ColorSensor colorSensor = hardwareMap.get(ColorSensor.class, "colorV3");
     }
 
     public String senseColor(ColorSensor color){

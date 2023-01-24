@@ -1,6 +1,5 @@
 package org.firstinspires.ftc.teamcode.autonomous;
 
-import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.ColorSensor;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
@@ -27,13 +26,13 @@ public class TestingColorV3 extends DriveDirections {
 
         while(frontColor.blue() <= 300 || backColor.blue() <= 300){
             //Drive Right
-            DriveInDirection(0.1, "RIGHT");
+            driveInDirection(0.1, "RIGHT");
             if(frontColor.blue() > 300 && backColor.blue() <= 300){
                 //Rotate Left
-                DriveInDirection(0.1, "ROTATE_LEFT");
+                driveInDirection(0.1, "ROTATE_LEFT");
             } else if(frontColor.blue() > 300 && backColor.blue() <= 300){
                 // Rotate Right
-                DriveInDirection(0.1, "ROTATE_RIGHT");
+                driveInDirection(0.1, "ROTATE_RIGHT");
             }
         }
 

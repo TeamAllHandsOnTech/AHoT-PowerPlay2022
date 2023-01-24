@@ -18,10 +18,10 @@ public class TestingStraightDriving extends DriveDirections
         waitForStart();
 
 
-        StraightDrive(0.5, 0.65, "FORWARD");
-        StraightDrive(0.5, 0.65, "RIGHT");
-        StraightDrive(0.5, 0.65, "BACKWARD");
-        StraightDrive(0.5, 0.65, "LEFT");
+        straightDrive(0.5, 0.65, "FORWARD");
+        straightDrive(0.5, 0.65, "RIGHT");
+        straightDrive(0.5, 0.65, "BACKWARD");
+        straightDrive(0.5, 0.65, "LEFT");
 
 
         while (opModeIsActive()){

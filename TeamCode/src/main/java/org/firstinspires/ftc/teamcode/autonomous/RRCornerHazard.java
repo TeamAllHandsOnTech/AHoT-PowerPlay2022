@@ -68,14 +68,14 @@ public class RRCornerHazard extends DriveDirections
         armToHeight(100);
         armMotor.setPower(0.1);
 
-        StraightDrive(moveSpeed, 0.89, "RIGHT");
-        DriveForTime("BACKWARD", moveSpeed, 0.2);
-        StraightDrive(0.3, 0.63, "FORWARD");
+        straightDrive(moveSpeed, 0.89, "RIGHT");
+        driveForTime("BACKWARD", moveSpeed, 0.2);
+        straightDrive(0.3, 0.63, "FORWARD");
 
         armToHeight(925);
         armMotor.setPower(0.1);
 
-        StraightDriveNoSlow(0.22, 0.14, "FORWARD");
+        straightDriveNoSlow(0.22, 0.14, "FORWARD");
 
 
         sleep(500);
@@ -86,13 +86,13 @@ public class RRCornerHazard extends DriveDirections
 
         armMotor.setPower(0);
 
-        StraightDrive(moveSpeed, 0.05, "BACKWARD");
-        StraightDrive(moveSpeed, 0.36, "LEFT");
-        StraightDrive(moveSpeed, 0.5, "FORWARD");
+        straightDrive(moveSpeed, 0.05, "BACKWARD");
+        straightDrive(moveSpeed, 0.36, "LEFT");
+        straightDrive(moveSpeed, 0.5, "FORWARD");
 
         rotateToZAbs(90, 0);
 
-        StraightDrive(moveSpeed, 1.16, "FORWARD");
+        straightDrive(moveSpeed, 1.16, "FORWARD");
 
 //        armMotor.setPower(-0.1);
 //
@@ -109,7 +109,7 @@ public class RRCornerHazard extends DriveDirections
 
         sleep(500);
 
-        StraightDrive(moveSpeed, 1.09, "BACKWARD");
+        straightDrive(moveSpeed, 1.09, "BACKWARD");
 
         armToHeight(100);
 
@@ -117,16 +117,16 @@ public class RRCornerHazard extends DriveDirections
 
         rotateToZAbs(180, 0);
 
-        StraightDrive(moveSpeed, .5, "FORWARD");
+        straightDrive(moveSpeed, .5, "FORWARD");
 
-        StraightDrive(moveSpeed, .23, "RIGHT");
+        straightDrive(moveSpeed, .23, "RIGHT");
 
         armToHeight(550);
         armMotor.setPower(0.1);
 
         sleep(500);
 
-        StraightDrive(moveSpeed, .12, "FORWARD");
+        straightDrive(moveSpeed, .12, "FORWARD");
 
         armMotor.setPower(-0.2);
 
@@ -138,7 +138,7 @@ public class RRCornerHazard extends DriveDirections
 
         sleep(500);
 
-        StraightDrive(moveSpeed,.05, "BACKWARD");
+        straightDrive(moveSpeed,.05, "BACKWARD");
 
 
         telemetry.addData("Final Zone: ", finalZone);
@@ -147,13 +147,13 @@ public class RRCornerHazard extends DriveDirections
 
         switch(finalZone){
             case 1:
-                StraightDrive(moveSpeed,1.3, "RIGHT");
+                straightDrive(moveSpeed,1.3, "RIGHT");
                 break;
             case 2:
-                StraightDrive(moveSpeed, .3, "RIGHT");
+                straightDrive(moveSpeed, .3, "RIGHT");
                 break;
             case 3:
-                StraightDrive(moveSpeed, .4, "LEFT");
+                straightDrive(moveSpeed, .4, "LEFT");
                 break;
         }
 

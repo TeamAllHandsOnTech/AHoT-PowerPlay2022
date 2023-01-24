@@ -65,9 +65,9 @@ public class BlueCornerTrauma extends DriveDirections
         runtime.reset();
         armToHeight(100);
 
-        StraightDrive(moveSpeed, 0.9, "LEFT");
-        DriveForTime("BACKWARD",.2, 0.6);
-        StraightDrive(0.4, 0.79, "FORWARD");
+        straightDrive(moveSpeed, 0.9, "LEFT");
+        driveForTime("BACKWARD",.2, 0.6);
+        straightDrive(0.4, 0.79, "FORWARD");
 
         armToHeight(925);
 
@@ -80,9 +80,9 @@ public class BlueCornerTrauma extends DriveDirections
 
         armMotor.setPower(-0.3);
 
-        StraightDrive(moveSpeed, 0.05, "BACKWARD");
-        StraightDrive(moveSpeed, 0.4, "RIGHT");
-        StraightDrive(moveSpeed, 0.65, "FORWARD");
+        straightDrive(moveSpeed, 0.05, "BACKWARD");
+        straightDrive(moveSpeed, 0.4, "RIGHT");
+        straightDrive(moveSpeed, 0.65, "FORWARD");
 
         armMotor.setPower(0);
 
@@ -91,7 +91,7 @@ public class BlueCornerTrauma extends DriveDirections
         sleep(500);
 
 
-        StraightDrive(moveSpeed, 1.11, "FORWARD");
+        straightDrive(moveSpeed, 1.11, "FORWARD");
 
         armMotor.setPower(.1);
 
@@ -110,7 +110,7 @@ public class BlueCornerTrauma extends DriveDirections
 
         sleep(500);
 
-        StraightDrive(moveSpeed, 1.13, "BACKWARD");
+        straightDrive(moveSpeed, 1.13, "BACKWARD");
 
         armToHeight(100);
 
@@ -120,15 +120,15 @@ public class BlueCornerTrauma extends DriveDirections
 
         sleep(750);
 
-        StraightDrive(moveSpeed, .58, "FORWARD");
+        straightDrive(moveSpeed, .58, "FORWARD");
 
-        StraightDrive(moveSpeed, .4, "LEFT");
+        straightDrive(moveSpeed, .4, "LEFT");
 
         armMotor.setPower(0.1);
 
         sleep(500);
 
-        StraightDrive(0.2, .1, "FORWARD");
+        straightDrive(0.2, .1, "FORWARD");
 
         armMotor.setPower(-0.2);
         sleep(300);
@@ -139,7 +139,7 @@ public class BlueCornerTrauma extends DriveDirections
 
         armMotor.setPower(0);
 
-        StraightDrive(moveSpeed,.05, "BACKWARD");
+        straightDrive(moveSpeed,.05, "BACKWARD");
 
 
         telemetry.addData("Final Zone: ", finalZone);
@@ -148,13 +148,13 @@ public class BlueCornerTrauma extends DriveDirections
 
         switch(finalZone){
             case 1:
-                StraightDrive(moveSpeed,.35, "RIGHT");
+                straightDrive(moveSpeed,.35, "RIGHT");
                 break;
             case 2:
-                StraightDrive(moveSpeed, .35, "LEFT");
+                straightDrive(moveSpeed, .35, "LEFT");
                 break;
             case 3:
-                StraightDrive(moveSpeed, .95, "LEFT");
+                straightDrive(moveSpeed, .95, "LEFT");
                 break;
         }
 

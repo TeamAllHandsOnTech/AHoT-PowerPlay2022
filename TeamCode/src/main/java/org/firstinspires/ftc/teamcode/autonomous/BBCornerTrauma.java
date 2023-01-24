@@ -69,14 +69,14 @@ public class BBCornerTrauma extends DriveDirections
         armToHeight(100);
         armMotor.setPower(0.1);
 
-        StraightDrive(moveSpeed, 0.9, "LEFT");
-        DriveForTime("BACKWARD",.2, 0.6);
-        StraightDrive(0.4, 0.68, "FORWARD");
+        straightDrive(moveSpeed, 0.9, "LEFT");
+        driveForTime("BACKWARD",.2, 0.6);
+        straightDrive(0.4, 0.68, "FORWARD");
 
         armToHeight(925);
         armMotor.setPower(0.1);
 
-        StraightDriveNoSlow(0.2, 0.1, "FORWARD");
+        straightDriveNoSlow(0.2, 0.1, "FORWARD");
 
 
         sleep(500);
@@ -87,9 +87,9 @@ public class BBCornerTrauma extends DriveDirections
 
         armMotor.setPower(0);
 
-        StraightDrive(moveSpeed, 0.05, "BACKWARD");
-        StraightDrive(moveSpeed, 0.4, "RIGHT");
-        StraightDrive(moveSpeed, 0.53, "FORWARD");
+        straightDrive(moveSpeed, 0.05, "BACKWARD");
+        straightDrive(moveSpeed, 0.4, "RIGHT");
+        straightDrive(moveSpeed, 0.53, "FORWARD");
 
         sleep(750);
 
@@ -98,7 +98,7 @@ public class BBCornerTrauma extends DriveDirections
         sleep(500);
 
 
-        StraightDrive(moveSpeed, 1.07, "FORWARD");
+        straightDrive(moveSpeed, 1.07, "FORWARD");
 
         armMotor.setPower(0.2);
 
@@ -117,7 +117,7 @@ public class BBCornerTrauma extends DriveDirections
 
         sleep(500);
 
-        StraightDrive(moveSpeed, 1.13, "BACKWARD");
+        straightDrive(moveSpeed, 1.13, "BACKWARD");
 
         armToHeight(100);
 
@@ -127,9 +127,9 @@ public class BBCornerTrauma extends DriveDirections
 
         sleep(750);
 
-        StraightDrive(moveSpeed, .43, "FORWARD");
+        straightDrive(moveSpeed, .43, "FORWARD");
 
-        StraightDrive(moveSpeed, .25, "LEFT");
+        straightDrive(moveSpeed, .25, "LEFT");
 
         armToHeight(550);
 
@@ -137,7 +137,7 @@ public class BBCornerTrauma extends DriveDirections
 
         sleep(500);
 
-        StraightDrive(0.2, .09, "FORWARD");
+        straightDrive(0.2, .09, "FORWARD");
 
         armMotor.setPower(-0.3);
         sleep(300);
@@ -147,7 +147,7 @@ public class BBCornerTrauma extends DriveDirections
 
         sleep(500);
 
-        StraightDrive(moveSpeed,.05, "BACKWARD");
+        straightDrive(moveSpeed,.05, "BACKWARD");
 
 
         telemetry.addData("Final Zone: ", finalZone);
@@ -156,13 +156,13 @@ public class BBCornerTrauma extends DriveDirections
 
         switch(finalZone){
             case 1:
-                StraightDrive(moveSpeed,.3, "RIGHT");
+                straightDrive(moveSpeed,.3, "RIGHT");
                 break;
             case 2:
-                StraightDrive(moveSpeed, .4, "LEFT");
+                straightDrive(moveSpeed, .4, "LEFT");
                 break;
             case 3:
-                StraightDrive(moveSpeed, 1.1, "LEFT");
+                straightDrive(moveSpeed, 1.1, "LEFT");
                 break;
         }
 

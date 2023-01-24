@@ -65,13 +65,13 @@ public class RedCornerTrauma extends DriveDirections
         runtime.reset();
         armToHeight(100);
 
-        StraightDrive(moveSpeed, 0.87, "RIGHT");
-        DriveForTime("BACKWARD", moveSpeed, 0.2);
-        StraightDrive(0.3, 0.67, "FORWARD");
+        straightDrive(moveSpeed, 0.87, "RIGHT");
+        driveForTime("BACKWARD", moveSpeed, 0.2);
+        straightDrive(0.3, 0.67, "FORWARD");
 
 //        armToHeight(925);
 
-        StraightDriveNoSlow(0.22, 0.12, "FORWARD");
+        straightDriveNoSlow(0.22, 0.12, "FORWARD");
 
 
         sleep(500);
@@ -82,15 +82,15 @@ public class RedCornerTrauma extends DriveDirections
 
         armMotor.setPower(-0.3);
 
-        StraightDrive(moveSpeed, 0.05, "BACKWARD");
-        StraightDrive(moveSpeed, 0.36, "LEFT");
-        StraightDrive(moveSpeed, 0.65, "FORWARD");
+        straightDrive(moveSpeed, 0.05, "BACKWARD");
+        straightDrive(moveSpeed, 0.36, "LEFT");
+        straightDrive(moveSpeed, 0.65, "FORWARD");
 
         armMotor.setPower(0);
 
         rotateToZAbs(90, 0);
 
-        StraightDrive(moveSpeed, 1.15, "FORWARD");
+        straightDrive(moveSpeed, 1.15, "FORWARD");
 
         armMotor.setPower(-0.3);
 
@@ -109,7 +109,7 @@ public class RedCornerTrauma extends DriveDirections
 
         sleep(500);
 
-        StraightDrive(moveSpeed, 1.15, "BACKWARD");
+        straightDrive(moveSpeed, 1.15, "BACKWARD");
 
         armToHeight(100);
 
@@ -117,13 +117,13 @@ public class RedCornerTrauma extends DriveDirections
 
         rotateToZAbs(180, 0);
 
-        StraightDrive(moveSpeed, .5, "FORWARD");
+        straightDrive(moveSpeed, .5, "FORWARD");
 
-        StraightDrive(moveSpeed, .36, "RIGHT");
+        straightDrive(moveSpeed, .36, "RIGHT");
 
         sleep(500);
 
-        StraightDrive(moveSpeed, .11, "FORWARD");
+        straightDrive(moveSpeed, .11, "FORWARD");
 
         armMotor.setPower(-0.2);
 
@@ -135,7 +135,7 @@ public class RedCornerTrauma extends DriveDirections
 
         sleep(500);
 
-        StraightDrive(moveSpeed,.10, "BACKWARD");
+        straightDrive(moveSpeed,.10, "BACKWARD");
 
 
         telemetry.addData("Final Zone: ", finalZone);
@@ -144,13 +144,13 @@ public class RedCornerTrauma extends DriveDirections
 
         switch(finalZone){
             case 1:
-                StraightDrive(moveSpeed,1, "RIGHT");
+                straightDrive(moveSpeed,1, "RIGHT");
                 break;
             case 2:
-                StraightDrive(moveSpeed, .3, "RIGHT");
+                straightDrive(moveSpeed, .3, "RIGHT");
                 break;
             case 3:
-                StraightDrive(moveSpeed, .4, "LEFT");
+                straightDrive(moveSpeed, .4, "LEFT");
                 break;
         }
 

@@ -68,13 +68,13 @@ public class RedCornerHazardDelay extends DriveDirections
 
         sleep(5000);
 
-        StraightDrive(moveSpeed, 0.86, "RIGHT");
-        StraightDrive(0.3, 0.64, "FORWARD");
+        straightDrive(moveSpeed, 0.86, "RIGHT");
+        straightDrive(0.3, 0.64, "FORWARD");
 
         armToHeight(900);
         armMotor.setPower(0.1);
 
-        StraightDrive(0.1, 0.1, "FORWARD");
+        straightDrive(0.1, 0.1, "FORWARD");
 
 
         sleep(500);
@@ -85,9 +85,9 @@ public class RedCornerHazardDelay extends DriveDirections
 
         armMotor.setPower(0);
 
-        StraightDrive(moveSpeed, 0.05, "BACKWARD");
-        StraightDrive(moveSpeed, 0.4, "LEFT");
-        StraightDrive(moveSpeed, 0.5, "FORWARD");
+        straightDrive(moveSpeed, 0.05, "BACKWARD");
+        straightDrive(moveSpeed, 0.4, "LEFT");
+        straightDrive(moveSpeed, 0.5, "FORWARD");
 
         telemetry.addData("Final Zone: ", finalZone);
         telemetry.addData("Zone: ", zone);
@@ -97,10 +97,10 @@ public class RedCornerHazardDelay extends DriveDirections
             case 3:
                 break;
             case 2:
-                StraightDrive(moveSpeed, 0.6, "LEFT");
+                straightDrive(moveSpeed, 0.6, "LEFT");
                 break;
             case 1:
-                StraightDrive(moveSpeed, 1.25, "LEFT");
+                straightDrive(moveSpeed, 1.25, "LEFT");
                 break;
         }
 

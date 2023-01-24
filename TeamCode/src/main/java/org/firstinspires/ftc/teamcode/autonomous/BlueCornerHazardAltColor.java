@@ -73,16 +73,16 @@ public class BlueCornerHazardAltColor extends DriveDirections
 
         runtime.reset();
 
-        StraightDrive(moveSpeed, 0.1, "FORWARD");
+        straightDrive(moveSpeed, 0.1, "FORWARD");
 
         rotateToZLoc(-90);
 
-        StraightDrive(moveSpeed, 0.6, "FORWARD");
+        straightDrive(moveSpeed, 0.6, "FORWARD");
 
-        DriveInDirection(moveSpeed, "ROTATE_LEFT");
+        driveInDirection(moveSpeed, "ROTATE_LEFT");
         sleep(30);
-        StraightDrive(moveSpeed, 1, "LEFT");
-        StraightDrive(moveSpeed, 0.05, "BACKWARD");
+        straightDrive(moveSpeed, 1, "LEFT");
+        straightDrive(moveSpeed, 0.05, "BACKWARD");
 
 
         for(int i=5; i>3;i--) {
@@ -100,21 +100,35 @@ public class BlueCornerHazardAltColor extends DriveDirections
                     rightBackDrive.setPower(-moveSpeed2);
                     leftBackDrive.setPower(moveSpeed2/1.1);
                 } else if (frontColorColor && !backColorColor) {
-                    DriveInDirection(moveSpeed2, "ROTATE_RIGHT");
+                    driveInDirection(moveSpeed2, "ROTATE_RIGHT");
                 } else if (!frontColorColor && backColorColor) {
-                    DriveInDirection(moveSpeed2, "ROTATE_LEFT");
+                    driveInDirection(moveSpeed2, "ROTATE_LEFT");
                 }
             }
-            DriveInDirection(0, "STOP");
+            driveInDirection(0, "STOP");
             rotateToZAbs(-90,0);
             armMotor.setPower(0.5);
             sleep(i*80);
             armMotor.setPower(0);
-            StraightDrive(moveSpeed2,0.1,"RIGHT");
-            StraightDrive(moveSpeed2,0.1,"FORWARD");
+            straightDrive(moveSpeed2,0.1,"RIGHT");
+            straightDrive(moveSpeed2,0.1,"FORWARD");
+            sleep(500);
             closeClaw();
-            
-            sleep(1000000);
+            sleep(500);
+
+            armMotor.setPower(0.2);
+            straightDrive(moveSpeed2, 0.8, "BACKWARD");
+            armMotor.setPower(0);
+            rotateToZAbs(225, 0);
+            straightDrive(moveSpeed2,0.05, "FORWARD");
+            sleep(500);
+            openClaw();
+            sleep(500);
+
+            armToHeight(0);
+            rotateToZAbs(-90, 0);
+            straightDrive(moveSpeed2,0.8, "FORWARD");
+
         }
 
 
