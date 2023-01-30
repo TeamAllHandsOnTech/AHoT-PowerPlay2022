@@ -4,12 +4,14 @@ import com.qualcomm.hardware.kauailabs.NavxMicroNavigationSensor;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.ColorSensor;
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.DistanceSensor;
 import com.qualcomm.robotcore.hardware.IntegratingGyroscope;
 import com.qualcomm.robotcore.hardware.Servo;
 
 import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
 import org.firstinspires.ftc.robotcore.external.navigation.AxesOrder;
 import org.firstinspires.ftc.robotcore.external.navigation.AxesReference;
+import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
 import org.firstinspires.ftc.robotcore.external.navigation.Orientation;
 
 public abstract class DriveDirections extends LinearOpMode {
@@ -31,6 +33,9 @@ public abstract class DriveDirections extends LinearOpMode {
     public DcMotor armMotor = null;
 
     public Servo claw = null;
+
+    public DistanceSensor distance1 = null;
+    public DistanceSensor distance2 = null;
 
     IntegratingGyroscope gyro;
     NavxMicroNavigationSensor navxMicro;
@@ -54,6 +59,10 @@ public abstract class DriveDirections extends LinearOpMode {
         leftBackDrive.setDirection(DcMotor.Direction.REVERSE);
         rightFrontDrive.setDirection(DcMotor.Direction.FORWARD);
         rightBackDrive.setDirection(DcMotor.Direction.FORWARD);
+
+        //distance sensors
+        //distance1 = hardwareMap.get(DcMotor.class, "Distance1");
+        //distance2 = hardwareMap.get(DcMotor.class, "Distance2");
 
         //Calibrate NavX
         navxMicro = hardwareMap.get(NavxMicroNavigationSensor.class, "navx");
@@ -448,6 +457,25 @@ public abstract class DriveDirections extends LinearOpMode {
         leftBackDrive.setPower(0);
 
         }
+    }
+
+    public void AlignToWallWithDistanceSensor(float threshold, float dividend){
+        double dist1 = distance1.getDistance(DistanceUnit.CM);
+        double dist2 = distance2.getDistance(DistanceUnit.CM);
+        double error = dist1 - dist2;
+
+        while(Math.abs(error) <= threshold){
+
+            while(error > threshold){
+                driveInDirection(error / dividend, "ROTATE_RIGHT");
+            }
+
+            while(error < -threshold){
+                driveInDirection(error / dividend, "ROTATE_RIGHT");
+            }
+
+        }
+
     }
 
 
