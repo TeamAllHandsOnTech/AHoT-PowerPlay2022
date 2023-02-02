@@ -43,6 +43,8 @@ public abstract class DriveDirections extends LinearOpMode {
     double previousHeading = 0;
     double integratedHeading = 0;
 
+    public boolean isHazard;
+
 
 
     public void runOpMode() {
@@ -61,8 +63,10 @@ public abstract class DriveDirections extends LinearOpMode {
         rightBackDrive.setDirection(DcMotor.Direction.FORWARD);
 
         //distance sensors
-        //distance1 = hardwareMap.get(DcMotor.class, "Distance1");
-        //distance2 = hardwareMap.get(DcMotor.class, "Distance2");
+        if(!isHazard) {
+            distance1 = hardwareMap.get(DistanceSensor.class, "Distance1");
+            distance2 = hardwareMap.get(DistanceSensor.class, "Distance2");
+        }
 
         //Calibrate NavX
         navxMicro = hardwareMap.get(NavxMicroNavigationSensor.class, "navx");
@@ -464,14 +468,20 @@ public abstract class DriveDirections extends LinearOpMode {
         double dist2 = distance2.getDistance(DistanceUnit.CM);
         double error = dist1 - dist2;
 
-        while(Math.abs(error) <= threshold){
-
+        while(Math.abs(error) >= threshold){
+            //TELEMETRY ERROR!!
             while(error > threshold){
+                error = dist1 - dist2;
                 driveInDirection(error / dividend, "ROTATE_RIGHT");
+                telemetry.addLine("Turning Right");
+                telemetry.update();
             }
 
             while(error < -threshold){
+                error = dist1 - dist2;
                 driveInDirection(error / dividend, "ROTATE_RIGHT");
+                telemetry.addLine("Turning Left");
+                telemetry.update();
             }
 
         }

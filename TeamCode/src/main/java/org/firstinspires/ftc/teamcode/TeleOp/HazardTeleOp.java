@@ -45,7 +45,11 @@ public class HazardTeleOp extends DriveDirections {
 
     @Override
     public void runOpMode() {
+        isHazard = true;
         super.runOpMode();
+
+
+
         leftFrontDrive.setDirection(DcMotor.Direction.REVERSE);
         leftBackDrive.setDirection(DcMotor.Direction.REVERSE);
         rightFrontDrive.setDirection(DcMotor.Direction.FORWARD);

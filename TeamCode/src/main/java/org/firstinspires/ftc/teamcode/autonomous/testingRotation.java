@@ -32,6 +32,8 @@ package org.firstinspires.ftc.teamcode.autonomous;
 
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
+import org.firstinspires.ftc.robotcore.external.Telemetry;
+import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
 import org.firstinspires.ftc.teamcode.DriveDirections;
 
 
@@ -48,14 +50,16 @@ public class testingRotation extends DriveDirections {
 
         waitForStart();
 
-        rotateToZAbs(-90, 50);
+        sleep(1000);
 
-        sleep(2000);
+        AlignToWallWithDistanceSensor(5, 25);
 
-        rotateToZAbs(0, 50);
+        sleep(5000);
 
-//        while (opModeIsActive()) {
-//
-//        }
+        while (opModeIsActive()) {
+            telemetry.addData("Left Dist", distance1.getDistance(DistanceUnit.CM));
+            telemetry.addData("Right Dist", distance2.getDistance(DistanceUnit.CM));
+            telemetry.update();
+        }
     }
 }
