@@ -467,25 +467,73 @@ public abstract class DriveDirections extends LinearOpMode {
         double dist1 = distance1.getDistance(DistanceUnit.CM);
         double dist2 = distance2.getDistance(DistanceUnit.CM);
         double error = dist1 - dist2;
+        boolean close;
 
-        while(Math.abs(error) >= threshold){
-            //TELEMETRY ERROR!!
-            while(error > threshold){
-                error = dist1 - dist2;
-                driveInDirection(error / dividend, "ROTATE_RIGHT");
-                telemetry.addLine("Turning Right");
-                telemetry.update();
-            }
+        double i = 0;
 
-            while(error < -threshold){
-                error = dist1 - dist2;
-                driveInDirection(error / dividend, "ROTATE_RIGHT");
-                telemetry.addLine("Turning Left");
-                telemetry.update();
-            }
-
+        if(dist1 < 50){
+            close = true;
+        } else {
+            close = false;
         }
 
+
+        while(i < 20){
+            sleep(50);
+
+            //TELEMETRY ERROR!!
+            if(error > threshold || !close) {
+                while (error > threshold || !close) {
+                    dist1 = distance1.getDistance(DistanceUnit.CM);
+                    dist2 = distance2.getDistance(DistanceUnit.CM);
+                    error = dist1 - dist2;
+                    if (dist1 < 50) {
+                        close = true;
+                    } else {
+                        close = false;
+                    }
+                    if (Math.abs(error / dividend) > 0.5) {
+                        driveInDirection(0.5, "ROTATE_RIGHT");
+                    } else {
+                        if (error / dividend > 0.15) {
+                            driveInDirection(error / dividend, "ROTATE_RIGHT");
+                        } else {
+                            driveInDirection(0.15, "ROTATE_RIGHT");
+                        }
+                    }
+                    telemetry.addLine("Turning Right");
+                    telemetry.addData("error:", error);
+                    telemetry.update();
+                }
+            }else if(error < -threshold || !close) {
+                while (error < -threshold || !close) {
+                    dist1 = distance1.getDistance(DistanceUnit.CM);
+                    dist2 = distance2.getDistance(DistanceUnit.CM);
+                    error = dist1 - dist2;
+                    if (dist1 < 50) {
+                        close = true;
+                    } else {
+                        close = false;
+                    }
+                    if (Math.abs(error / dividend) < -0.5) {
+                        driveInDirection(-0.5, "ROTATE_RIGHT");
+                    } else {
+                        if (error / dividend < -0.15) {
+                            driveInDirection(error / dividend, "ROTATE_RIGHT");
+                        } else {
+                            driveInDirection(-0.15, "ROTATE_RIGHT");
+                        }
+                    }
+                    telemetry.addLine("Turning Left");
+                    telemetry.addData("error:", error);
+                    telemetry.update();
+                }
+
+            }
+
+            i++;
+        }
+        driveInDirection(0, "STOP");
     }
 
 
