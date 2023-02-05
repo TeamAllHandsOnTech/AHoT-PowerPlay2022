@@ -6,6 +6,7 @@ import com.qualcomm.robotcore.hardware.ColorSensor;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.robotcore.external.hardware.camera.WebcamName;
+import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
 import org.firstinspires.ftc.teamcode.DriveDirections;
 import org.opencv.core.Core;
 import org.opencv.core.Mat;
@@ -19,7 +20,7 @@ import org.openftc.easyopencv.OpenCvWebcam;
 
 @Disabled
 @Autonomous(name="BlueCornerHazardAltColor", group="B")
-public class BlueCornerHazardAltColor extends DriveDirections
+public class BlueCornerTraumaAltColor extends DriveDirections
 {
     OpenCvWebcam webcam;
     ColorSensor frontColor;
@@ -60,12 +61,17 @@ public class BlueCornerHazardAltColor extends DriveDirections
 
         frontColor = hardwareMap.get(ColorSensor.class, "frontColor");
         backColor = hardwareMap.get(ColorSensor.class, "backColor");
-        boolean frontColorColor = pickColor(frontColor,1.1) == "Red" || pickColor(frontColor,1.1) == "Blue";
-        boolean backColorColor = pickColor(backColor,1.1) == "Red" || pickColor(backColor,1.1) == "Blue";
 
+        boolean frontColorColor = pickColor(frontColor,1.1) == "Red" || pickColor(frontColor,1.1) == "Blue";
+
+        double dist1 = distance1.getDistance(DistanceUnit.MM);
+        double dist2 = distance2.getDistance(DistanceUnit.MM);
+        double thresA = 0.02;
+        double errorA = Math.atan((dist1-dist2)/85);
 
         super.runOpMode();
 
+        isHazard = false;
         initArm();
 
         waitForStart();
@@ -86,48 +92,18 @@ public class BlueCornerHazardAltColor extends DriveDirections
 
 
         for(int i=5; i>3;i--) {
-            while (!frontColorColor && !backColorColor) {
+            while (!frontColorColor) {
                 frontColorColor = pickColor(frontColor,1.1) == "Red" || pickColor(frontColor,1.1) == "Blue";
-                backColorColor = pickColor(backColor,1.1) == "Red" || pickColor(backColor,1.1) == "Blue";
-
                 telemetry.addLine("Front color: "+pickColor(frontColor,1.1));
-                telemetry.addLine("Back color: "+pickColor(backColor,1.1));
                 telemetry.update();
 
-                if (!frontColorColor && !backColorColor) {
+                if (!frontColorColor) {
                     rightFrontDrive.setPower(moveSpeed2/1.1);
                     leftFrontDrive.setPower(-moveSpeed2);
                     rightBackDrive.setPower(-moveSpeed2);
                     leftBackDrive.setPower(moveSpeed2/1.1);
-                } else if (frontColorColor && !backColorColor) {
-                    driveInDirection(moveSpeed2, "ROTATE_RIGHT");
-                } else if (!frontColorColor && backColorColor) {
-                    driveInDirection(moveSpeed2, "ROTATE_LEFT");
-                }
+                } else if (true) {}
             }
-            driveInDirection(0, "STOP");
-            rotateToZAbs(-90,0);
-            armMotor.setPower(0.5);
-            sleep(i*80);
-            armMotor.setPower(0);
-            straightDrive(moveSpeed2,0.1,"RIGHT");
-            straightDrive(moveSpeed2,0.1,"FORWARD");
-            sleep(500);
-            closeClaw();
-            sleep(500);
-
-            armMotor.setPower(0.2);
-            straightDrive(moveSpeed2, 0.8, "BACKWARD");
-            armMotor.setPower(0);
-            rotateToZAbs(225, 0);
-            straightDrive(moveSpeed2,0.05, "FORWARD");
-            sleep(500);
-            openClaw();
-            sleep(500);
-
-            armToHeight(0);
-            rotateToZAbs(-90, 0);
-            straightDrive(moveSpeed2,0.8, "FORWARD");
 
         }
 
