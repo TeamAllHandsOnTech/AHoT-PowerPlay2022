@@ -32,7 +32,6 @@ package org.firstinspires.ftc.teamcode.autonomous;
 
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
-import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
 import org.firstinspires.ftc.teamcode.DriveDirections;
 
@@ -52,7 +51,7 @@ public class testingRotation extends DriveDirections {
 
         sleep(1000);
 
-        AlignToWallWithDistanceSensor(5, 100);
+        alignToWallWithDistanceSensor(5, 100);
 
         sleep(5000);
 

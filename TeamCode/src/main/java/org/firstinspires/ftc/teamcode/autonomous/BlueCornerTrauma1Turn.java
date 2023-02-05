@@ -1,12 +1,9 @@
 package org.firstinspires.ftc.teamcode.autonomous;
 
-import android.graphics.Paint;
-
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.robotcore.external.hardware.camera.WebcamName;
-import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
 import org.firstinspires.ftc.teamcode.DriveDirections;
 import org.opencv.core.Core;
 import org.opencv.core.Mat;
@@ -99,7 +96,7 @@ public class BlueCornerTrauma1Turn extends DriveDirections
 
         armToHeight(300);
 
-        AlignToWallWithDistanceSensor(1, 5);
+        alignToWallWithDistanceSensor(1, 5);
 
         sleep(3000);
 

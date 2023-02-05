@@ -463,7 +463,7 @@ public abstract class DriveDirections extends LinearOpMode {
         }
     }
 
-    public void AlignToWallWithDistanceSensor(float threshold, float dividend){
+    public void alignToWallWithDistanceSensor(float threshold, float dividend){
         double dist1 = distance1.getDistance(DistanceUnit.CM);
         double dist2 = distance2.getDistance(DistanceUnit.CM);
         double error = dist1 - dist2;
