@@ -468,10 +468,16 @@ public abstract class DriveDirections extends LinearOpMode {
         double dist2 = distance2.getDistance(DistanceUnit.CM);
         double error = dist1 - dist2;
         boolean close;
-
+        boolean angleLeft;
         double i = 0;
 
-        if(dist1 < 50){
+        if(getCurrentZ() > -90){
+            angleLeft = true;
+        } else {
+            angleLeft = false;
+        }
+
+        if(dist1 < 800 || dist2 < 800){
             close = true;
         } else {
             close = false;
@@ -482,17 +488,17 @@ public abstract class DriveDirections extends LinearOpMode {
             sleep(50);
 
             //TELEMETRY ERROR!!
-            if(error > threshold || !close) {
+            if((error > threshold || !close) && angleLeft == true) {
                 while (error > threshold || !close) {
                     dist1 = distance1.getDistance(DistanceUnit.CM);
                     dist2 = distance2.getDistance(DistanceUnit.CM);
                     error = dist1 - dist2;
-                    if (dist1 < 50) {
+                    if(dist1 < 800 || dist2 < 800){
                         close = true;
                     } else {
                         close = false;
                     }
-                    if (Math.abs(error / dividend) > 0.5) {
+                    if (Math.abs(error / dividend) > 0.5 || !close) {
                         driveInDirection(0.5, "ROTATE_RIGHT");
                     } else {
                         if (error / dividend > 0.15) {
@@ -505,17 +511,17 @@ public abstract class DriveDirections extends LinearOpMode {
                     telemetry.addData("error:", error);
                     telemetry.update();
                 }
-            }else if(error < -threshold || !close) {
-                while (error < -threshold || !close) {
+            }else if((error < -threshold) && angleLeft == false) {
+                while (error < -threshold) {
                     dist1 = distance1.getDistance(DistanceUnit.CM);
                     dist2 = distance2.getDistance(DistanceUnit.CM);
                     error = dist1 - dist2;
-                    if (dist1 < 50) {
+                    if(dist1 < 800 || dist2 < 800){
                         close = true;
                     } else {
                         close = false;
                     }
-                    if (Math.abs(error / dividend) < -0.5) {
+                    if (Math.abs(error / dividend) < -0.5 || !close) {
                         driveInDirection(-0.5, "ROTATE_RIGHT");
                     } else {
                         if (error / dividend < -0.15) {
