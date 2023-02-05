@@ -3,6 +3,7 @@ package org.firstinspires.ftc.teamcode.autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.hardware.ColorSensor;
+import com.qualcomm.robotcore.hardware.DistanceSensor;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.robotcore.external.hardware.camera.WebcamName;
@@ -18,19 +19,22 @@ import org.openftc.easyopencv.OpenCvCameraRotation;
 import org.openftc.easyopencv.OpenCvPipeline;
 import org.openftc.easyopencv.OpenCvWebcam;
 
-@Disabled
+//@Disabled
 @Autonomous(name="BlueCornerHazardAltColor", group="B")
 public class BlueCornerTraumaAltColor extends DriveDirections
 {
     OpenCvWebcam webcam;
     ColorSensor frontColor;
     ColorSensor backColor;
+
+    public DistanceSensor distance1 = null;
+    public DistanceSensor distance2 = null;
     protected int zone;
     int finalZone;
 
     private ElapsedTime runtime = new ElapsedTime();
     private double moveSpeed = 0.6;
-    private double moveSpeed2 = 0.3;
+    private double moveSpeed2 = 0.2;
 
     public String pickColor(ColorSensor sensor, double sensitivity) {
         if (sensor.red()>sensitivity*(sensor.green()+sensor.blue())) {return "Red";}
@@ -62,16 +66,18 @@ public class BlueCornerTraumaAltColor extends DriveDirections
         frontColor = hardwareMap.get(ColorSensor.class, "frontColor");
         backColor = hardwareMap.get(ColorSensor.class, "backColor");
 
+        distance1 = hardwareMap.get(DistanceSensor.class, "Distance1");
+        distance2 = hardwareMap.get(DistanceSensor.class, "Distance2");
+
         boolean frontColorColor = pickColor(frontColor,1.1) == "Red" || pickColor(frontColor,1.1) == "Blue";
 
         double dist1 = distance1.getDistance(DistanceUnit.MM);
         double dist2 = distance2.getDistance(DistanceUnit.MM);
-        double thresA = 0.02;
-        double errorA = Math.atan((dist1-dist2)/85);
-
-        super.runOpMode();
+        double thresA = 3;
+        double errorA = (90/Math.PI)*Math.atan((dist1-dist2)/85);
 
         isHazard = false;
+        super.runOpMode();
         initArm();
 
         waitForStart();
@@ -91,10 +97,16 @@ public class BlueCornerTraumaAltColor extends DriveDirections
         straightDrive(moveSpeed, 0.05, "BACKWARD");
 
 
-        for(int i=5; i>3;i--) {
-            while (!frontColorColor) {
+        //for(int i=5; i>3;i--) {
+            while (!frontColorColor || Math.abs(errorA)>thresA) {
                 frontColorColor = pickColor(frontColor,1.1) == "Red" || pickColor(frontColor,1.1) == "Blue";
+
+                dist1 = distance1.getDistance(DistanceUnit.MM);
+                dist2 = distance2.getDistance(DistanceUnit.MM);
+                errorA = (90/Math.PI)*Math.atan((dist1-dist2)/85);
+
                 telemetry.addLine("Front color: "+pickColor(frontColor,1.1));
+                telemetry.addLine("Angle relative to wall: "+errorA);
                 telemetry.update();
 
                 if (!frontColorColor) {
@@ -102,10 +114,27 @@ public class BlueCornerTraumaAltColor extends DriveDirections
                     leftFrontDrive.setPower(-moveSpeed2);
                     rightBackDrive.setPower(-moveSpeed2);
                     leftBackDrive.setPower(moveSpeed2/1.1);
-                } else if (true) {}
+                } else if (errorA>thresA) {
+                    rightFrontDrive.setPower(0);
+                    leftFrontDrive.setPower(moveSpeed2);
+                    rightBackDrive.setPower(0);
+                    leftBackDrive.setPower(moveSpeed2);
+                } else if (errorA<-thresA) {
+                    rightFrontDrive.setPower(moveSpeed2);
+                    leftFrontDrive.setPower(0);
+                    rightBackDrive.setPower(moveSpeed2);
+                    leftBackDrive.setPower(0);
+                }
             }
+            driveInDirection(0,"STOP");
+            sleep(3000);
+            while (Math.abs(dist1-300)>10) {
+                dist1 = distance1.getDistance(DistanceUnit.MM);
+                driveInDirection(Math.signum(dist1-300)*moveSpeed2,"FORWARD");
+            }
+            driveInDirection(0,"STOP");
 
-        }
+        //}
 
 
 
