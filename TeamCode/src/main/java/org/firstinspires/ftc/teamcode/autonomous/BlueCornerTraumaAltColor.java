@@ -110,27 +110,22 @@ public class BlueCornerTraumaAltColor extends DriveDirections
                 telemetry.update();
 
                 if (!frontColorColor) {
-                    rightFrontDrive.setPower(moveSpeed2/1.1);
+                    rightFrontDrive.setPower(moveSpeed2);
                     leftFrontDrive.setPower(-moveSpeed2);
                     rightBackDrive.setPower(-moveSpeed2);
-                    leftBackDrive.setPower(moveSpeed2/1.1);
-                } else if (errorA>thresA) {
-                    rightFrontDrive.setPower(0);
-                    leftFrontDrive.setPower(moveSpeed2);
-                    rightBackDrive.setPower(0);
                     leftBackDrive.setPower(moveSpeed2);
-                } else if (errorA<-thresA) {
-                    rightFrontDrive.setPower(moveSpeed2);
-                    leftFrontDrive.setPower(0);
-                    rightBackDrive.setPower(moveSpeed2);
+                } else if (Math.abs(errorA)>thresA) {
+                    rightFrontDrive.setPower(-Math.signum(errorA)*moveSpeed2);
+                    leftFrontDrive.setPower(Math.signum(errorA)*moveSpeed2);
+                    rightBackDrive.setPower(0);
                     leftBackDrive.setPower(0);
                 }
             }
             driveInDirection(0,"STOP");
             sleep(3000);
-            while (Math.abs(dist1-300)>10) {
+            while (Math.abs(dist1-150)>10) {
                 dist1 = distance1.getDistance(DistanceUnit.MM);
-                driveInDirection(Math.signum(dist1-300)*moveSpeed2,"FORWARD");
+                driveInDirection(Math.signum(dist1-150)*moveSpeed2,"FORWARD");
             }
             driveInDirection(0,"STOP");
 
