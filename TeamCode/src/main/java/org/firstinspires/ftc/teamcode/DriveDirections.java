@@ -493,20 +493,17 @@ public abstract class DriveDirections extends LinearOpMode {
             sleep(50);
 
             //TELEMETRY ERROR!!
-            if((error > threshold || !close) && angleLeft == true) {
-                while (error > threshold || !close) {
+            if((error > threshold || !close) && angleLeft) {
+                while ((error > threshold || !close) && angleLeft) {
                     dist1 = distance1.getDistance(DistanceUnit.CM);
                     dist2 = distance2.getDistance(DistanceUnit.CM);
                     error = dist1 - dist2;
-                    if(!angleLeft){
-                        break;
-                    }
                     if(dist1 < 800 || dist2 < 800){
                         close = true;
                     } else {
                         close = false;
                     }
-                    if (Math.abs(error / dividend) > 0.5 || !close) {
+                    if (error / dividend > 0.5 || !close) {
                         driveInDirection(0.5, "ROTATE_RIGHT");
                     } else {
                         if (error / dividend > 0.2) {
@@ -525,20 +522,17 @@ public abstract class DriveDirections extends LinearOpMode {
                     telemetry.addData("Close:", close);
                     telemetry.update();
                 }
-            }else if((error < -threshold) && angleLeft == false) {
-                while (error < -threshold) {
+            }else if((error < -threshold) && !angleLeft) {
+                while (error < -threshold && !angleLeft) {
                     dist1 = distance1.getDistance(DistanceUnit.CM);
                     dist2 = distance2.getDistance(DistanceUnit.CM);
-                    if(angleLeft){
-                        break;
-                    }
                     error = dist1 - dist2;
                     if(dist1 < 800 || dist2 < 800){
                         close = true;
                     } else {
                         close = false;
                     }
-                    if (Math.abs(error / dividend) < -0.5 || !close) {
+                    if (error / dividend < -0.5 || !close) {
                         driveInDirection(-0.5, "ROTATE_RIGHT");
                     } else {
                         if (error / dividend < -0.2) {
@@ -560,12 +554,20 @@ public abstract class DriveDirections extends LinearOpMode {
 
                 }
 
-            } else if(Math.abs(error) < threshold) {
+            } else if(Math.abs(error) <= threshold) {
                 telemetry.addLine("I'm done with my job bye");
+                telemetry.addData("Error:", error);
+                telemetry.addData("Close:", close);
+                telemetry.addData("Angle Left:", angleLeft);
                 telemetry.update();
+                sleep(3000);
             } else {
                 telemetry.addLine("EVERYTHING IS DYING");
+                telemetry.addData("Error:", error);
+                telemetry.addData("Close:", close);
+                telemetry.addData("Angle Left:", angleLeft);
                 telemetry.update();
+                sleep(3000);
             }
 
             i++;
