@@ -15,8 +15,8 @@ import org.openftc.easyopencv.OpenCvCameraRotation;
 import org.openftc.easyopencv.OpenCvPipeline;
 import org.openftc.easyopencv.OpenCvWebcam;
 
-@Autonomous(name="BlueCornerTrauma1Turn", group="A")
-public class BlueCornerTrauma1Turn extends DriveDirections
+@Autonomous(name="RedCornerTrauma1Turn", group="A")
+public class RedCornerTrauma1Turn extends DriveDirections
 {
     OpenCvWebcam webcam;
     protected int zone;
@@ -67,7 +67,7 @@ public class BlueCornerTrauma1Turn extends DriveDirections
         runtime.reset();
         armToHeight(100);
 
-        straightDrive(moveSpeed, 0.9, "LEFT");
+        straightDrive(moveSpeed, 0.92, "RIGHT");
         driveForTime("BACKWARD",.2, 0.6);
         straightDrive(0.4, 0.79, "FORWARD");
 
@@ -83,10 +83,10 @@ public class BlueCornerTrauma1Turn extends DriveDirections
         armMotor.setPower(-0.3);
 
         straightDrive(moveSpeed, 0.05, "BACKWARD");
-        straightDrive(moveSpeed, 0.4, "RIGHT");
+        straightDrive(moveSpeed, 0.42, "LEFT");
         straightDrive(moveSpeed, 0.65, "FORWARD");
 
-        rotateToZAbs(-90, 0);
+        rotateToZAbs(90, 0);
 
         sleep(500);
 
@@ -124,7 +124,7 @@ public class BlueCornerTrauma1Turn extends DriveDirections
 
         sleep(500);
 
-        straightDrive(moveSpeed, 0.34, "RIGHT");
+        straightDrive(moveSpeed, 0.34, "LEFT");
 
         armMotor.setPower(0.5);
 
@@ -144,7 +144,7 @@ public class BlueCornerTrauma1Turn extends DriveDirections
 
         sleep(500);
 
-        straightDrive(moveSpeed, 0.3, "LEFT");
+        straightDrive(moveSpeed, 0.3, "RIGHT");
 
         sleep(500);
 
@@ -156,13 +156,13 @@ public class BlueCornerTrauma1Turn extends DriveDirections
 
         switch(finalZone){
             case 1:
-                straightDrive(moveSpeed,.5, "BACKWARD");
+                straightDrive(moveSpeed,.5, "FORWARD");
                 break;
             case 2:
                 straightDrive(moveSpeed, 0, "LEFT");
                 break;
             case 3:
-                straightDrive(moveSpeed, 0.5, "FORWARD");
+                straightDrive(moveSpeed, 0.5, "BACKWARD");
                 break;
         }
 
