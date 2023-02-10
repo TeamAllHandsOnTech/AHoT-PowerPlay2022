@@ -77,7 +77,10 @@ public class TraumaTeleOp extends DriveDirections {
                 powerLevel = 0.8;
             }
             telemetry.addData("gamepad1 right stick", gamepad1.right_stick_x);
-            telemetry.addData("angle", Math.atan((distance1.getDistance(DistanceUnit.MM)-distance2.getDistance(DistanceUnit.MM))/85));
+            telemetry.addData("distance 1", distance1.getDistance(DistanceUnit.MM));
+            telemetry.addData("distance 2", distance2.getDistance(DistanceUnit.MM));
+            telemetry.addData("gamepad1 right stick", gamepad1.right_stick_x);
+            telemetry.addData("angle", (90/Math.PI)*(Math.atan((distance1.getDistance(DistanceUnit.MM)-distance2.getDistance(DistanceUnit.MM))/85)));
             telemetry.update();
             //Checks if the left joystick is moved significantly, otherwise makes sure the motors are stopped
             //Aka "If X or Y are moved more than .1"

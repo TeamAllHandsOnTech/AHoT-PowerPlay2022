@@ -463,72 +463,111 @@ public abstract class DriveDirections extends LinearOpMode {
         }
     }
 
-    public void alignToWallWithDistanceSensor(float threshold, float dividend){
+    public void alignToWallWithDistanceSensor(double threshold, float dividend){
         double dist1 = distance1.getDistance(DistanceUnit.CM);
         double dist2 = distance2.getDistance(DistanceUnit.CM);
         double error = dist1 - dist2;
         boolean close;
-
+        boolean angleLeft = false;
         double i = 0;
 
-        if(dist1 < 50){
+        if(getCurrentZ() > -90){
+            angleLeft = true;
+        } else if (getCurrentZ() < -90) {
+            angleLeft = false;
+        }
+
+        if(dist1 < 800 || dist2 < 800){
             close = true;
         } else {
             close = false;
         }
 
+        telemetry.addData("AngleLeft:", angleLeft);
+        telemetry.addData("Error:", error);
+        telemetry.addData("Close:", close);
+        telemetry.update();
+        sleep(3000);
 
         while(i < 20){
             sleep(50);
 
             //TELEMETRY ERROR!!
-            if(error > threshold || !close) {
-                while (error > threshold || !close) {
+            if((error > threshold || !close) && angleLeft) {
+                while ((error > threshold || !close) && angleLeft) {
                     dist1 = distance1.getDistance(DistanceUnit.CM);
                     dist2 = distance2.getDistance(DistanceUnit.CM);
                     error = dist1 - dist2;
-                    if (dist1 < 50) {
+                    if(dist1 < 800 || dist2 < 800){
                         close = true;
                     } else {
                         close = false;
                     }
-                    if (Math.abs(error / dividend) > 0.5) {
+                    if (error / dividend > 0.5 || !close) {
                         driveInDirection(0.5, "ROTATE_RIGHT");
                     } else {
-                        if (error / dividend > 0.15) {
+                        if (error / dividend > 0.2) {
                             driveInDirection(error / dividend, "ROTATE_RIGHT");
                         } else {
-                            driveInDirection(0.15, "ROTATE_RIGHT");
+                            driveInDirection(0.2, "ROTATE_RIGHT");
                         }
+                    }
+                    if(getCurrentZ() > -90){
+                        angleLeft = true;
+                    } else if (getCurrentZ() < -90) {
+                        angleLeft = false;
                     }
                     telemetry.addLine("Turning Right");
                     telemetry.addData("error:", error);
+                    telemetry.addData("Close:", close);
                     telemetry.update();
                 }
-            }else if(error < -threshold || !close) {
-                while (error < -threshold || !close) {
+            }else if((error < -threshold) && !angleLeft) {
+                while (error < -threshold && !angleLeft) {
                     dist1 = distance1.getDistance(DistanceUnit.CM);
                     dist2 = distance2.getDistance(DistanceUnit.CM);
                     error = dist1 - dist2;
-                    if (dist1 < 50) {
+                    if(dist1 < 800 || dist2 < 800){
                         close = true;
                     } else {
                         close = false;
                     }
-                    if (Math.abs(error / dividend) < -0.5) {
+                    if (error / dividend < -0.5 || !close) {
                         driveInDirection(-0.5, "ROTATE_RIGHT");
                     } else {
-                        if (error / dividend < -0.15) {
+                        if (error / dividend < -0.2) {
                             driveInDirection(error / dividend, "ROTATE_RIGHT");
                         } else {
-                            driveInDirection(-0.15, "ROTATE_RIGHT");
+                            driveInDirection(-0.2, "ROTATE_RIGHT");
                         }
+
+                    }
+                    if(getCurrentZ() > -90){
+                        angleLeft = true;
+                    } else if (getCurrentZ() < -90) {
+                        angleLeft = false;
                     }
                     telemetry.addLine("Turning Left");
                     telemetry.addData("error:", error);
+                    telemetry.addData("Close:", close);
                     telemetry.update();
+
                 }
 
+            } else if(Math.abs(error) <= threshold) {
+                telemetry.addLine("I'm done with my job bye");
+                telemetry.addData("Error:", error);
+                telemetry.addData("Close:", close);
+                telemetry.addData("Angle Left:", angleLeft);
+                telemetry.update();
+                sleep(3000);
+            } else {
+                telemetry.addLine("EVERYTHING IS DYING");
+                telemetry.addData("Error:", error);
+                telemetry.addData("Close:", close);
+                telemetry.addData("Angle Left:", angleLeft);
+                telemetry.update();
+                sleep(3000);
             }
 
             i++;

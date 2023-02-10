@@ -49,9 +49,11 @@ public class testingRotation extends DriveDirections {
 
         waitForStart();
 
+        rotateToZAbs(-80, 0);
+
         sleep(1000);
 
-        alignToWallWithDistanceSensor(5, 100);
+        alignToWallWithDistanceSensor(.1, 20);
 
         sleep(5000);
 
