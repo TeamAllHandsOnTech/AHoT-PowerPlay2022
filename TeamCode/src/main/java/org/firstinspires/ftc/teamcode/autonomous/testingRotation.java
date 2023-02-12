@@ -53,7 +53,7 @@ public class testingRotation extends DriveDirections {
 
         sleep(1000);
 
-        alignToWallWithDistanceSensor(.1, 20);
+        alignToWallWithDistanceSensor(.1, 50);
 
         sleep(5000);
 

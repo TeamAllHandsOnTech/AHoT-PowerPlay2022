@@ -489,7 +489,7 @@ public abstract class DriveDirections extends LinearOpMode {
         telemetry.update();
         sleep(3000);
 
-        while(i < 20){
+        while(true){
             sleep(50);
 
             //TELEMETRY ERROR!!
@@ -503,20 +503,7 @@ public abstract class DriveDirections extends LinearOpMode {
                     } else {
                         close = false;
                     }
-                    if (error / dividend > 0.5 || !close) {
-                        driveInDirection(0.5, "ROTATE_RIGHT");
-                    } else {
-                        if (error / dividend > 0.2) {
-                            driveInDirection(error / dividend, "ROTATE_RIGHT");
-                        } else {
-                            driveInDirection(0.2, "ROTATE_RIGHT");
-                        }
-                    }
-                    if(getCurrentZ() > -90){
-                        angleLeft = true;
-                    } else if (getCurrentZ() < -90) {
-                        angleLeft = false;
-                    }
+                    driveInDirection(error / dividend, "ROTATE_RIGHT");
                     telemetry.addLine("Turning Right");
                     telemetry.addData("error:", error);
                     telemetry.addData("Close:", close);
@@ -532,21 +519,7 @@ public abstract class DriveDirections extends LinearOpMode {
                     } else {
                         close = false;
                     }
-                    if (error / dividend < -0.5 || !close) {
-                        driveInDirection(-0.5, "ROTATE_RIGHT");
-                    } else {
-                        if (error / dividend < -0.2) {
-                            driveInDirection(error / dividend, "ROTATE_RIGHT");
-                        } else {
-                            driveInDirection(-0.2, "ROTATE_RIGHT");
-                        }
-
-                    }
-                    if(getCurrentZ() > -90){
-                        angleLeft = true;
-                    } else if (getCurrentZ() < -90) {
-                        angleLeft = false;
-                    }
+                    driveInDirection(error / dividend, "ROTATE_RIGHT");
                     telemetry.addLine("Turning Left");
                     telemetry.addData("error:", error);
                     telemetry.addData("Close:", close);
@@ -560,19 +533,25 @@ public abstract class DriveDirections extends LinearOpMode {
                 telemetry.addData("Close:", close);
                 telemetry.addData("Angle Left:", angleLeft);
                 telemetry.update();
-                sleep(3000);
+                driveInDirection(0, "STOP");
             } else {
                 telemetry.addLine("EVERYTHING IS DYING");
                 telemetry.addData("Error:", error);
                 telemetry.addData("Close:", close);
                 telemetry.addData("Angle Left:", angleLeft);
+                telemetry.addData("DistanceLeft:", dist1);
+                telemetry.addData("DistanceRight", dist2);
                 telemetry.update();
-                sleep(3000);
+            }
+            if(dist1 > dist2){
+                angleLeft = true;
+            } else {
+                angleLeft = false;
             }
 
-            i++;
+//            i++;
         }
-        driveInDirection(0, "STOP");
+//        driveInDirection(0, "STOP");
     }
 
 
