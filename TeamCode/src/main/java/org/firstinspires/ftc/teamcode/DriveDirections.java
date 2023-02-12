@@ -27,8 +27,8 @@ public abstract class DriveDirections extends LinearOpMode {
 
     //Claw values for Hazard, uncomment if using Hazard
 
-    //    private static final double ARM_MIN_RANGE = .88;
-    //    private static final double ARM_MAX_RANGE = 0.7;
+//        private static final double ARM_MIN_RANGE = .88;
+//        private static final double ARM_MAX_RANGE = 0.7;
 
     public DcMotor armMotor = null;
 
@@ -539,6 +539,8 @@ public abstract class DriveDirections extends LinearOpMode {
                 telemetry.addData("Error:", error);
                 telemetry.addData("Close:", close);
                 telemetry.addData("Angle Left:", angleLeft);
+                telemetry.addData("DistanceLeft:", dist1);
+                telemetry.addData("DistanceRight", dist2);
                 telemetry.update();
             }
             if(dist1 > dist2){
