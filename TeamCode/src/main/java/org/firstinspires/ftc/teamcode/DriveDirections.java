@@ -22,13 +22,13 @@ public abstract class DriveDirections extends LinearOpMode {
     public DcMotor leftBackDrive = null;
 
     //Claw values for Trauma
-    private static final double ARM_MIN_RANGE = .65;
-    private static final double ARM_MAX_RANGE = 0.4;
+    //private static final double ARM_MIN_RANGE = .65;
+    //private static final double ARM_MAX_RANGE = 0.4;
 
     //Claw values for Hazard, uncomment if using Hazard
 
-//        private static final double ARM_MIN_RANGE = .88;
-//        private static final double ARM_MAX_RANGE = 0.7;
+        private static final double ARM_MIN_RANGE = .88;
+        private static final double ARM_MAX_RANGE = 0.7;
 
     public DcMotor armMotor = null;
 

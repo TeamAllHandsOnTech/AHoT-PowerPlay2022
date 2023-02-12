@@ -95,6 +95,8 @@ public class BlueCornerTraumaAltColor extends DriveDirections
         sleep(30);
         straightDrive(moveSpeed, 1, "LEFT");
         straightDrive(moveSpeed, 0.05, "BACKWARD");
+        driveInDirection(moveSpeed, "ROTATE_LEFT");
+        sleep(30);
 
 
         //for(int i=5; i>3;i--) {
@@ -107,31 +109,30 @@ public class BlueCornerTraumaAltColor extends DriveDirections
 
                 telemetry.addLine("Front color: "+pickColor(frontColor,1.1));
                 telemetry.addLine("Angle relative to wall: "+errorA);
+                telemetry.addData("distance 1", distance1.getDistance(DistanceUnit.MM));
+                telemetry.addData("distance 2", distance2.getDistance(DistanceUnit.MM));
                 telemetry.update();
 
                 if (!frontColorColor) {
-                    rightFrontDrive.setPower(moveSpeed2);
-                    leftFrontDrive.setPower(-moveSpeed2);
-                    rightBackDrive.setPower(-moveSpeed2);
-                    leftBackDrive.setPower(moveSpeed2);
+                    driveInDirection(moveSpeed2, "LEFT");
                 } else if (Math.abs(errorA)>thresA) {
-                    rightFrontDrive.setPower(-Math.signum(errorA)*moveSpeed2);
-                    leftFrontDrive.setPower(Math.signum(errorA)*moveSpeed2);
-                    rightBackDrive.setPower(0);
-                    leftBackDrive.setPower(0);
+                    driveInDirection(Math.signum(errorA)*moveSpeed2/2, "ROTATE_RIGHT");
                 }
             }
             driveInDirection(0,"STOP");
             sleep(3000);
-            while (Math.abs(dist1-150)>10) {
+            double errorD = ((dist1+dist2)/2)-150;
+            while (Math.abs(errorD)>10) {
                 dist1 = distance1.getDistance(DistanceUnit.MM);
-                driveInDirection(Math.signum(dist1-150)*moveSpeed2,"FORWARD");
+                dist2 = distance2.getDistance(DistanceUnit.MM);
+                errorD = ((dist1+dist2)/2)-150;
+                driveInDirection(errorD*moveSpeed2/40,"FORWARD");
             }
             driveInDirection(0,"STOP");
 
+            closeClaw();
+
         //}
-
-
 
     }
 
