@@ -566,6 +566,8 @@ public abstract class DriveDirections extends LinearOpMode {
                 telemetry.addData("Error:", error);
                 telemetry.addData("Close:", close);
                 telemetry.addData("Angle Left:", angleLeft);
+                telemetry.addData("DistanceLeft:", dist1);
+                telemetry.addData("DistanceRight", dist2);
                 telemetry.update();
                 sleep(3000);
             }
