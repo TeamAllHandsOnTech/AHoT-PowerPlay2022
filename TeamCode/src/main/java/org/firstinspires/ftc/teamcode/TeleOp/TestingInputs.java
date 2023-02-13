@@ -38,7 +38,7 @@ import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
 import org.firstinspires.ftc.teamcode.DriveDirections;
 
 
-@TeleOp(name="TraumaTeleOp", group="Hazard")
+@TeleOp(name="TestingInputs", group="Hazard")
 
 
 public class TestingInputs extends DriveDirections {

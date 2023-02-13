@@ -95,8 +95,8 @@ public class BlueCornerTraumaAltColor extends DriveDirections
         sleep(30);
         straightDrive(moveSpeed, 1, "LEFT");
         straightDrive(moveSpeed, 0.05, "BACKWARD");
-        driveInDirection(moveSpeed, "ROTATE_LEFT");
-        sleep(30);
+        driveInDirection(moveSpeed2, "ROTATE_LEFT");
+        sleep(40);
 
 
         //for(int i=5; i>3;i--) {
@@ -120,13 +120,15 @@ public class BlueCornerTraumaAltColor extends DriveDirections
                 }
             }
             driveInDirection(0,"STOP");
-            sleep(3000);
-            double errorD = ((dist1+dist2)/2)-150;
+            armMotor.setPower(0.5);
+            sleep(500);
+            armMotor.setPower(0.1);
+            double errorD = ((dist1+dist2)/2)-100;
             while (Math.abs(errorD)>10) {
                 dist1 = distance1.getDistance(DistanceUnit.MM);
                 dist2 = distance2.getDistance(DistanceUnit.MM);
                 errorD = ((dist1+dist2)/2)-150;
-                driveInDirection(errorD*moveSpeed2/40,"FORWARD");
+                driveInDirection(Math.signum(errorD)*moveSpeed2/2,"FORWARD");
             }
             driveInDirection(0,"STOP");
 
