@@ -77,11 +77,16 @@ public class TestingInputs extends DriveDirections {
         while (opModeIsActive()) {
             /**GAMEPAD 1**/
             //slow down power if bumper is pressed
-            telemetry.addLine("Front color: "+pickColor(frontColor,1.1));
-            telemetry.addLine("Front color: "+pickColor(frontColor,1.1));
+            telemetry.addLine("front color: "+pickColor(frontColor,1.1));
+            telemetry.addLine("front color: "+pickColor(frontColor,1.1));
             telemetry.addData("distance 1", distance1.getDistance(DistanceUnit.MM));
             telemetry.addData("distance 2", distance2.getDistance(DistanceUnit.MM));
             telemetry.addData("angle", (90 / Math.PI) * (Math.atan((distance1.getDistance(DistanceUnit.MM) - distance2.getDistance(DistanceUnit.MM)) / 85)));
+            telemetry.addLine("servo angle: "+claw.getPosition());
+            closeClaw();
+            sleep(500);
+            openClaw();
+            sleep(500);
             telemetry.update();
         }
     }
