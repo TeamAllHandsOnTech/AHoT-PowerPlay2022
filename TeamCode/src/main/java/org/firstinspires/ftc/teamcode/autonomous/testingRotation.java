@@ -70,6 +70,8 @@ public class testingRotation extends DriveDirections {
             driveInDirection(Math.signum(errorA)*0.2, "ROTATE_RIGHT");
         }
 
+        driveInDirection(0,"STOP");
+
 
         sleep(5000);
 
