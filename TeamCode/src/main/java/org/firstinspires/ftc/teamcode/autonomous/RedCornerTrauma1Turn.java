@@ -80,7 +80,7 @@ public class RedCornerTrauma1Turn extends DriveDirections
 
         sleep(500);
 
-        armMotor.setPower(-0.3);
+        armMotor.setPower(-0.5);
 
         straightDrive(moveSpeed, 0.05, "BACKWARD");
         straightDrive(moveSpeed, 0.42, "LEFT");
@@ -88,7 +88,7 @@ public class RedCornerTrauma1Turn extends DriveDirections
 
         rotateToZAbs(90, 0);
 
-        sleep(500);
+        sleep(750);
 
         armMotor.setPower(0);
 
@@ -130,11 +130,11 @@ public class RedCornerTrauma1Turn extends DriveDirections
 
         sleep(150);
 
-        straightDrive(0.25, 0.11, "FORWARD");
+        straightDrive(0.25, 0.1, "FORWARD");
 
         sleep(250);
 
-        armMotor.setPower(-0.2);
+        armMotor.setPower(-0.5);
 
         sleep(700);
 
