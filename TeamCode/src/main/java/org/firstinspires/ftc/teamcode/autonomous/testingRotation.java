@@ -31,6 +31,7 @@ package org.firstinspires.ftc.teamcode.autonomous;
 
 
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
+import com.qualcomm.robotcore.hardware.DistanceSensor;
 
 import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
 import org.firstinspires.ftc.teamcode.DriveDirections;
@@ -46,6 +47,9 @@ public class testingRotation extends DriveDirections {
 //        telemetry.addData("Status", "Initialized");
 //        telemetry.update();
 
+        distance1 = hardwareMap.get(DistanceSensor.class, "Distance1");
+        distance2 = hardwareMap.get(DistanceSensor.class, "Distance2");
+
 
         waitForStart();
 
@@ -53,7 +57,21 @@ public class testingRotation extends DriveDirections {
 
         sleep(1000);
 
-        alignToWallWithDistanceSensor(.1, 50);
+        double dist1 = distance1.getDistance(DistanceUnit.MM);
+        double dist2 = distance2.getDistance(DistanceUnit.MM);
+        double thresA = 3;
+        double errorA = (90/Math.PI)*Math.atan((dist1-dist2)/85);
+
+        while(Math.abs(errorA) > thresA){
+            dist1 = distance1.getDistance(DistanceUnit.MM);
+            dist2 = distance2.getDistance(DistanceUnit.MM);
+            errorA = (90/Math.PI)*Math.atan((dist1-dist2)/85);
+
+            driveInDirection(Math.signum(errorA)*0.2, "ROTATE_RIGHT");
+        }
+
+        driveInDirection(0,"STOP");
+
 
         sleep(5000);
 
