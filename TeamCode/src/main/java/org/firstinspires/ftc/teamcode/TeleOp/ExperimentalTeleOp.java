@@ -40,7 +40,7 @@ import org.firstinspires.ftc.teamcode.DriveDirections;
 
 public class ExperimentalTeleOp extends DriveDirections {
     double zero = 0;
-    double powerLevel = 0.8;
+    double powerLevel = 1;
     double deadZone = 0.5;
 
     @Override
@@ -75,6 +75,13 @@ public class ExperimentalTeleOp extends DriveDirections {
         double rfPowerRotate = 0;
         double rbPowerRotate = 0;
 
+
+        boolean straight = false;
+        boolean strafe = false;
+        boolean rotate = false;
+        double amountOfMovements = 0;
+
+
         initArm();
         waitForStart();
 
@@ -82,43 +89,93 @@ public class ExperimentalTeleOp extends DriveDirections {
             /**GAMEPAD 1**/
             //slow down power if bumper is pressed
             if (gamepad1.left_bumper) {
-                powerLevel = 0.3;
+                powerLevel = 0.5;
             } else if (gamepad1.right_bumper) {
-                powerLevel = 0.6;
-            }else if (gamepad1.left_stick_button) {
-                powerLevel = 1;
-            }else {
                 powerLevel = 0.8;
+            }else {
+                powerLevel = 1;
             }
 
-            if(Math.abs(gamepad1.left_stick_x) > deadZone || Math.abs(gamepad1.left_stick_y) > deadZone){
-                lfPowerStrafe = gamepad1.left_stick_x * powerLevel;
-                lbPowerStrafe = -gamepad1.left_stick_x * powerLevel;
-                rfPowerStrafe = -gamepad1.left_stick_x * powerLevel;
-                rbPowerStrafe = gamepad1.left_stick_x * powerLevel;
+                if(Math.abs(gamepad1.left_stick_x) > deadZone) {
+                    strafe = true;
+                    lfPowerStrafe = gamepad1.left_stick_x * powerLevel;
+                    lbPowerStrafe = -gamepad1.left_stick_x * powerLevel;
+                    rfPowerStrafe = -gamepad1.left_stick_x * powerLevel;
+                    rbPowerStrafe = gamepad1.left_stick_x * powerLevel;
+                }else{
+                    strafe = false;
+                    lfPowerStrafe = 0;
+                    lbPowerStrafe = 0;
+                    rfPowerStrafe = 0;
+                    rbPowerStrafe = 0;
+                }
 
-                lfPowerForwards = -gamepad1.left_stick_y * powerLevel;
-                lbPowerForwards = -gamepad1.left_stick_y * powerLevel;
-                rfPowerForwards = -gamepad1.left_stick_y * powerLevel;
-                rbPowerForwards = -gamepad1.left_stick_y * powerLevel;
-            }
+                if(Math.abs(gamepad1.left_stick_y) > deadZone) {
+                    straight = true;
+                    lfPowerForwards = -gamepad1.left_stick_y * powerLevel;
+                    lbPowerForwards = -gamepad1.left_stick_y * powerLevel;
+                    rfPowerForwards = -gamepad1.left_stick_y * powerLevel;
+                    rbPowerForwards = -gamepad1.left_stick_y * powerLevel;
+                }else{
+                    straight = false;
+                    lfPowerForwards = 0;
+                    lbPowerForwards = 0;
+                    rfPowerForwards = 0;
+                    rbPowerForwards = 0;
+                }
 
             if(Math.abs(gamepad1.right_stick_x) > deadZone){
+                rotate = true;
                 lfPowerRotate = gamepad1.right_stick_x * powerLevel;
                 lbPowerRotate = gamepad1.right_stick_x * powerLevel;
                 rfPowerRotate = -gamepad1.right_stick_x * powerLevel;
                 rbPowerRotate = -gamepad1.right_stick_x * powerLevel;
+            }else{
+                rotate = false;
+                lfPowerRotate = 0;
+                lbPowerRotate = 0;
+                rfPowerRotate = 0;
+                rbPowerRotate = 0;
             }
 
-            lfPower = (lfPowerStrafe + lfPowerForwards + lfPowerRotate) / 3;
-            lbPower = (lbPowerStrafe + lbPowerForwards + lbPowerRotate) / 3;
-            rfPower = (rfPowerStrafe + rfPowerForwards + rfPowerRotate) / 3;
-            rbPower = (rbPowerStrafe + rbPowerForwards + rbPowerRotate) / 3;
+            double temp = 0;
+
+            if(rotate){
+                temp += 1;
+            }
+            if(strafe){
+                temp += 1;
+            }
+            if(straight){
+                temp += 1;
+            }
+            amountOfMovements = temp;
+
+            lfPower = (lfPowerStrafe + lfPowerForwards + lfPowerRotate) / amountOfMovements;
+            lbPower = (lbPowerStrafe + lbPowerForwards + lbPowerRotate) / amountOfMovements;
+            rfPower = (rfPowerStrafe + rfPowerForwards + rfPowerRotate) / amountOfMovements;
+            rbPower = (rbPowerStrafe + rbPowerForwards + rbPowerRotate) / amountOfMovements;
+
+            if(amountOfMovements == 0){
+                lfPower = 0;
+                lbPower = 0;
+                rfPower = 0;
+                rbPower = 0;
+                driveInDirection(0, "FORWARD");
+            }
 
             leftFrontDrive.setPower(lfPower);
             leftBackDrive.setPower(lbPower);
             rightFrontDrive.setPower(rfPower);
             rightBackDrive.setPower(rbPower);
+
+            if(amountOfMovements == 0){
+                lfPower = 0;
+                lbPower = 0;
+                rfPower = 0;
+                rbPower = 0;
+                driveInDirection(0, "FORWARD");
+            }
 
             if(gamepad1.y){
                 resetZero(0);
@@ -201,9 +258,14 @@ public class ExperimentalTeleOp extends DriveDirections {
             if(gamepad2.left_bumper){
                 armStop();
             }
+            telemetry.addData("Straight?", straight);
+            telemetry.addData("Strafe?", strafe);
+            telemetry.addData("Rotate?", rotate);
+            telemetry.addData("AmountOfMovements:", amountOfMovements);
+            telemetry.update();
         }
-        telemetry.addLine("heading: " + getCurrentZ());
-        telemetry.update();
+
+
     }
     void resetZero(double degreeOffZero){
         zero = getCurrentZ() - degreeOffZero;
