@@ -27,8 +27,8 @@ public abstract class DriveDirections extends LinearOpMode {
 
     //Claw values for Hazard, uncomment if using Hazard
 
-    private static final double ARM_MIN_RANGE = .4;
-    private static final double ARM_MAX_RANGE = 0.1;
+    double ARM_MIN_RANGE = .4;
+    double ARM_MAX_RANGE = 0.1;
 
     public DcMotor armMotor = null;
 
@@ -64,8 +64,13 @@ public abstract class DriveDirections extends LinearOpMode {
 
         //distance sensors
         if(!isHazard) {
+            ARM_MIN_RANGE = .65;
+            ARM_MAX_RANGE = 0.4;
             distance1 = hardwareMap.get(DistanceSensor.class, "Distance1");
             distance2 = hardwareMap.get(DistanceSensor.class, "Distance2");
+        } else{
+            ARM_MIN_RANGE = .4;
+            ARM_MAX_RANGE = 0.1;
         }
 
         //Calibrate NavX
