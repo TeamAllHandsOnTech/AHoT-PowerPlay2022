@@ -36,7 +36,7 @@ public class BBTraumaAltColor extends DriveDirections
     private double moveSpeed2 = 0.2;
 
     public String pickColor(ColorSensor sensor, double sensitivity) {
-        if (sensor.red()>sensitivity*(sensor.green()+sensor.blue())) {return "Red";}
+        if (sensor.red()*1.5>sensitivity*(sensor.green()+sensor.blue())) {return "Red";}
         else if (sensor.green()>sensitivity*(sensor.blue()+sensor.red())) {return "Green";}
         else if (sensor.blue()>sensitivity*(sensor.red()+sensor.green())) {return "Blue";}
         else {return "Grey";}
@@ -68,19 +68,12 @@ public class BBTraumaAltColor extends DriveDirections
         distance1 = hardwareMap.get(DistanceSensor.class, "Distance1");
         distance2 = hardwareMap.get(DistanceSensor.class, "Distance2");
 
-        boolean frontColorColor = pickColor(frontColor,1.1) == "Red" || pickColor(frontColor,1.1) == "Blue";
-
-        double dist1 = distance1.getDistance(DistanceUnit.MM);
-        double dist2 = distance2.getDistance(DistanceUnit.MM);
-        double thresA = 2;
-        double errorA = (90/Math.PI)*Math.atan((dist1-dist2)/85);
-
         isHazard = false;
         super.runOpMode();
         initArm();
 
         waitForStart();
-        openClaw();
+        claw.setPosition(0.67);
 
         runtime.reset();
 
@@ -93,12 +86,19 @@ public class BBTraumaAltColor extends DriveDirections
         driveInDirection(moveSpeed, "ROTATE_LEFT");
         sleep(30);
         straightDrive(moveSpeed, 1, "LEFT");
-        straightDrive(moveSpeed, 0.075, "BACKWARD");
+        straightDrive(moveSpeed, 0.1, "BACKWARD");
         driveInDirection(moveSpeed2, "ROTATE_LEFT");
-        sleep(40);
+        sleep(80);
 
 
-        //for(int i=5; i>3;i--) {
+        for(int i=5; i>3;i--) {
+
+            boolean frontColorColor = pickColor(frontColor,1.1) == "Red" || pickColor(frontColor,1.1) == "Blue";
+            double dist1 = distance1.getDistance(DistanceUnit.MM);
+            double dist2 = distance2.getDistance(DistanceUnit.MM);
+            double thresA = 2;
+            double errorA = (90/Math.PI)*Math.atan((dist1-dist2)/85);
+
             while (!frontColorColor || Math.abs(errorA)>thresA) {
                 frontColorColor = pickColor(frontColor,0.9) == "Red" || pickColor(frontColor,0.9) == "Blue";
 
@@ -120,7 +120,7 @@ public class BBTraumaAltColor extends DriveDirections
             }
             driveInDirection(0,"STOP");
             armMotor.setPower(0.8);
-            sleep(300);
+            sleep(50*i);
             armMotor.setPower(0.1);
             double errorD = ((dist1+dist2)/2)-100;
             while (Math.abs(errorD)>10) {
@@ -131,27 +131,32 @@ public class BBTraumaAltColor extends DriveDirections
             }
 
             driveInDirection(moveSpeed2, "ROTATE_RIGHT");
-            sleep(50);
+            sleep(70);
             driveInDirection(0,"STOP");
-            straightDrive(moveSpeed, 0.05, "RIGHT");
+            straightDrive(moveSpeed, 0.02, "RIGHT");
 
             claw.setPosition(0.95);
             sleep(500);
             armMotor.setPower(0.8);
-            sleep(1000);
+            sleep(1200);
             armMotor.setPower(0.1);
 
-            straightDrive(moveSpeed, 0.9, "BACKWARD");
+            straightDrive(moveSpeed, 0.87, "BACKWARD");
             rotateToZAbs(180, 0);
             straightDrive(moveSpeed, 0.05, "FORWARD");
-            armMotor.setPower(0.0);
+            sleep(500);
+            armMotor.setPower(-0.1);
             sleep(200);
             claw.setPosition(0.67);
-            sleep(300);
+            sleep(400);
+            armMotor.setPower(0.0);
 
-            armToHeight(0);
+            straightDrive(moveSpeed, 0.1, "BACKWARD");
             rotateToZAbs(-90, 0);
-        //}
+
+            straightDrive(moveSpeed, 0.8, "FORWARD");
+            straightDrive(moveSpeed, 0.2, "RIGHT");
+        }
 
     }
 
