@@ -53,7 +53,7 @@ public class TestingInputs extends DriveDirections {
     public DistanceSensor distance2 = null;
 
     public String pickColor(ColorSensor sensor, double sensitivity) {
-        if (sensor.red()>sensitivity*(sensor.green()+sensor.blue())) {return "Red";}
+        if (sensor.red()*1.5>sensitivity*(sensor.green()+sensor.blue())) {return "Red";}
         else if (sensor.green()>sensitivity*(sensor.blue()+sensor.red())) {return "Green";}
         else if (sensor.blue()>sensitivity*(sensor.red()+sensor.green())) {return "Blue";}
         else {return "Grey";}
@@ -77,11 +77,16 @@ public class TestingInputs extends DriveDirections {
         while (opModeIsActive()) {
             /**GAMEPAD 1**/
             //slow down power if bumper is pressed
-            telemetry.addLine("Front color: "+pickColor(frontColor,1.1));
-            telemetry.addLine("Front color: "+pickColor(frontColor,1.1));
+            telemetry.addLine("front color: "+pickColor(frontColor,1.1));
+            telemetry.addLine("front color: "+pickColor(frontColor,1.1));
             telemetry.addData("distance 1", distance1.getDistance(DistanceUnit.MM));
             telemetry.addData("distance 2", distance2.getDistance(DistanceUnit.MM));
             telemetry.addData("angle", (90 / Math.PI) * (Math.atan((distance1.getDistance(DistanceUnit.MM) - distance2.getDistance(DistanceUnit.MM)) / 85)));
+            telemetry.addLine("servo angle: "+claw.getPosition());
+            claw.setPosition(0.95);
+            sleep(500);
+            claw.setPosition(0.67);
+            sleep(2000);
             telemetry.update();
         }
     }
