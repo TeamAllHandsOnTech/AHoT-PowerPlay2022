@@ -43,6 +43,7 @@ public class testingRotation extends DriveDirections {
 
     @Override
     public void runOpMode() {
+        isHazard = false;
         super.runOpMode();
 //        telemetry.addData("Status", "Initialized");
 //        telemetry.update();
@@ -53,13 +54,13 @@ public class testingRotation extends DriveDirections {
 
         waitForStart();
 
-        rotateToZAbs(-80, 0);
+//        rotateToZAbs(-80, 0);
 
         sleep(1000);
 
         double dist1 = distance1.getDistance(DistanceUnit.MM);
         double dist2 = distance2.getDistance(DistanceUnit.MM);
-        double thresA = 3;
+        double thresA = 0;
         double errorA = (90/Math.PI)*Math.atan((dist1-dist2)/85);
 
         while(Math.abs(errorA) > thresA){
@@ -76,8 +77,8 @@ public class testingRotation extends DriveDirections {
         sleep(5000);
 
         while (opModeIsActive()) {
-            telemetry.addData("Left Dist", distance1.getDistance(DistanceUnit.CM));
-            telemetry.addData("Right Dist", distance2.getDistance(DistanceUnit.CM));
+            telemetry.addData("Left Dist", distance1.getDistance(DistanceUnit.MM));
+            telemetry.addData("Right Dist", distance2.getDistance(DistanceUnit.MM));
             telemetry.update();
         }
     }

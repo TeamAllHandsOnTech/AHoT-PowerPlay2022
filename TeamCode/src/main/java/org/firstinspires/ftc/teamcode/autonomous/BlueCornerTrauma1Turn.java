@@ -46,10 +46,8 @@ public class BlueCornerTrauma1Turn extends DriveDirections
 
             }
         });
-
-        super.runOpMode();
-
         isHazard = false;
+        super.runOpMode();
 
         initArm();
 
