@@ -63,104 +63,17 @@ public class Match1Blue extends DriveDirections
         //closeClaw();
 
         runtime.reset();
-        armToHeight(100);
-
-        straightDrive(moveSpeed, 0.9, "LEFT");
-        driveForTime("BACKWARD",.2, 0.6);
-        straightDrive(0.4, 0.79, "FORWARD");
-
-        //armToHeight(925);
-
-
-        sleep(500);
-
-        openClaw();
-
-        sleep(500);
-
-        armMotor.setPower(-0.3);
-
-        straightDrive(moveSpeed, 0.05, "BACKWARD");
-        straightDrive(moveSpeed, 0.4, "RIGHT");
-        straightDrive(moveSpeed, 0.65, "FORWARD");
-
-        rotateToZAbs(-90, 0);
-
-        sleep(500);
-
-        armMotor.setPower(0);
-
-        straightDrive(moveSpeed, 1.05, "FORWARD");
-
-//        armToHeight(300);
-        armMotor.setPower(0.5);
-
-        sleep(800);
-
-        armMotor.setPower(0);
-
-//        alignToWallWithDistanceSensor(1, 5);
-
-        straightDrive(moveSpeed, .05, "FORWARD");
-
-        sleep(500);
-
-        closeClaw();
-
-        sleep(500);
-
-        armMotor.setPower(0.5);
-
-        sleep(750);
-
-        //trauma doesn't need this to hold an arm position!!!!!!
-        armMotor.setPower(0.1);
-
-        sleep(500);
-
-        straightDrive(moveSpeed, 0.58, "BACKWARD");
-
-        sleep(500);
-
-        straightDrive(moveSpeed, 0.34, "RIGHT");
-
-        armMotor.setPower(0.5);
-
-        sleep(150);
-
-        straightDrive(0.25, 0.11, "FORWARD");
-
-        sleep(250);
-
-        armMotor.setPower(-0.2);
-
-        sleep(700);
-
-        openClaw();
-
-        straightDrive(moveSpeed, 0.1, "BACKWARD");
-
-        sleep(500);
-
-        straightDrive(moveSpeed, 0.3, "LEFT");
-
-        sleep(500);
-
-
-
-        telemetry.addData("Final Zone: ", finalZone);
-        telemetry.addData("Zone: ", zone);
-        telemetry.update();
+        straightDrive(0.5, 0.1, "RIGHT");
+        straightDrive(0.5, 0.7, "FORWARD");
 
         switch(finalZone){
             case 1:
-                straightDrive(moveSpeed,.5, "BACKWARD");
+                straightDrive(moveSpeed,.6, "LEFT");
                 break;
             case 2:
-                straightDrive(moveSpeed, 0, "LEFT");
                 break;
             case 3:
-                straightDrive(moveSpeed, 0.5, "FORWARD");
+                straightDrive(moveSpeed, .6, "RIGHT");
                 break;
         }
 

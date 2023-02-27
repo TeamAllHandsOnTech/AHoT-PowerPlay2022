@@ -121,30 +121,30 @@ public class Match5Blue extends DriveDirections
         straightDrive(moveSpeed, 0.58, "BACKWARD");
 
         sleep(500);
-//score on low junction commented out
-//        straightDrive(moveSpeed, 0.34, "RIGHT");
-//
-//        armMotor.setPower(0.5);
-//
-//        sleep(150);
-//
-//        straightDrive(0.25, 0.11, "FORWARD");
-//
-//        sleep(250);
-//
-//        armMotor.setPower(-0.2);
-//
-//        sleep(700);
-//
-//        openClaw();
-//
-//        straightDrive(moveSpeed, 0.1, "BACKWARD");
-//
-//        sleep(500);
-//
-//        straightDrive(moveSpeed, 0.3, "LEFT");
-//
-//        sleep(500);
+
+        straightDrive(moveSpeed, 0.34, "RIGHT");
+
+        armMotor.setPower(0.5);
+
+        sleep(150);
+
+        straightDrive(0.25, 0.11, "FORWARD");
+
+        sleep(250);
+
+        armMotor.setPower(-0.2);
+
+        sleep(700);
+
+        openClaw();
+
+        straightDrive(moveSpeed, 0.1, "BACKWARD");
+
+        sleep(500);
+
+        straightDrive(moveSpeed, 0.3, "LEFT");
+
+        sleep(500);
 
 
 
